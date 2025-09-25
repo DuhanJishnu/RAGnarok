@@ -1,4 +1,6 @@
 import Image from "next/image";
+// import "bharat-ui";
+
 
 export default function Home() {
   return (
