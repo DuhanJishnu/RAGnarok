@@ -1,6 +1,4 @@
-@import "tailwindcss/preflight";
-@tailwind utilities;
-
+@import "tailwindcss";
 
 :root{
 --vsyellow: #F6C85F;

@@ -3,6 +3,9 @@ import ChatWindow from '@/components/ChatWindow'
 
 export default function Home() {
   return (
-    <ChatWindow />
+      <div className="h-full w-full">
+      <ChatWindow />
+      </div>
+    
   )
 }
