@@ -1,0 +1,46 @@
+SI. No. Date Name of The Faculty Dept Course Code No. of Classes to be recorded
+2 09-05-19 Dr. Susmita Sharma CE CE-207 4
+3) 29-05-19 Dr.Tribedi Bora PH PH-408 4
+4 11-06-19 Dr. K. Senthilkumar PH PH-403 4
+5) 02-07-19 Prof. Gayadhar Panda EE EE 4
+6 24-07-19 Dr. Bapan Ghosh MA MA-203 4
+7 16-08-19 Dr. ManideepaSaha MA MA-401 4
+8 20-08-19 Dr. N. Somola Devi HS - 4
+9 20-08-19 Dr. Paonam Sudeep Mangang HS - 4
+10 21-08-19 Dr. Manohar Giri HS HS-301, 302, 401,402 4
+I] 23-08-19 Dr. Saikat Mukherjee MA MA-502 4
+12 23-08-19 Dr. Naba Kamal Nath cY - 4
+13 27-08-19 Dr. ComingstarfulMarthong GE GE 4
+14 28-08-19 Dr. Hriday Mani Kalita CE CE-433, 304 4
+15 04-09-19 Dr. M. Longshithung Patton GE CE-501 3
+16 17-09-19 Dr. Piyush Pratap Singh EE EE-303 5
+17 24-09-19 Dr.Anup Dandapat EG EC-503 4
+18 14-10-19 Dr. Diptendu Sinha Roy CS cS 4
+19 18-10-19 Dr ChV Rama Rao EG EC-302 4
+20 18-10-19 Dr. Salam Shuleenda Devi EC EC-203 & CS 203 4
+21 29-10-19 Dr. Rakesh Roy EE EE-302 4
+22 30-10-19 Dr. Dibyendu Adak CE CE-301 4
+23 31-10-19 Dr. Sanjoy Debbarma EE EE-501 4
+24 31-10-19 Dr. Ksh Milan Singh EE EE-303 6
+25 OI-11-19 Dr. Shaik Affijulla EE EE-306 4
+26 Ol-11-19 Dr. SoumenMoulik Cs cs 3
+2/ 17-01-20 Dr. K. Senthilkumar PH PH-403 6
+28 31-01-20 Dr. M. Longshithung Patton GE CE-512 4
+29 31-01-20 Dr. DebabrataPodder GE CE-305, 504 4
+30 13-02-20 Dr.Vipin Pal cS cs 1
+31 14-02-20 Dr. PhidahunlangChyne ES CS-206 3
+32 06-03-020 Dr. Prabir Saha EC EC-526 4
+33 09-03-20 Dr.Anup Dandapat EG EC-518 4
+
+LIST OF OTHER ACTIVITIES
+
+SI. No. Date Name of the Student/ Faculty/Staff Department Activities
+
+I 16-05-19 | Mr. Deepak Gupta PH Ph.D Progress Seminar
+2 17-05-19 | Dr. PS. Mangang HS Ph.D Defense Seminar
+3 29-05-19 | Mrs.Ambika Rai Academic Section | UG- PEC Meeting
+4 23-05-19 | Dr. Rajat Subhra Das ME Ph.D Progress Seminar
+5 04-06-19 | Prof. Gayadhar Panda EE Progress presentation for M.Tech and Ph.D Scholar
+6 07-06-19 | Dr. Kishore Debnath ME Workshop Innovation & Entrepreneurship
+
+Annual Report 2019-20 | 121 A

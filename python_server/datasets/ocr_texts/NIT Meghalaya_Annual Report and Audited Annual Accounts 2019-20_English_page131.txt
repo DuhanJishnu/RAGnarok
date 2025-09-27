@@ -1,0 +1,53 @@
+7. CONFERENCES / WORKSHOPS / SEMINARS / TRAININGS ATTENDED BY FACULTY MEMBERS:
+SLNo.| NameofFaculty | _—_Nameoofthe programattended | Duration
+
+| Bunil Kumar Balabantaray | FDP on Advancements in signal processing and optimization techniques, NIT | 3-7 June 2019
+Meghalaya
+2 Bunil Kumar Balabantaray | FDP on Network Security, NIT Meghalaya, Shillong, 20- 24 May 2019
+Bunil Kumar Balabantaray | FDP on Deep Learning and Applications, NIT Meghalaya, Shillong, 27- 31 May 2019
+4 Bunil Kumar Balabantaray | Session Rappoteur of the technical session (IT) cum session chair, AICTE Sponsored | | Ith, January, 2020
+National Conference on Digital Business Transformation in India, Organized by Global
+Institute of Management, BBSR, Odisha
+5 Bunil Kumar Balabantaray | Session Chair, ICMLCI 2019 organized by Interscience Institute of Management, BBSR, | 14-15 December
+Odisha 2019
+6 Dr. Sanjoy Debbarma Attended IEEE ICPS 2019, MNIT Jaipur, India, 20th - 22nd Dec
+2019.
+
+8. SPONSORED PROJECTS
+
+| Modeling and Control of the hydraulically actuated | Dr.B.K. Sarkar | DST-SERB 30, 42,600 3 years Ongoing
+Ring Inlet Guide Vane of Francis Turbine by Adaptive
+Neural Network Sliding mode Controller Design
+2 Design and Development of the Small Wind Turbine | Dr. B. K. Sarkar, | MHDR-DIC 3.2 lakhs 2 years On-going
+Combined with Solar system for Household | Dr. D.K. Sarma,
+Application Dr. S. Maity
+3 Design and development of the Nano-hydro Turbine | Dr.B. K. Sarkar, | MHDR-DIC 1.1 lakhs 2years On-going
+for Standalone Household Power Generation Dr. H. M. Kalita
+4 Development of Green Composites-based Products | Dr.K.Debnath | TEQIP-III 2,00,550/- 2 years On-going
+using Injection Moulding
+5) Development of Low-Cost  Fully-Biodegradable | Dr.K.Debnath | SCSTE 1,00,000/- | year On-going
+Plastic-Bamboo Board for Structural Applications
+6 Standalone solar Tea/Coffee Maker Cum Multipurpose | Dr.K.Debnath | DIC-MHRD 8,57,200.00 2 year On-going
+Water Heating System
+U A “Preprocessing of NQR Signal in Digital domain in | Dr. P. BRNS, BARC, 20.1 Lakhs 2 Year On-going
+FPGA Rangababu PI DAE, GOI
+8 A “Real-Time Control and Energy Management | Dr. P. SERB, DST, GOI | 44.56 Lakhs 3 Year On-going
+for Seamless Operation of DC Microgrid in Grid- | Rangababu
+connected and Standalone Modes Co-PI
+9 Development of High Sensitivity CMOS-MEMS | Dr.P. ISRO, GOI 32,46,000/- 2 Year On-going
+Integrated Smart Pressure Sensor and System for | Rangababu
+Space Applications (co-Pl)
+10 Development of High Sensitivity CMOS-MEMS | Dr. Pradeep ISRO, GOI 32,46,000/- 2 Year On-going
+Integrated Smart Pressure Sensor and System for | Kumar
+Space Applications Rathore (PI)
+I] Prediction, Detection and monitoring System for | Dr.Shubhankar | Department 626000 2 Year On-going
+Landslide in Hilly Region Majumdar of Science & +$50000
+Technology (japanese side)
+(International
+Bilateral
+Cooperation
+Division)
+
+_
+
+Annual Report 2019-20 | 131 A

@@ -1,0 +1,75 @@
+Annual Report 2022-23 | 151
+
+Central Instruments Facility (CIF)
+
+1. Brief Introduction to the CIF:
+
+The quality and high-end research is greatly hindered due to
+insufficient facilities presently available at the institute for
+conducting experimental and characterization works for different
+departments. Our faculties and students are taking help from
+the facilities at IITs and CSIR laboratories located in far off
+distance. Many times, it is not possible due to multifarious
+unavoidable reasons. Keeping these issues in mind, the institute
+has established a Central Instruments Facility (CIF) within the
+
+workshop building in the permanent campus with necessary
+high-end research tools and equipments (e.g. Powder X-Ray
+
+Diffractometer, Fatigue Fracture Testing Machine, Field Emission
+
+Scanning Electron Microscopy [FESEM], Metallic 3D printer etc)
+for carrying out quality research and consultancy work in the
+premises of the institute itself at the Permanent Campus at Sohra.
+Considering the increasing numbers of the faculty members,
+research scholars and the students who are aggressively engaged
+in their research works, the CIF has been built up in 2021 and the
+same was inaugurated on April 01, 2022 by the Director of the
+Institute.
+
+2. Faculty Profiles (CIF Core Team Members and Instrument-in-Charge):
+
+| Names Designation/ Responsibilities Qualification Specialization
+
+Dr. Atanu Singha Roy (Dept. Assistant Professor (CIF Chairman) [PAA [D), Biophysical Chemistry
+of Chemistry)
+Dr. Bikash Kumar Sarkar Assistant Professor, Faculty-in- Ph.D. Hydraulic system and control, Mechatronics
+(Dept. of Mechanical Charge of Metal 3D printer, PIC and Robotics
+Engineering) Center of Robotics and Mechatronics
+(CIF Core Team Member)
+Dr. Dibyendu Adak (Dept. of Assistant Professor, Faculty-in- Ph.D. Structural Engineering
+Civil Engineering) Charge of FESEM instrument
+(CIF Core Team Member)
+Dr. Shubhankar Majumdar Assistant Professor, Faculty- Ph.D. RF, High Speed and Power, Semiconductor
+(Dept. of Electrical and in-Charge of Electrochemical Devices, VLSI circuit design and Modeling,
+Communication Engineering) | Workstation Low cost Energy efficient system for
+(CIF Core Team Member) Agriculture & Health Sector
+Dr. K. Senthilkumar (Dept. of | Assistant Professor Ph.D. DFT, Semiconductor Defects, Heterojunction
+Physics) (CIF Core Team Member) Solar Cell.
+Dr. Adarsha Jena (Dept. of Assistant Professor Ph.D. Statistics
+Mathematics) (CIF Core Team Member)
+Dr. Ksh Milan Singh (Dept. of | Assistant Professor Ph.D. Digital Signal Processing, Ultrasonic Vibration
+Electrical Engineering) (CIF Core Team Member) Measurement
+Dr. Akhilendra Pratap Singh Assistant Professor Ph.D. Service Oriented Network, Architecture,
+(Dept. of Computer Science (CIF Core Team Member) Computer
+and Engineering) Network, Wireless Sensor, Network
+Dr. Gitish K. Dutta (Dept. of Associate Professor (Dean RC), Ph.D. Organic and Hybrid Materials
+Chemistry) Faculty-in-Charge of PXRD
+instrument
+Dr. Tanmoy Bose (Dept. of Assistant Professor Ph.D. Machine Design
+Mechanical Engineering) Faculty-in-Charge of FFTM
+instrument
+Dr. Biplab Debnath Assistant Professor Ph.D. Thermal Engineering, Alternative Fuels,
+(Dept. of Mechanical Faculty-in-Charge of Gas Diesel Engine
+Engineering) Chromatography (GC)
+Dr. Susmita Sharma Assistant Professor Ph.D. Geomaterials Characterization, Soil-
+
+(Dept. of Civil Engineering)
+
+Faculty-in-Charge of Atomic
+Absorption Spectroscopy (AAS)
+
+contaminant interaction, Biogeotechnology,
+Ground Improvement Technique, Water
+pollution and treatment, Valorization of Waste
+

@@ -1,0 +1,55 @@
+8. Satabdy Jena, Gayadhar Panda and Pierluigi Siano, “HIL based Coordinated Control of grid interfaced Distributed Generation
+assisted Battery Swapping Station”, INDICON-2017.
+
+9. Chiranjit Sain, P K Biswas, Atanu Banerjee, Sanjeevikumar Padmanaban- “An Efficient Flux Weakening Control Strategy of
+a Speed Controlled Permanent Magnet Synchronous Motor Drive for Light Electric Vehicle Applications”- published in the
+proceedings of the IEEE Calcutta Conference, 2017 (CALCON 2017), 2-3 December, 2017, 10.1109/CALCON.2017.8280744.
+pp.304-308.
+
+10. Arunima Dutta, Sanjoy Debbarma, “Contribution of Electric Vehicles for Frequency Regulation in Presence of Diverse Power
+Sources and Transmission Links”, ICIT 2018, Period -February, Place -Lyon, France, 2018.
+
+11. Ksh. Milan Singh; Sanjoy Debbarma, Piyush Pratap Singh, “Doppler velocity measurement using closed-loop Goertzel algorithm
+in PLL technique”, ICIT 2018, Period -February, Place -Lyon, France, 2018.
+
+12. J. Samantaray, P. P. Singh, and B K Roy, A Comparative Study of PI & PID Based SMC for Anti-synchronization of Vallis System,
+5th International Conference on Computer Applications in Electrical Engineering - Recent Advances (CERA), IIT Roorkee,
+2017.
+
+13. J. Samantaray, P. P. Singh, and B K Roy, A Comparative Study of PI and PID Based SMC for Anti-Synchronisation of Lorenz-
+Stenflo Chaotic System, IEEE INDICON, IIT Roorkee, Roorkee, Uttarakhand, India, December 15-17, 2017.
+
+14. Piyush Pratap Singh, Jay Prakash Singh, and B K Roy, Tracking Control and Synchronization of Bhalekar-Gejji Chaotic Systems
+using Active Backstepping Control, 2018 IEEE International Conference on Industrial Technology (ICIT), Lyon, France, February
+20-22, 2018.
+
+15. R. Roy, K. K. Prabhakar and P. Kumar, “equivalent circuit for inverter fed induction motor,” in PES 2018 general meeting,
+USA.
+
+16. Gaurav Bhatt and Shaik Affijulla, “Analysis of Large Scale PV Penetration Impact on IEEE 39-Bus Power System”, IEEE 58th
+International Scientific Conference on Power and Electrical Engineering of Riga Technical University (RTUCON), Riga, Latvia,
+pp. 1-6, Oct 2017.
+
+17. Himanshu Gupta and Supriyo Das, “Statistical Analysis of Oil Insulation Breakdown Voltage”, Proceedings of 2017 IEEE IEEM,
+December 2017, Singapore
+
+18. Ksh. Milan Singh, Sanjoy Debbarman and Piyush Pratap Singh, “Doppler Velocity Measurement Using Closed-loop Goertzel
+Algorithm in PLL Technique,” IEEE ICIT International Conference, Feb. 20-22, 2018, Lyon, France.
+
+5. Conference / Workshop / Seminar Organized:
+
+1. Prof. Gayadhar Panda — Coordinator of “In-house Training Program on “Modern Power Systems” for NEEPCO executives” from
+30/10/2017 to 3/11/2017.
+
+2. Prof. Gayadhar Panda — The aegis of RECTPCL funded CSR project conducted an invited talk on 27-10-2017. This talk
+was delivered by an eminent personality Prof. Sukumar Mishra, Professor IIT Delhi on “DC Microgrid Operation, Control and
+Management”.
+
+F
+
+he
+
+3. Prof. Gayadhar Panda — Two day workshop on outcome based accreditation at NIT Meghalaya, during March 26-27, 2018. The
+resource person Prof Vineet Sahula, MNIT Jaipur has delivered lectures.
+
+40 National Institute of Technology Meghalaya

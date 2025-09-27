@@ -1,0 +1,69 @@
+Table 1: List of servers housed in the Computer Centre
+
+SI. No. Name of device Details
+| Cyberoam CR500iINGXP (Next Generation | | 8x10/100/1000 Ethernet ports, 18000 Mbps Firewall throughput, 3250 Mbps NGFW
+Firewall) Throughput with flexi slot with add-on port modules of (8 copper/8 x | GbE Fiber /4 x
+|OGbE Fiber)
+2 IBM Servers Tower 4 Nos
+Model with SAS HDD WINDOW SERVER 2012 & REDHAT 6
+
+Arch:X64, Processor:
+Intel Xeon, |2 cores,
+32 GB memory, |.2TB
+
+HDD
+3 IBM Servers Rack 2 Nos
+Model with SAS HDD WINDOW SERVER 2012 & REDHAT 6
+
+Arch:X64, Processor:
+Intel Xeon, 12 cores
+& 4 cores , 16GB
+memory, |TB HDD
+
+4 PARAM SHAVAK | No
+SUPERCOMPUTER CENTOS 6.7
+Arch:X64, Processor:
+Intel Xeon, 24 cores ,
+64GB memory, 6TB
+
+HDD
+5 HP SERVER RACK 2 Nos
+MODEL REDHAT 6
+
+Arch:X64, Processor:
+Intel Xeon, 24 cores
+
+& 12 cores ,32GB &
+24 GB memory, 6TB &
+2TB HDD
+
+Table 2: Configuration of Apple Macintosh Machines (50 Nos.)
+
+I 21.5 inch (diagonal) 16:9 widescreen LED — backlit display; 1920 x 1080 pixels; ambient light sensor
+2 2,3GHz dual-core intel i5 with 64MB eDRAM and 4MB shared cache (Turbo boost upto 3,6GHz)
+3) 8GB of 2133MHz DDR4 Memory
+4 1 TB 5400-rpm hard drive
+5 Intel Iris Plus Graphic 640
+6 Preinstalled macOS.
+Table 3: List of software managed and maintained by the Computer Centre.
+
+| ERP The Enterprise Resource Planning is implemented with modules consisting of Academics, Human
+Resource Management System (HRMS) and the CampusAdministration. It has integrated all the functions
+from staff management, admission to maintaining the student data in a single database.
+
+2 | Website All institute related information and overall facilities are made available for dissemination from time to
+time as and when available. The institute website has been developed to comply with the Guidelines
+for Indian Government Websites standardized by the Government of India’s National Informatics
+Centre. Certification of clearance for security audit was issued on the 26" June 2020.
+
+MATLAB Academic license
+4 | Microsoft Volume Licensing Operating System and Applications
+Online service Request Lodge request online:
+Staff and faculty can raise service request related to any hardware or software or any internet
+connectivity problem. Once the problem is lodged it is assigned to the faculty/ staff via an admin panel.
+This helps in keeping track of the status of the problems and the reports regarding the problems.
+
+8
+
+A 114| Annual Report 2019-20
+

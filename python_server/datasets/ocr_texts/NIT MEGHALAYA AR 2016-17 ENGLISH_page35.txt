@@ -1,0 +1,84 @@
+Conferences / Workshops / Seminars / Trainings Attended by faculty
+
+members:
+Name of Faculty Name of the programme attended
+Dr. Anup Dandapat VLSI Design Conference-2017 Jan 7- Jan 11, 2017
+
+5 Dr. Anup Dandapat Visvesvaraya PhD Scheme Second workshop at IISC Feb 20- Feb 21, 2017
+Bangalore
+
+3 Dr. Anup Dandapat Workshop on Analog VLSI and Mixed Signal Design, None se duneles20l7
+CDAC Bangalore
+
+4 Dr. Ch. V. Rama Rao School on Automatic Speech Recognition May 16 — May 28, 2017
+
+5 Dr. Ch. V. Rama Rao Workshop on Internet of Things: A Gateway to Smart Nov 4 — Nov 5, 2016
+and Intelligent Future
+
+6 Dr. Pradeep Kumar Rathore National Symposium on Nano Science and Technology
+(NSNST-2016) June 29- June 30, 2016
+
+7 Mr. Abhishek Sarkhel Indo-French Workshop on Microwave Nanotechnologies 2 days
+(MiNa), 3-4 July 2017
+
+8 Dr. Vinay Kumar Instruction Enhancement Program on Design Issues
+Related to Deep Sub-Micron Technologies Boe SIDE any
+
+9 Dr. P. Rangababu Internet of Things: Gateway to Smart and Intelligent Nov 04 —Nov 05, 2016
+Future, NIT Meghalaya
+
+10 Dr. P. Rangababu Tencon 2016, Singapore Nov 22- Nov 25 2016
+
+11 Dr. P. Rangababu Algorithms and Architecture for High Effeciency Video Sep 05- Sep 09, 2016
+
+Invited Talks Delivered:
+
+coding at IIT Guwahati
+
+1. Invited speech in TEQIP-II sponsored workshop on Emerging VLSI Technologies” during 27th — 28th Sep, 2016 at Assam
+University Silchar.
+
+8. Projects
+
+a. Sponsored Project
+
+Exes Title of the Project Investigators (P.1. / Co-P.1.) a Agency | Funding amount | Duration | Status _|
+
+Special Manpower Dr. Anup Dandapat 94L
+
+Development Project
+
+Ultra Low Power Multy Dr. Anup Dandapat Gol 28 L
+
+Array 64K X 16 Dual
+Bit Associative Memory
+with partial matching
+Capability
+
+A “Study Project Dr. Kamalika Datta, Dr. Meity 15L
+Proposal” on Dynamic Anup Dandapat, Dr. P.
+Reconfigurable Rangababu
+
+Implementation
+of Cryptographic
+Algorithms on
+
+Investigation of Efficient Dr. P. Rangababu Institute 31) IL
+architectures of Video StartUP
+
+Coding Algorithms
+
+Dialects identification of Dr. Ch. V. Rama Rao Institute 8.25L
+Khasi Language StartUP
+
+5 years Ongoing
+
+3 years Ongoing
+
+1 year Completed
+
+2 years Submitted
+
+2 years Submitted
+
+Annual Report 2016-17 | 33

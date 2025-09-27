@@ -1,0 +1,57 @@
+150 | National Institute of Technology, Meghalaya
+
+Facility Management: It manages central computing facilities
+including the campus network, central host servers, computing
+facilities like computers in the centre. It also carries out
+assessment of facilities, both software and hardware, based on the
+needs of its users, and makes recommendations for new facilities
+as necessary for the enhancement of the existing facilities.
+
+Administrative Data Processing Systems: It provides infrastructure
+and technical support for the maintenance of all electronic
+
+data processing systems used in administrative offices and
+departments. Some of the Office Management tools which has
+enhance collaboration and automate the workload are provided by
+the centre are:
+
+Microsoft Office 365: Microsoft Office 365 is a suite of
+
+productivity apps that includes Word, Excel, PowerPoint, Outlook,
+and OneNote.
+
+Google Workspace: Google Workspace is a suite of productivity
+apps that includes Gmail, Docs, Sheets, Slides, and Calendar.
+
+Time tracking software: Time tracking software helps to track
+student time and attendance.
+
+Learning, Teaching and Research: Many educational packages and
+computer-aided learning software are used to enhance the learning
+capabilities of the students through online mode and delivering
+lectures and conducting interviews.
+
+The pie chart below represents the Computer Centre manpower
+resource utilization for the year 2022-23.
+
+CC RESOURCE PERSON UTILIZATION YEAR 2022-2023
+
+@ Office/Staff/Faculty call request
+
+Staffs
+
+@ Website related Work
+
+m@ CC Technical work
+
+2%
+
+il Medarisha H. Thangkhiew Technical Assistant
+2 Bandonlang Wahlang Technical Assistant
+3 Arkinsan Wankhar Technical Assistant
+4 Michael Wattre Sangma Technical Assistant
+5 Marveen Rangslang Technician
+
+6 Ts Thotdharrin Damian Technician
+
+7 Pynshngainlang Tariang Laboratory Attendant

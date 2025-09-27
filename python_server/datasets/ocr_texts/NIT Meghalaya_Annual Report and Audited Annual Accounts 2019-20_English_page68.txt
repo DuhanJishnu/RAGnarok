@@ -1,0 +1,108 @@
+29.
+
+30.
+
+31,
+
+32.
+
+33,
+
+34,
+
+35.
+
+36.
+
+37.
+
+38.
+
+39.
+
+40.
+
+41.
+
+42.
+
+43.
+
+44.
+
+45.
+
+46.
+
+47.
+
+48.
+
+49.
+
+controller, Renewable Energy, 147, 55-68, 2020.
+
+S. Mohapatra, A. K. Behera, R. Mahapatra, H. Das, A deterministic inventory model in reverse supply chain,Journal of
+Modelling in Management, | 5,3 18-338,2019
+
+S. Mohapatra, A. K. Behera, R. Mahapatra, H. Das, M. Pradhan,A deterministic inventory model of aluminium refreshment
+cans in reverse supply chain, International journal of services and operations management, (Accepted May 2019).
+
+A Rout, D Bbvl, BB Biswal, GB Mahanta, A fuzzy-regression-PSO based hybrid method for selecting welding conditions
+in robotic gas metal arc welding, Assembly Automation
+
+A Das, SR Das, SK Patel, BB Biswal, Effect of MQL and nanofluid on the machinability aspects of hardened alloy steel,
+Machining Science and Technology 24 (2), 291-320
+
+GB Mahanta, A Rout, DBB V. L, BB Biswal, An improved multi-objective antlion optimization algorithm for the optimal
+design of the robotic gripper, Journal of Experimental & Theoretical Artificial Intelligence 32 (2), 309-338
+
+BM Gunji, B Deepak, BB Biswal, Effect of Considering Secondary Parts as Primary Parts for Robotic Assembly Using
+Stability Graph, Arabian Journal for Science and Engineering 45 (2), 743-764
+
+A Rout, GB Mahanta, D Bbvl, BB Biswal, Kinematic and Dynamic Optimal Trajectory Planning of Industrial Robot Using
+Improved Multi-objective Ant Lion Optimizer, Journal of The Institution of Engineers (India): Series C, I-I |
+
+A Das, SR Das, SK Patel, BB Biswal, Experimental investigation of various machining attributes and cost estimation during
+machining of hardened AISI 4340 steel with untreated and cryo treated cermet inserts, Mechanics & Industry 21 (1), 110
+
+OP Sahu, BB Biswal, Sensor Integrated Robotic Hand for Industrial Application, International Journal of Mechanical
+Engineering and Robotics Research 9 (I ...
+
+A Das, SK Patel, BB Biswal, N Sahoo, A Pradhan, Performance evaluation of various cutting fluids using MQL technique
+in hard turning of AISI 4340 alloy steel, Measurement 150, 107079
+
+A Rout, B Deepak, BB Biswal, GB Mahanta, Optimal trajectory planning of industrial robot for improving positional
+accuracy, Industrial Robot: the international journal of robotics research and application
+
+A Rout, D Bbvl, BB Biswal, Optimal trajectory generation of an industrial welding robot with kinematic and dynamic
+constraints, Industrial Robot: the international journal of robotics research and application
+
+S Panda, D Mishra, BB Biswal, An approach for design optimization of 3R manipulator using Adaptive Cuckoo Search
+algorithm, Mechanics Based Design of Structures and Machines, |-26
+
+A Das, O Pradhan, SK Patel, SR Das, BB Biswal, Performance appraisal of various nanofluids during hard machining of AISI
+4340 steel, Journal of Manufacturing Processes 46, 248-270
+
+S Datta, BB Biswal, Experimental studies on electro-discharge machining of Inconel 825 super alloy using cryogenically
+treated tool/workpiece, Measurement 145, 61 1-630
+
+GB Murali, B Deepak, MVA Raju, BB Biswal, Optimal robotic assembly sequence planning using stability graph through
+stable assembly subset identification, Proceedings of the Institution of Mechanical Engineers, Part C: Journal of ...
+
+A Das, SK Patel, BB Biswal, SR Das, Performance evaluation of aluminium oxide nano particles in cutting fluid with MQL
+technique in turning of hardened AISI 4340 alloy steel, Scientia lranica
+
+A Das, SK Patel, BB Biswal, SR Das, Machinability investigation and cost estimation during finish dry hard turning of AISI
+4340 steel with untreated and cryo treated cermet inserts, Journal of Superhard Materials 41 (4), 247-264
+
+GB Mahanta,A Rout, B Deepak, BB Biswal,Application of Meta-Heuristic Optimization Techniques for Design Optimization
+of a Robotic Gripper, International Journal of Applied Metaheuristic Computing (IJAMC) 10 (3), 107-133
+
+BK Khamari, SS Dash, SK Karak, BB Biswal, Effect of welding parameters on mechanical and microstructural properties
+of GMAW and SMAW mild steel joints, lronmaking & Steelmaking, 1-8
+
+B Deepak, G Bala Murali, MVAR Bahubalendruni, BB Biswal, Assembly sequence planning using soft computing methods:
+a review, Proceedings of the Institution of Mechanical Engineers, Part E: Journal of ...
+
+68 | Annual Report 2019-20

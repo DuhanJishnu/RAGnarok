@@ -1,0 +1,47 @@
+Projects
+
+a. Sponsored Project
+
+fue Title of the Project eee i Funding Agency | Funding amount
+
+Synchrophasor Sensing and PI: Dr. Gayadhar REC Transmission Rs. 13175000/- 3yrs ongoing
+Seamless Control of Smart Panda Projects Company
+Distribution Network with Co-PI: Mr. Shaik Limited
+Renewable Energy Integration Affijulla
+
+2 Design & development of an P.I: Dr. Atanu SERB-DST, Govt. 32.77 lakh 3 years ongoing
+intelligent controller for a Banerjee of India
+
+Vienna Rectifier based grid-
+connected hybrid energy
+conversion system comprising
+of wind & solar energy sources.
+
+3 Provision of Frequency
+Regulation using V2G Control PI: Dr. Sanjay SERB Rs. 10,00,000.00 2 Years
+and HVDC transmission Links Debbarma DST (2017- Ongoing
+with Virtual Synchronous Power GOI 2019)
+Concept
+
+Awards Won/ Recognition received at the national and international level:
+e Best paper awarded to Mr. R. Roy in “IECON 2016 -42nd Annual Conference of the IEEE Industrial Electronics Society”
+
+e One of the M.Tech project supervised by Dr. S. Debbarma (2016 batch) received prestigious POSOCO Power System Awards
+(PPSA) -2017 in “Masters Category” (Listed in top 10 project).
+
+Laboratories Setup:
+
+Laboratory Major Equipment & Software Cost (Rupees in lakhs)
+
+High Voltage Lab 1. Insulation breakdown test set-up Temporarily in 20 approx
+2. Surface and volume resistivity measurement Basic Electrical
+test set-up Laboratory
+3. Cable insulation testing set —up
+2 Power System Lab Numerical Distance Relay Trainer Admin Block 5 approx
+Power System Lab Siemens SINCAL Software Admin Block 6.5 approx
+4 Electric Drives 4 quadrant converter fed PMSM-3-phase IM Power Electronics 14 approx
+coupled set lab
+5 Power Electronics | Chopper controlled DC drives 1.28 approx
+
+of Technology Meghalaya
+

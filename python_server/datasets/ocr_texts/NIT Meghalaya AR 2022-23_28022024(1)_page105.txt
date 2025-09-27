@@ -1,0 +1,154 @@
+Annual Report 2022-23 | 103
+
+15.
+
+16.
+
+17.
+
+18.
+
+19.
+
+20.
+
+21.
+
+22.
+
+23:3
+
+24.
+
+cyber attacks on power system voltage stability”, De Gruyter
+International Journal of Emerging Electric Power Systems, vol.
+23, no. 04, pp. 451-464, 2022.
+
+Aniruddha Agrawal and Shaik Affijulla, “A concept for
+discrimination of electrical fault from cyber attack in smart
+electric grid”, Journal of Electrical Engineering: Journal of
+Slovak University of Technology, vol. 73, no. 04, pp. 299-
+304, 2022.
+
+S. K. Prince, Shaik Affijulla and G. Panda, “A fault detection
+technique based on line parameters in ring-configured DC
+microgrid”, De Gruyter International Journal of Emerging
+Electric Power Systems, vol. 23, no. 04, pp. 523-542, 2022.
+
+S. L. Chukkaluru, A. Kumar and Shaik Affijulla, “Tensor
+based dynamic phasor estimator suitable for wide area smart
+grid monitoring applications”, Springer Journal of Control,
+Automation and Electrical Systems, vol. 33, no. 01, pp. 955-
+964, 2022.
+
+Mukesh Kumar and Shaik Affijulla, “On-line estimation of
+alternators rotor angle dynamics in the modern power system”,
+Elsevier International Journal of Electrical Power & Energy
+Systems, vol. 134, no. 107314, pp. 01-09, 2022.
+
+Abhishek Chauhan and Ksh. Milan Singh, “Recursive sliding
+DFT algorithms: A review,” Elsevier, Digital Signal Processing,
+vol. 172, no. 103560, pp. 1-15, July, 2022 (DOI:10.1016/j.
+dsp.2022.103560)
+
+Priyankar Roy, Atanu Banerjee, “A study on performance
+parameters of three-level T-type inverter based PMSM drives
+for electric vehicles applications” , Electrical Engineering,
+Springer, doi.org/10.1007/sO0202-023-01779-6,
+February,2023.
+
+Manish Kurre, Shailesh Deshmukh, Rajdeep Tandekar,
+Pratikanta Mishra, Atanu Banerjee “A Low-Cost Control
+Architecture for Buck Converter Fed VSI Based BLDC Motor
+Drive” International Journal of Engineering Research in Africa
+, ESCI, Vol. 62, pp 161-171, September,2022
+
+Manish Kurre, Atanu Banerjee, “Zero voltage switching
+self-oscillating PWM inverter in induction heating
+applications” Journal of Engineering Research, SC\, DOI:
+10.36909/jer.16717, May,2022.
+
+N. Hari Charan, A. Bandyopadhyay, Josep M Guerrero,
+
+“ Performance Evaluation of Single-Phase Boost-Type
+Cascaded H -Bridge Inverter in the Applications of Grid-
+Tied Photovoltaic Systems” in /EEE Journal of Emerging
+and Selected Topics in Power Electronics, DOI: 10.1109/
+JESTPE.2023.3249905 , February,2023.
+
+Patowary, M., Haes Alhelou, H., Panda, G.: Performance
+assessment and validation of inverter control current
+controllers in reduced sensor maximum power point tracking
+
+25.
+
+26.
+
+29.
+
+based photovoltaic grid tied system. JET Energy Syst. Integr.
+4(4), 505-517(2022).
+
+Anurekha Nayak, Manoj Kumar Maharana, Tarlochan
+Sidhu, Sanjeevikumar Padmanaban & Gayadhar
+
+Panda (2022) Frequency regulation of a maiden structured
+power system with integrated renewable energy source
+
+by a fuzzy - tuned fractional order controller, Energy
+Sources, Part A: Recovery, Utilization, and Environmental
+Effects, 44:3, 7841-7856.
+
+P. Buduma, M. K. Das, R. T. Naayagi, S. Mishra and G.
+Panda, “Seamless Operation of Master-Slave Organized AC
+Microgrid With Robust Control, Islanding Detection, and
+Grid Synchronization,” in /EEE Transactions on Industry
+Applications, vol. 58, no. 5, pp. 6724-6738, Sept.-Oct.
+2022.
+
+. K. P. Panda, P. R. Bana, R. T. Naayagi and G. Panda, “A Dual-
+
+Source Self-Balanced Switched-Capacitor Reduced Switch
+Multilevel Inverter With Extending Ability,” in IEEE Access,
+vol. 10, pp. 61441-61450, 2022.
+
+. M. Kumar, K. P. Panda, J. C. Rosas-Caro, A. Valderrabano-
+
+Gonzalez and G. Panda, “Comprehensive Review of
+Conventional and Emerging Maximum Power Point Tracking
+Algorithms for Uniformly and Partially Shaded Solar
+Photovoltaic Systems,” in JEEE Access, vol. 11, pp. 31778-
+31812, 2023.
+
+Sao, Jitendra Kumar, Panda, Gayadhar, Ray, Pravat Kumar,
+Patidar, Ram Dayal and Swain, Sushree Diptimayee.
+“Parameter optimization of PV integrated Shunt Active power
+filter with Taguchi SNR” International Journal of Emerging
+Electric Power Systems, 2022
+
+(B) Book chapters:
+
+1.
+
+P. P. Singh, “Nonlinear Systems: Chaos, Advanced Control and
+Applications”, Nova Science Publishers, Inc. 400 Oser Ave
+Suite, 1600 Hauppauge, NY, USA, May 2022. ISBN: 978-1-
+68507-660-3 (Book)
+
+Abhishek Chauhan and Ksh Milan Singh, “Sustainable
+Energy and Technological Advancements, Chapter “Doppler
+Velocity Estimation Employing mHDFT Phase Locked
+Loop” International Symposium on Sustainable Energy and
+Technological Advancements PP. Springer, PP. 773-784,
+2022. (Book Chapter)
+
+(C)Conferences:
+
+1.
+
+Koley, G. K. Panda, S. Debbarma, A. C. Atoche and A. Datta,
+“Plug-in Electric Vehicle Aided Load Frequency Control
+using Cascaded Controller in Microgrid System,” 2023 IEEE
+IAS Global Conference on Renewable Energy and Hydrogen
+Technologies (GlobConHT), Male, Maldives, 2023, pp. 1-7,
+doi: 10.1109/GlobConHT56829.2023.10087793.

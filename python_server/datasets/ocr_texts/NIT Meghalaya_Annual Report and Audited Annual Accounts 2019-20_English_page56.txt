@@ -1,0 +1,74 @@
+Dr.Atanu Banerjee . Power Electronics & Drives | 25 August2014
+
+Associate | complete,
+
+Professor 4 ongoing
+
+Prof. Gayadhar Panda
+
+Professor 4 Power Electronics 29 November Guided: 5
+2017 Guiding: 6
+
+Dr. Supriyo Das
+
+Assistant : High Voltage Engineering 25August 2020 | ongoing
+Professor
+
+Ms. Ramyani Trainee M.Tech, Power & Control 2 July 2014 NIL
+
+Chakrabarty
+
+. LIST OF PUBLICATIONS:
+
+Teacher Ph.D (Pursuing)
+
+A. JOURNALS:
+
+Siddhartha Deb Roy, Sanjoy Debbarma, Detection and Mitigation of Cyber-Attacks on AGC Systems of Low Inertia
+Power Grid, IEEE Systems Journal,Vol. 14, No.2, pp. 2023-2031, June 2020.
+
+PP. Singh and B. K. Roy, Microscopic chaos control of chemical reactor system using nonlinear active plus proportional
+integral sliding mode control technique, Eur. Phys. J. Special Topics, vol. 228, pp. 169-184, May 2019.
+
+M. Kumar and P. P. Singh, Chaos control of a four-dimensional fundamental power system using pole placement based
+proportional integral sliding mode control, Int. J. of Automation and Control, vol. |3, no. 6, pp. 679-697, June 2019.
+DOI: 10.1504/IJAAC.2019.10267 |
+
+PP. Singh and B. K. Roy, Memristor-based novel complex-valued chaotic system and its projective synchronisation using
+nonlinear active control technique, Eur. Phys. J. Special Topics, vol. 228, pp. 2197-2214, October 2019.
+
+PP. Singh and B. K. Roy, Inter network synchronisation of complex dynamical networks by using smooth proportional
+integral SMC technique, Eur. Phys. J. Special Topics, vol. 229, pp. 861-876, January 2020.
+
+P.P Singh and B.K. Roy,A novel chaotic system without equilibria, with parachute and thumb shapes of Poincare map and
+its projective synchronisation, Eur. Phys. J. Special Topics, vol. 229, pp. 1265-1278, March 2020.
+
+Abhisekh Anand and Shaik Affijulla, Hilbert-Huang transform based fault identification and classification technique for
+AC power transmission line protection, International Transactions on Electrical Energy Systems, |n Press, pp. |-16,
+June, 2020
+
+Pratikanta Mishra, Atanu Banerjee, Mousam Ghosh-“FPGA Based Real-Time Implementation of Quadral-Duty Digital
+PWM Controlled Permanent Magnet BLDC Drive” IEEE/ASME Transactions on Mechatronics, Vol. 25, issue 3,
+DOI:10.1 109/TMECH.2020.2977859, March,2020, pp 1456-1467.
+
+ChiranjitSain, Atanu Banerjee, P K Biswas, “Modelling and Comparative Dynamic Analysis due to Demagnetization of a
+Torque Controlled Permanent Magnet Synchronous Motor Drive for Energy-Efficient Electric Vehicle” ISA Transactions,
+Elsevier (SCI), Vol.97,August,2019, pp 384-400.
+
+. ChiranjitSain, Atanu Banerjee, P K Biswas “Performance Optimization for Closed Loop Control Strategies towards
+
+Simplified Model of a PMSM Drive by Comparing with Different Classical and Fuzzy Intelligent Controller” International
+Journal of Automation and Control, Inderscience, Vol |4, issue 4, DOI: 10.1504/IJAAC.2020. 10020855. March,2019,
+pp 469-493.
+
+. Narendra Babu. P, R. Peesapati and G. Panda, “An Adaptive Differentiation Frequency based Advanced Reference Current
+
+Generator in Grid-tied PV Applications,” in IEEE Journal of Emerging and Selected Topics in Power Electronics, doi:
+10.1 lO9/JESTPE.2019.2933 140.
+
+. V.N. Kumar, Narendra Babu. P, R. Kiranmayi, P Siano and G. Panda, “Improved Power Quality in a Solar PV Plant
+
+Integrated Utility Grid by Employing a Novel Adaptive Current Regulator,’ in IEEE Systems Journal, doi: 10.1 109/
+JSYST.2019.2958819.
+
+56 | Annual Report 2019-20

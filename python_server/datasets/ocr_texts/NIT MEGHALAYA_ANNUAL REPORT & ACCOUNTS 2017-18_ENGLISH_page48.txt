@@ -1,0 +1,95 @@
+29.
+
+30.
+
+31.
+
+32.
+
+33.
+
+34.
+
+35.
+
+36.
+
+375
+
+38.
+
+39.
+
+40.
+
+M.A. Singh, D.K. Sarma, Parametric and Subsurface Analysis of MWCNT Alumina Composites in WEDM Process, Ceramics
+International, Elsevier, Vol.-44, Page No:2186-2197, 2018.
+
+M. A. Singh, D. K. Sarma, O. Hanzel, J. Sedldek, P. Sajgalik, Machinability analysis of multi walled carbon nanotubes filled
+alumina composites in Wire Electrical Discharge Machining process, Journal of the European Ceramic Society, Elsevier, Vol.-
+37, Page No:3107-3114, 2017.
+
+U. Kashyap, K. Das, B. K. Debnath, Effect of surface modification of a rectangular vortex generator on heat transfer rate from
+a surface to fluid, International Journal of Thermal Sciences, 127, Page No:61-78, 2018.
+
+P. Ramesh, S. R. Nanda, V. Kulkarni and S. K. Dwivedy, Soft Computing Based Force Recovery Technique for Hypersonic Shock
+Tunnel Tests, International Journal of Structural Stability and Dynamics, 18(05), 1871004, 2018.
+
+P. Ramesh, S. R. Nanda, V. Kulkarni and S. K. Dwivedy, Application of neural-networks and neuro-fuzzy systems for the
+prediction of short-duration forces acting on the blunt bodies, Soft Computing, Pg:1-14, 2018.
+
+N. Alom and U.K. Saha, Four decades of research into the augmentation techniques of Savonius wind turbine rotor, ASME
+Journal of Energy Resources Technology, Vol. 140, No. 5, pp: 050801-1-050801-14, 2018.
+
+N. Alom and U.K. Saha, Performance evaluation of vent-augmented elliptical-bladed Savonius rotors by numerical simulation
+and wind tunnel experiments, Energy, Vol. 152, Page No: 277 -290, 2018.
+
+A.C. Chandekar, B.K. Debnath, Computational investigation of air-biogas mixing device for different biogas substitutions and
+engine load variations, Renewable Energy, 127, 811-824, 2018.
+
+H. C. Das, Investigation of the effect of FeCl3 on combustion and emission of diesel engine with thermal barrier coating,,
+Sustainable Environment Research, Vol.-28, Issue No.-2, Page No: -72-78, 2018.
+
+H. C. Das, Effect of FeCl3 and diethyl ether as additives on compression ignition engine emissions, Sustainable Environment
+Research, Vol.-27, Issue No.-3, Page No: 154-161, 2017.
+
+J. P. Panda, H. V. Warrior, S. Maity, A. Mitra, K. Sasmal, An improved model including length scale anisotropy for the pressure
+strain correlation of turbulence, Journal of Fluids Engineering, Vol.139, Issue No.4, Page No: 044503-1 to 6, 2017.
+
+T. Bose, A. R. Mohanty, Large amplitude axisymmetric vibration of a circular plate having a circumferential crack, Journal of
+Mechanical Sciences, Vol.124, Page No: 194-202, 2017.
+
+b. Book chapters:
+EE A a (2 SS ee
+
+K. Debnath and I. Book: Primary and Secondary CRC Press (Taylor & 978-1-4987- 244 2017
+Singh Manufacturing of Polymer Matrix Francis Group), USA 9930-0
+Composites
+
+2 K. Debnath, M. Roy Chapter 02:Primary CRC Press (Taylor& 978-1-4987- 17-42 2017
+Choudhury, and Anders Manufacturing of Thermoplastic Francis Group), USA 9930-0
+E.W. Jarfors Polymer Matrix Composites
+
+8 K. Debnath, M. Roy Chapter 09: Secondary CRC Press (Taylor& 978-1-4987-  155- 2017
+Choudhury, and T.S. Manufacturing Techniques for Francis Group), USA 9930-0 172
+Srivatsan Polymer Matrix Composites
+
+4 K. Debnath, M. Roy Chapter 12: Research Progress in CRC Press (Taylor& 978-1-4987- 211- 2017
+Choudhury, and J.1. the Area of Advanced Machining Francis Group), USA 9930-0 226
+Song of Polymer Matrix Composites
+
+c. Conferences:
+
+1.
+
+46
+
+G. B. Mahanta, B. B. V. L. Deepak, B. B. Biswal, Amruta Rout, and B. M. Gunji, “Design Optimization of Robotic Gripper
+Links Using Accelerated Particle Swarm Optimization Technique.” In Proceedings af the Second International Conference on
+Computational Intelligence and Informatics, 2018, pp. 337-345. Springer, Singapore
+
+G. B. Mahanta, Amruta Rout, B. M. Gunji, B. B. V. L. Deepak, and B. B. Biswal, “Application of Hybrid Nelder-Mead Bat
+Algorithm to Improve the Grasp Quality during the Automated Robotic Grasping.” Procedia Computer Science 133, 2018,
+612-619.
+
+National Institute of Technology Meghalaya

@@ -1,0 +1,64 @@
+MASKING TECHNIQUE, Surface Review and Letters, 1950218, 2020, DOI: 10.1 142/S0218625X 19502184
+
+12. S. Deka, PR. Babu and M. Rahang, 2020.A new method for force prediction in an accelerometer force balance system
+using support vector regression. Transactions of the Institute of Measurement and Control, 42(4), pp.880-889.
+
+13. Mazarbhuiya, R.M., Rahang, M.‘Reverse EDM Process for Pattern Generation using Powder Metallurgical Green Compact
+Tool’, Materials and Manufacturing Process. (Accepted).
+
+14. Khelkar AB, Debnath BK, & Debnath K (2020). Use of sinusoidal surface profile in the absorber tube of a parabolic
+trough solar collector to enhance its thermal performance. Journal of Thermal Analysis and Calorimetry, DOI: 10.1007/
+s10973-020-09929-9.
+
+15. U. Kashyap, K. Das, B. K. Debnath, U. Kashyap, S. K. Saha. Numerical study on effect of secondary surface on rectangular
+vortex generator. Journal of Thermal Science and Engineering Applications. 2020, Page Nos. 1-33. DOI: https://doi.
+org/10.1115/1.4047008
+
+16. A.C. Chandekar, B. K. Debnath. Effect of intake manifold design on the mixing of air and bio-CNG in a port-injected
+dual fuel diesel engine. Journal of Thermal Analysis and Calorimetry, 2020, Page Nos. I-15. DOI: 10.1007/s10973-020-
+09591-1.
+
+17. S.Vishwakarma, S. Roy, B. Das, and B. K. Debnath. Performance analysis of internally helically v-grooved absorber tubes
+using nanofluid. Thermal Science and Engineering Progress, 2020, Vol. 18 (1), Page Nos. 100538 (I-10), DOI: 10.1016/j.
+tsep.2020.100538.
+
+18. S. Roy, B. Das,A. Biswas, B.K. Debnath, Energy and exergy analysis of a concrete-based thermal energy storage system.
+Journal of The Institution of Engineers (India): Series C, 2020, Page Nos.I-13, https://doi.org/10.1007/s40032-020-
+00564-9.
+
+19. H. Dutta, K. Debnath, D.K. Sarma, Improving the Performance of yED-Milling using Assisting Electrode for Fabricating
+Micro-Channels in CFRP Composites, Materials Today: Proceedings, Elsevier, Vol. 28, Page nos. 755-760, 2020
+
+20. D. K. Sarma, S. Kr. Rajbongshi,A study in turning of AIS] D2 steel with Textured and Non-textured coated carbide tool
+at the flank face, Materials Today: Proceedings, Elsevier, Vol. 28, Page nos. 574-581, 2020
+
+21. Deba Kumar Sarma, Meinam Annebushan Singh, Machining of thin sections using multi-pass Wire Electrical Discharge
+Machining process, Int. J. of Machining and Machinability of Materials (IJMMM), Inderscience, Vol.22, No.1, Page Nos. 62-
+78, 2020
+
+22. Sanjib Kr. Rajbongshi, Deba Kumar Sarma, Performance parameters studies in machining of AISI D2 steel with dot-
+textured, groove-textured & non-textured cutting tool at the flank face, International Journal of Refractory Metals and Hard
+Materials, Vol.83, Page Nos-1-16, September 2019
+
+23. Hrishikesh Dutta, Kishore Debnath, Deba Kumar Sarma,A Study of Material Removal and Surface Characteristics in
+Micro-Electrical Discharge Machining of Carbon Fibre Reinforced Plastics, Polymer Composite, Willey, Vol.40, No.10, Page
+Nos. 4033-4041, 2019
+
+24. Sanjib Kr. Rajbongshi, Deba Kumar Sarma,A comparative study in prediction of surface roughness & flank wear using
+artificial neural network & response surface methodology method during hard turning in dry and forced air-cooling
+condition, Int. J. of Machining and Machinability of Materials (IJMMM), Inderscience, Vol. 21, Nos. 5/6, Page Nos.- 390-436,
+2019
+
+25. U. Kashyap, K. Das, B.K. Debnath, U. Kashyap, S.K. Saha, Effect of Secondary Surface on Rectangular Vortex Generator:
+Numerical and Experimental Study, Journal of Thermal Science and Engineering Applications: ASME, https://doi.
+org/10.1115/1.4047008, 2020
+
+26. A. Ranjan, S. S. Yadav, K. Das, Thermal and flow analysis of split drop shaped pin fins for improved heat transfer rate,
+Journal of Institution of Engineers (India) Series C, 101, 375—382(2020)
+
+27. U. Kashyap, K. Das, B. K. Debnath, Numerical and experimental study of effect of secondary surfaces fixed over a
+rectangular vortex generator, Journal of Thermal Sciences and Engineering Applications: ASME, 061003-I-12 (11) 2019.
+
+28. P.Venkaiah & B. K. Sarkar, Hydraulically actuated horizontal axis wind turbine pitch control by model free adaptive
+
+Annual Report 2019-20 | 67 A
