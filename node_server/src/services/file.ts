@@ -1,0 +1,441 @@
+import { Queue, Job } from 'bullmq';
+import path from 'path';
+import fs from 'fs/promises';
+import mime from 'mime-types';
+import { redisConnection } from '../config/redis';
+import { generateRandom128CharString } from '../lib/crypto';
+import { insertInitialDocumentData, getFilePath, getThumbFilePath } from '../lib/dbOperations';
+import { IMAGE_MAX_SIZE } from '../config/envExports';
+
+// Queue configuration
+const queueConfig = {
+  connection: redisConnection,
+  defaultJobOptions: {
+    removeOnComplete: 10,
+    removeOnFail: 5,
+    attempts: 3,
+    backoff: {
+      type: 'exponential',
+      delay: 2000,
+    },
+  }
+};
+
+// Initialize queues
+const imageProcessingQueue = new Queue('image-processing', queueConfig);
+const audioProcessingQueue = new Queue('audio-processing', queueConfig);
+const pdfProcessingQueue = new Queue('pdf-processing', queueConfig);
+const documentProcessingQueue = new Queue('document-processing', queueConfig);
+
+export class FileService {
+  
+    /**
+   * Safe file deletion with retry logic for Windows
+   */
+  public static async safeDeleteFile(filePath: string, maxRetries: number = 3): Promise<void> {
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        await fs.unlink(filePath);
+        return;
+      } catch (error: any) {
+        if (error.code === 'ENOENT') {
+          // File doesn't exist, consider it successfully deleted
+          return;
+        }
+        
+        if (attempt === maxRetries) {
+          console.warn(`Failed to delete file ${filePath} after ${maxRetries} attempts:`, error);
+          return; // Don't throw error, just log warning
+        }
+        
+        // Wait before retry (exponential backoff)
+        await new Promise(resolve => setTimeout(resolve, attempt * 1000));
+      }
+    }
+  }
+  
+  /**
+   * Process uploaded files and queue them for processing
+   */
+  static async processUploadedFiles(files: Express.Multer.File[], payload: any, query: any): Promise<any[]> {
+    const fileType: number = parseInt(query.fileType as string) || 1;
+    
+    if (!payload?.projectName || !payload?.directory) {
+      throw new Error('Project name and directory are required');
+    }
+
+    // Use project root directory for uploads
+    const projectRoot = process.cwd();
+    const pathToUpload = path.join(projectRoot, 'uploads', payload.projectName, payload.directory, 'temp');
+    
+    // Ensure upload directory exists
+    try {
+      await fs.access(pathToUpload);
+    } catch (err: any) {
+      if (err.code === 'ENOENT') {
+        await fs.mkdir(pathToUpload, { recursive: true });
+      } else {
+        throw err;
+      }
+    }
+
+    const tasks = files.map(async (file) => {
+      return await this.processIndividualFile(file, fileType, payload, query, pathToUpload);
+    });
+
+    return await Promise.all(tasks);
+  }
+
+  /**
+   * Process individual file and add to appropriate queue
+   */
+  private static async processIndividualFile(
+    file: Express.Multer.File, 
+    fileType: number, 
+    payload: any, 
+    query: any, 
+    pathToUpload: string
+  ) {
+    const sizeInBytes = file.size;
+    const sizeInMB = parseFloat((sizeInBytes / (1024 * 1024)).toFixed(2));
+    const encryptedId = generateRandom128CharString();
+
+    // Insert initial document data
+    const documentId = await insertInitialDocumentData(
+      fileType,
+      file.originalname,
+      encryptedId,
+      sizeInMB,
+      path.extname(file.originalname)
+    );
+
+    // Generate sanitized filename
+    const ext = path.extname(file.originalname);
+    const baseName = path.basename(file.originalname, ext).replace(/\s+/g, '_').slice(0, 50);
+    const sanitizedFileName = `${baseName}${ext}`;
+    const fileName = `${Date.now()}-${sanitizedFileName}`;
+
+    const finalLink = `${process.env.DOMAIN_NAME}/api/file/v1/files/${encryptedId}`;
+    const finalThumbLink = `${process.env.DOMAIN_NAME}/api/file/v1/thumb/${encryptedId}`;
+
+    let job: Job | null = null;
+
+    try {
+      switch (fileType) {
+        case 1: // Image
+          job = await this.processImageFile(file, fileName, pathToUpload, payload, query, documentId, finalLink, finalThumbLink);
+          break;
+        case 2: // Audio
+          job = await this.processAudioFile(file, fileName, pathToUpload, payload, documentId, finalLink, finalThumbLink);
+          break;
+        case 3: // PDF
+          job = await this.processPdfFile(file, fileName, pathToUpload, payload, documentId, finalLink, finalThumbLink);
+          break;
+        case 4: // MS Word/Document files
+          job = await this.processDocumentFile(file, fileName, pathToUpload, payload, documentId, finalLink, finalThumbLink);
+          break;
+        default:
+          throw new Error('Unsupported file type');
+      }
+
+      return {
+        name: sanitizedFileName,
+        jobId: job?.id,
+        link: finalLink,
+        thumb: finalThumbLink,
+        fileType,
+        status: 'queued',
+      };
+    } catch (error) {
+      console.error('Error processing file:', error);
+      return {
+        name: sanitizedFileName,
+        status: 'error',
+        error: error instanceof Error ? error.message : 'Processing failed',
+      };
+    }
+  }
+
+  /**
+   * Process image file
+   */
+  private static async processImageFile(
+    file: Express.Multer.File,
+    fileName: string,
+    pathToUpload: string,
+    payload: any,
+    query: any,
+    documentId: number,
+    finalLink: string,
+    finalThumbLink: string
+  ) {
+    const sizeInMB = parseFloat((file.size / (1024 * 1024)).toFixed(2));
+    
+    if (sizeInMB > IMAGE_MAX_SIZE) {
+      throw new Error('File too large');
+    }
+
+    const width = parseInt(query.width) || parseInt(process.env.DEFAULT_IMAGE_WIDTH || '800');
+    const height = parseInt(query.height) || parseInt(process.env.DEFAULT_IMAGE_HEIGHT || '600');
+    const quality = parseInt(query.quality) || parseInt(process.env.DEFAULT_IMAGE_QUALITY || '80');
+    
+    const tempInput = path.join(pathToUpload, `temp-${fileName}`);
+    await fs.writeFile(tempInput, file.buffer);
+    
+    const projectRoot = process.cwd();
+    const finalFilePath = path.join(projectRoot, 'uploads', payload.projectName, payload.directory, path.parse(fileName).name + '.webp');
+
+    return await imageProcessingQueue.add('image-processing', {
+      documentId,
+      filePath: tempInput,
+      width,
+      height,
+      quality,
+      fileName,
+      finalFilePath,
+      finalLink,
+      finalThumbLink
+    }, {
+      jobId: this.generateJobId(documentId, 1),
+      attempts: 3,
+      backoff: { type: 'exponential', delay: 2000 },
+      delay: 0,
+      priority: 0,
+      removeOnComplete: 10,
+      removeOnFail: 5,
+    });
+  }
+
+  /**
+   * Process audio file
+   */
+  private static async processAudioFile(
+    file: Express.Multer.File,
+    fileName: string,
+    pathToUpload: string,
+    payload: any,
+    documentId: number,
+    finalLink: string,
+    finalThumbLink: string
+  ) {
+    const sizeInMB = parseFloat((file.size / (1024 * 1024)).toFixed(2));
+    const maxSize = parseFloat(process.env.AUDIO_MAX_SIZE || '50');
+    
+    if (sizeInMB > maxSize) {
+      throw new Error('File too large');
+    }
+
+    const projectRoot = process.cwd();
+    const outputPath = path.join(projectRoot, 'uploads', payload.projectName, payload.directory, fileName);
+    const tempInput = path.join(pathToUpload, `temp-${fileName}`);
+    await fs.writeFile(tempInput, file.buffer);
+
+    return await audioProcessingQueue.add('audio-processing', {
+      documentId,
+      filePath: tempInput,
+      originalname: file.originalname,
+      finalFilePath: outputPath,
+      finalLink,
+      finalThumbLink
+    }, {
+      jobId: this.generateJobId(documentId, 2),
+      attempts: 3,
+      backoff: { type: 'exponential', delay: 2000 },
+      delay: 0,
+      priority: 0,
+      removeOnComplete: 10,
+      removeOnFail: 5,
+    });
+  }
+
+  /**
+   * Process PDF file
+   */
+  private static async processPdfFile(
+    file: Express.Multer.File,
+    fileName: string,
+    pathToUpload: string,
+    payload: any,
+    documentId: number,
+    finalLink: string,
+    finalThumbLink: string
+  ) {
+    const sizeInMB = parseFloat((file.size / (1024 * 1024)).toFixed(2));
+    const maxSize = parseFloat(process.env.PDF_MAX_SIZE || '50');
+    
+    if (sizeInMB > maxSize) {
+      throw new Error('File too large');
+    }
+
+    const projectRoot = process.cwd();
+    const outputPath = path.join(projectRoot, 'uploads', payload.projectName, payload.directory, fileName);
+    const tempInput = path.join(pathToUpload, `temp-${fileName}`);
+    await fs.writeFile(tempInput, file.buffer);
+
+    return await pdfProcessingQueue.add('pdf-processing', {
+      documentId,
+      filePath: tempInput,
+      finalFilePath: outputPath
+    }, {
+      jobId: this.generateJobId(documentId, 3),
+      attempts: 3,
+      backoff: { type: 'exponential', delay: 2000 },
+      delay: 0,
+      priority: 0,
+      removeOnComplete: 10,
+      removeOnFail: 5,
+    });
+  }
+
+  /**
+   * Process document files (MS Word, etc.)
+   */
+  private static async processDocumentFile(
+    file: Express.Multer.File,
+    fileName: string,
+    pathToUpload: string,
+    payload: any,
+    documentId: number,
+    finalLink: string,
+    finalThumbLink: string
+  ) {
+    const sizeInMB = parseFloat((file.size / (1024 * 1024)).toFixed(2));
+    const maxSize = parseFloat(process.env.DOCUMENT_MAX_SIZE || '25');
+    
+    if (sizeInMB > maxSize) {
+      throw new Error('File too large');
+    }
+
+    const projectRoot = process.cwd();
+    const outputPath = path.join(projectRoot, 'uploads', payload.projectName, payload.directory, fileName);
+    const tempInput = path.join(pathToUpload, `temp-${fileName}`);
+    await fs.writeFile(tempInput, file.buffer);
+
+    return await documentProcessingQueue.add('document-processing', {
+      documentId,
+      filePath: tempInput,
+      originalname: file.originalname,
+      finalFilePath: outputPath,
+      finalLink,
+      finalThumbLink
+    }, {
+      jobId: this.generateJobId(documentId, 4),
+      attempts: 3,
+      backoff: { type: 'exponential', delay: 2000 },
+      delay: 0,
+      priority: 0,
+      removeOnComplete: 10,
+      removeOnFail: 5,
+    });
+  }
+
+  /**
+   * Get job status
+   */
+  static async getJobStatus(jobId: string, fileType: string): Promise<any> {
+    let queue: Queue;
+    
+    switch (fileType) {
+      case '1':
+        queue = imageProcessingQueue;
+        break;
+      case '2':
+        queue = audioProcessingQueue;
+        break;
+      case '3':
+        queue = pdfProcessingQueue;
+        break;
+      case '4':
+        queue = documentProcessingQueue;
+        break;
+      default:
+        queue = imageProcessingQueue;
+    }
+
+    const job = await queue.getJob(jobId);
+    
+    if (!job) {
+      throw new Error('Job not found');
+    }
+
+    const state = await job.getState();
+    const progress = job.progress;
+
+    return {
+      id: job.id,
+      name: job.name,
+      state,
+      result: job.returnvalue,
+      progress,
+    };
+  }
+
+  /**
+   * Get file by encrypted ID
+   */
+  static async getFileByEncryptedId(encryptedId: string): Promise<{ filePath: string; mimeType: string }> {
+    const filePath = await getFilePath(encryptedId);
+
+    if (typeof filePath === 'number') {
+      const errorMessages: Record<string, string> = {
+        '-1': 'File not found',
+        '-2': 'File not processed',
+        '-3': 'Server error while locating file'
+      };
+      throw new Error(errorMessages[filePath.toString()] || 'Unknown error');
+    }
+
+    if (!filePath) {
+      throw new Error('File path is null or undefined');
+    }
+
+    // Check if file exists
+    try {
+      await fs.access(filePath);
+    } catch (err) {
+      throw new Error('File not accessible');
+    }
+
+    const mimeType = mime.lookup(filePath) || 'application/octet-stream';
+    
+    return { filePath, mimeType };
+  }
+
+  /**
+   * Get thumbnail by encrypted ID
+   */
+  static async getThumbnailByEncryptedId(encryptedId: string): Promise<{ filePath: string; mimeType: string }> {
+    const filePath = await getThumbFilePath(encryptedId);
+
+    if (typeof filePath === 'number') {
+      const errorMessages: Record<string, string> = {
+        '-1': 'Thumbnail not found',
+        '-2': 'Thumbnail not processed',
+        '-3': 'Server error while locating thumbnail'
+      };
+      throw new Error(errorMessages[filePath.toString()] || 'Unknown error');
+    }
+
+    if (!filePath) {
+      throw new Error('Thumbnail path is null or undefined');
+    }
+
+    // Check if file exists
+    try {
+      await fs.access(filePath);
+    } catch (err) {
+      throw new Error('Thumbnail not accessible');
+    }
+
+    const mimeType = mime.lookup(filePath) || 'application/octet-stream';
+    
+    return { filePath, mimeType };
+  }
+
+  /**
+   * Generate unique job ID
+   */
+  private static generateJobId(documentId: number, fileType: number): string {
+    return `${fileType}-${documentId}-${Date.now()}`;
+  }
+}
