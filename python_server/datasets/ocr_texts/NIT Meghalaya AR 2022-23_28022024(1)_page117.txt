@@ -1,0 +1,66 @@
+Annual Report 2022-23 | 115
+
+7. Conference/ Workshop/ Seminar Organized:
+
+1. Dr. A Dandapat organized a 5-day Training program on emerging technology: Robotic Process Automation (RPA) during 20th Mar-
+24th Mar 2023, in collaboration with CDAC-Kolkata-as a convenor.
+
+2. Dr. P. Rangababu Organized a 5-day workshop on Intel India and NIT Meghalaya sponsored workshop on Embedded System Design
+using FPGAs 4th April 2022 -O8th April 2022.
+
+8. Conferences / Workshops / Seminars / Trainings Attended by faculty
+members:
+
+Fal Name of Faculty Name of the Programme attended | uration |
+
+1 | Dr. Shravan Kumar Bandari | 1. Robotic Process Automation, C-DAC Kolkata. | 20-24 March 2023
+
+2 Dr. Rangababu P 1. Robotic Process Automation, C-DAC Kolkata. 20-24 March 202312th Sep
+2.CDAC sponsored 10 Days Online Master Training Program on | to 23rd Sep 2022
+“Cyber-Attacks and Defense”
+
+9. Invited Talks Delivered:
+
+1. Dr. Anup Dandapat delivered an Invited Talk at Jaipee models for prediction of air pollution on 7th Mar 2023.
+Institute of Information Technology, Delhi on “Outcome based
+research: VLSI Devices, Circuit Analysis, Latest Design Tools 7. Dr. Shubhankar Majumdar delivered an Invited talk at
+and Applications” during 21st-27th July 2022. National Engineering University, Batangas Philippines on Air
+
+Quality Monitoring Evaluation on 9th Mar 2023.
+2. Dr. Anup Dandapat delivered an Invited talk at Tezpur
+
+University on Digital Design Issues and Low Power Memories, 8- Delivered a Talk in two-day Workshop.Al Hardware
+during 17th Mar-21st Mar 2023. Accelerators for Drone Design Bootcamp on Drone/UAS Allied
+
+Technologies at NIELIT Calicut 24-03-2022 Meity
+3. Dr. Shravan Kumar Bandari delivered an Online expert lecture
+
+on “Deep learning for wireless communication” as part 9. Delivered a Talk at in two-day Workshop Advanced
+of Two week online FDP on “Recent Research Trends and Microcontroller Programming and Interfacing GKCIET 14-03-
+Applications of Artificial Intelligence & Machine Learning”, 2023 Meity
+
+Organized by Electronics & ICT Academy, NIT-WARANGAL &
+In association with KU College of Engineering & Technology,
+Kakatiya University, Warangal, India, 10 - 20 August 2022.
+
+10. Delivered a Tutorial Talk on ML hardware accelerators on
+FPGA NEHU Meghalaya international conference on ICEDEC
+2022. 07-09-2022 NEHU
+
+4. Dr. Shubhankar Majumdar delivered an Invited talk at UKM
+Malaysia on Deployment of Air Pollution Sensor on 28th Nov
+2022.
+
+11. Delivered a Talk on “Signal Processing techniques for
+Forecasting in Microgrid” in five day Workshop on Microgrid
+Protection & Control held on 17th April 2023-20th April
+
+5. Dr. Shubhankar Majumdar delivered an Invited talk at IESM, 2023 at NIT Meghalaya and NITTR chandigarh
+
+University of Philippines on Internet of things (loT) and Low-
+
+Gast Sensors in ervitenmental RESsearee an Gi Mar 2024. 12. Delivered a Talk on “advanced video coding for Cultural
+
+preservation SERB sponsored High-End Workshop Karyasala
+6. Dr. Shubhankar Majumdar delivered an Invited talk at Mariano held on 13.06.2022 to 26.06.2022. at NIT Meghalaya
+Marcos State University, Ilocos Norte Philippines on Use of Al

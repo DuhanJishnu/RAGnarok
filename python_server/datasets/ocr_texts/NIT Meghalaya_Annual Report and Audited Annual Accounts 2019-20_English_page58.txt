@@ -1,0 +1,78 @@
+10.
+
+11.
+
+12.
+
+13
+
+14.
+
+15.
+
+16.
+
+Patowary M., Deka B.C., Panda G. “Reliability Analysis of Microgrid Systems Using Hybrid Approaches.” In: Karanki D.,
+Vinod G., Ajit S. (eds) Advances in RAMS Engineering. Springer Series in Reliability Engineering.Springer, Cham.
+2020.
+
+CONFERENCES:
+
+S. Deb Roy and Sanjoy Debbarma, “Mitigation of Intrusions to ACE Signals in Power System Networks”, IEEE PESGRE
+2020, 2nd - 4th January 2020, Kerala, India.
+
+Sanjoy Debbarma, C. Hazarika and S. Deb Roy,“SPC based approach for Frequency Control of Power Systems Penetrated
+with Fast Acting Reserve”, 8th [EEE International Conference on Power Systems2019, 20th - 22nd Dec 2019, Jaipur,
+India.
+
+Prakash Chandra Gupta,Atanu Banerjee and Piyush Pratap Singh,Analysis and Control of Chaotic Oscillation in FOSMIB
+Power System Using AISMC Technique, 5% Students Conference on Engineering and Systems (SCES), MNNIT
+Allahabad, India, May 29-31, 2019.
+
+Piyush Pratap Singh and Binoy Krishna Roy,A novel chaotic system with parachute and thumb shapes of Poincare map,
+12 Conference on Nonlinear Systems and Dynamics (CNSD), |IT Kanpur, 12-15 December, 2019.
+
+Sugandha and Piyush Pratap Singh,A complex state variable based novel hyperchaotic system with nine equilibria, [2%
+Conference on Nonlinear Systems and Dynamics (CNSD), IIT Kanpur, 12-15 December, 2019.
+
+R. Wilson, R. Gandhi, A. Kumar and R. Roy, “Design and Analysis of Twin-Rotor Axial Flux Permanent Magnet
+Synchronous Motor for Electric Bicycle using 3D Finite Element Analysis,’ 2020 IEEE International Conference on
+Power Electronics, Smart Grid and Renewable Energy (PESGRE 2020), Cochin, India, 2020, pp. I-6, doi: 10.1 109/
+PESGRE45664.2020.9070706.
+
+A. Kumar, R. Gandhi, R.Wilson and R. Roy, “Analysis of Permanent Magnet BLDC Motor Design with Different Slot Type,”
+2020 IEEE International Conference on Power Electronics, Smart Grid and Renewable Energy(PESGRE 2020),
+Cochin, India, 2020, pp. 1-6, doi: 10.1 109/PESGRE45664.2020.9070532.
+
+Mukesh Kumar and Shaik Affijulla, Estimation of Alternator Rotor Angle by using Synchronized Voltage and Current
+Phasors, IEEE Calcutta Conference (CALCON), 28-29 February, 2020, Kolkata, India,.
+
+Aniruddha Agarwal, Dallang M Momin, DonnagratiaSyndor and Shaik Affijulla, Impact Analysis of Cyber Attack under
+Stable State of Power System: Voltage Stability, IEEE Region 10 Symposium (TENSYMP), 5-7 June 2020, Dhaka,
+Bangladesh,
+
+Gaurav Bhatt and Shaik Affijulla, Integration of Solar Power into Electric Grid based on Voltage at Critical Contingency,
+IEEE Region 10 Symposium (TENSYMP), 5-7 June 2020, Dhaka, Bangladesh,
+
+Avigyan Roy,PratikantaMisra, Atanu Banerjee, “Effect of Sampling on Steady-State Time-Varying Output of DPWM
+Controlled Buck Converter”, [EEE International Conference on Power Electronics, Smart Grid and Renewable
+Energy (PESGRE-2020), Cochin, Kerala, 2"? -4* January,2020.
+
+Abhilash Sen, Atanu Banerjee, HaricharanNannam, “A comparative analysis between two DPFC models in a grid
+connected Hybrid Solar- Wind Generation system” ,IEEE International Conference on Power Electronics, Smart
+Grid and Renewable Energy (PESGRE-2020), Cochin, Kerala, 2"? -4* January,2020.
+
+Abhilash Sen, Atanu Banerjee, HaricharanNannam, “ Performance Analysis of UPFC and DPFC in a Grid Connected
+Hybrid Solar-Wind Generation System”,! 1th International Exergy, Energy and Environment symposium (IEEES
+11-2019), SRM University, Chennai, India, July 14-18, 2019.
+
+Hari CharanNannam,Atanu Banerjee, “A novel fuzzy logic controlled Vienna rectifier to extract maximum power in the
+grid Connected wind energy system applications”, | 1th International Exergy, Energy and Environment symposium
+(IEEES I 1-2019), SRM University, Chennai, India, July 14-18, 2019.
+
+Abhilash Sen,Atanu Banerjee, HaricharanNannam,“A comparative analysis between UPFC and DPFC ina grid connected
+Photovoltaic System”, IEEE INCOS1I9, Madurai, India, April ,2019.
+
+PC. Gupta,A. Banerjee, P. P. Singh, - “Analysis and Control of Chaotic Oscillation in FOSMIB Power System Using AISMC
+
+58 | Annual Report 2019-20

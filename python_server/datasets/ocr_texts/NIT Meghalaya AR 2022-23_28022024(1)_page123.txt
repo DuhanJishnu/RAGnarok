@@ -1,0 +1,75 @@
+Annual Report 2022-23 | 121
+
+18 | S.K. Yadav, A. Singh, and K. | Experimental Study of Hole Overcut and Taper During Electrochemical Discharge Machining
+Debnath (ECDM) of CFRP Composite. Materials Today: Proceedings, Vol. 59, pp. 1054-1058, 2022.
+
+19 | R. Davis, A. Singh, K. Enhanced Micro-Electric Discharge Machining-Induced Surface Modification on Biomedical Ti-
+Debnath, R.M. Sabino, 6AI-4V Alloy. Journal of Manufacturing Science and Engineering, Vol. 144(7), 071002, 2022.
+K. Popat, P. Soares, A.K.
+Keshri, and B. Borgohain
+
+20 | Das, A., Das, R.S. and Das, Numerical analysis of liquid desiccant dehumidification system with novel trapezoidal baffled
+K surface. International Journal of Refrigeration, 2023, 145, pp.457-466
+
+21 | Das, S., Debnath, B.K. & Analyzing the Combustion Behavior of different Ceramic Porous Media in the Piston Bowl of
+Das, R.S. a Diesel Engine. J. Inst. Eng. India Ser. C 103, 573-587 (2022). https://doi.org/10.1007/
+
+s40032-022-00828-6
+
+22 | Chandekar, A. C., Deka, S., Comparative Assessment of Engine Vibration, Combustion, Performance, and Emission
+
+Debnath, B. K., and Babu, Characteristics Between Single and Twin-Cylinder Diesel Engines in Unifuel and Dual-
+PLR. Fuel Mode. ASME. J. Energy Resour. Technol. 2022; 144(8): 082106. https://doi.
+org/10.1115/1.4052998
+
+23 | Chandekar, A.C. and Effect of Vibration and Pressure on the Air-BioCNG Mixture Inside the Manifolds of Dual-
+
+Debnath, B.K. Fuel Diesel Engines. ASME. J. Energy Resour. Technol. 2023, 145(7): 072301. https://doi.
+org/10.1115/1.4056842
+
+24 | M.A. Singh, D. K. Sarma, Characterization of surface topography during multi-pass WEDM of MWCNT alumina
+
+O. Hanzel, P. Sajgalik, composites, CIRP Journal of Manufacturing Science and Technology, Elsevier, (Accepted),
+Janakarajan Ramkumar 2023.
+
+25 | Dutta, S. and Sarma, D.K. Multi-objective optimization of u-EDM parameters for u-hole drilling on Hastelloy C 276 Super
+alloy using Response Surface Methodology and Multi-objective Genetic Algorithm. CIRP Journal
+of Manufacturing Science and Technology, DOI: doi.org/10.1016/j.cirpj.2022.07.011, Vol.,
+No.39, Page nos. 115-133, 2022
+
+26 | Dutta, S. and Sarma, D.K. Multi-response optimization of machining parameters to minimise the Overcut and Circularity
+error during Micro-EDM of Nickel-Titanium Shape Memory Alloy. Advances in Materials and
+Processing Technologies (Taylor & Francis), DOI: 10.1080/2374068X.2022.2090787, 2022.
+
+27 | H. Dutta, K. Debnath, and Preliminary Investigation of Powder-Mixed Microelectrical Discharge Drilling (PMuEDD)
+
+D.K. Sarma, of CFRP Composite, Surface Review and Letters (SRL), World Scientific, DOI: 10.1142/
+$0218625X22501116, Vol. 29, No.8, Page nos. 2250111-11, 2022
+28 | Majumder S, Ghosh A, Basu | Computational assessment of immersed boundary-lattice Boltzmann method for complex
+DN and Natarajan G moving boundary problems, Computational Particle Mechanics, 1-18, 2022, DOI: 10.1007/
+s40571-022-00487-5
+29 | RM Mazarbhuiya, M Rahang, | Masking in EDM for pattern generation on Al-6061 work surface, Advances in Materials and
+S Saha Processing Technologies, 1-15
+
+30 | RM Mazarbhuiya, M Rahang | PCM assisted reverse electro discharge machining process for pattern generation, Materials and
+Manufacturing Processes 37 (9), 995-1002
+
+31 | RM Mazarbhuiya, M Rahang, | Surface modification in the shape of a pattern using crepe paper maskant in EDM, Surface
+
+S Saha Engineering 38 (6), 664-674
+32 | S Deka, A Kamal, RB Measurement technique for ideal selection of sensors and accurate force recovery on
+Pallekonda, M Rahang, V aerodynamic models, Experimental Techniques 46 (2), 213-224
+Kulkarni
+33 | Venkaiah, P., Sarkar, B.K. Pitch control of electrohydraulic semi-rotary-actuated wind turbine with actuator and valve
+and Chaterjee, A., fault using generalized power-based exponential rate reaching law sliding mode controller.
+Proceedings of the Institution of Mechanical Engineers, Part |: Journal of Systems and Control
+Engineering, p.09596518231154632. 2023
+34 | Kumar, N., Venkaiah, P., Wind turbine electrohydraulic transmission system control for maximum power tracking with
+Sarkar, B.K. and Maity, S. pump fault. Proceedings of the Institution of Mechanical Engineers, Part |: Journal of Systems
+and Control Engineering, p.09596518231155691., 2023.
+35 | Vinod, J., Sarkar, B.K. and Flow control in a small Francis turbine by system identification and fuzzy adaptation of PID and
+
+Sanyal, D.,
+
+deadband controllers. Renewable Energy, 201, pp.87-99. 2022
+

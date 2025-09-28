@@ -1,0 +1,65 @@
+xv. Kaushik Neogi , Pradip K Sadhu, Atanu Banerjee, “A review work on high frequency Induction curing of porous asphalt
+concrete”- International Journal of Power Electronics and Drive Systems (IJPEDS), Vol.7, No.3, September,2016, pp.872-
+879.
+
+xvi. R. Roy, A. Dalal, P. Kumar, Prediction of High Frequency Core Loss for Electrical Steel Using the Data Provided by
+Manufacturer, Journal of magnetism and magnetic materials, Vol.-410, Page Nos -248-256, 2016.
+
+xvii. Sanjoy Debbarma, Arunima Dutta, “Utilizing Electric Vehicles for LFC in Restructured Power Systems using Fractional Order
+Controller”, IEEE Transactions on Smart Grid, 2016. DOI: 10.1109/TSG.2016.2527821
+
+b. Book chapters: 1
+
+1. P. P Singh, and B. K. Roy, “Comparative Performances of Anti-synchronisation between Different Chaotic Systems using
+Three Control Schemes in Book “Nonlinear Systems: Design, Applications and Analysis,” Nova Science Publishers, Inc.
+400 Oser Ave Suite, 1600 Hauppauge, NY 11788-3619, USA (Accepted), 2016, Editor: Christos Volos
+
+c. Conferences: 14
+
+i. Bonu Ramesh Naidu, Gayadhar Panda and R Ganesh, “Modelling and Hardware-in-Loop Validation of a Modified Controller
+for Intermittent Operation of a Standalone Low Voltage DC Fuel Cell System”, in /EEE International Conference TENCON,
+2016.
+
+ii. Satabdy Jena, Gayadhar Panda and Rangababu Peesapati, “Investigation on FPGA based Passive Anti-Islanding Protection
+Schemes for Grid Interfaced Distributed Generation System”, in /EEE International Conference TENCON, 2016.
+
+iii. Smitha Joyce Pinto and Gayadhar Panda, “Power Quality Analysis in a Grid Connected PV System Employing a Hybrid
+Technique Based on Fractional Wavelet Transform”, in /JEEE International Conference TENCON, 2016.
+
+iv. Santanu Kumar Dash, Pravat Kumar Ray and Gayadhar Panda, “DS1103 Real-Time Operation and Control of Photovoltaic
+Fed Unified Power Quality Conditioner”, in /EEE International Conference TENCON, 2016.
+
+v. Modeling and analysis of a hybrid active power filter for power quality improvement using hysteresis current control
+technique, IEEE Seventh India International Conference on Power Electronics (IICPE-2016) Thapar University, Patiala,
+Punjab, November 17-19, 2016.
+
+vi. Comparative analysis of a hybrid active power filter for power quality improvement using different compensation techniques,
+2. IEEE International Conference on Recent Advances and Innovations in Engineering (ICRAIE-2016) Jaipur, India,
+December 23-25, 2016.
+
+vii. Effect of pole placement of a full order state observer in sensorless speed estimation of brushed DC motor, IEEE 7th Power
+India International Conference (PIICON 2016) Govt. Engineering College Bikaner, Rajasthan, November 25-27, 2016.
+
+vili. J. Samantaray, P. P. Singh, and B K Roy, A Comparative Study of P! & PID Based SMC for Anti-synchronization of Vallis
+System, 5" International Conference on Computer Applications in Electrical Engineering - Recent Advances (CERA2017-),
+IIT Roorkee, (Accepted)
+
+ix. S. Ghosh, M. Ghosh, G.K. Panda, P.K. Saha, “Time Delay Compensation by Estimating Speed Error of a PMDC Motor
+Using Backward Arc Length Approach”, /EEE Sponsored 2016 International Conference on Intelligent Control, Power and
+Instrumentation (ICICPI 2016), Period- October 21st - 23rd, 2016, Place -Kolkata, India, 2016.
+
+x. 17.M. Rao, M. Ghosh, B. Halder, “Effect of Pole Placement of a Full Order State Observer in Sensorless Speed Estimation of
+Brushed DC Motor”, /EEE 7 PIICON 2016, Period- 25th-27th Nov, 2016, Place -Rajasthan, India, 2016.
+
+xi. K. S. Kumar, S. Affijulla, Voltage stability and dynamic analysis of North-Eastern Indian power Grid, 2016 Second IEEE
+International Innovative Applications of Computational Intelligence on Power, Energy and Controls with their Impact on
+Humanity (CIPECH), Period -Nov 18 - 19, Place -Ghaziabad, India, Page -114 - 118, 2016.
+
+xii. R. Roy, A. Dalal, K. K. Prabhakar and P. Kumar, “A general relation betweensupply harmonics and reactive power of an
+induction motor,” /ECON 2016 — 42nd Annual Conference of the IEEE Industrial Electronics Society, Florence, 2016, pp.
+1572-1577.
+
+xiii. A. Dalal, P. Kumar and R. Roy, “Analytical model for permanent magnet motor with non-linear ferromagnetic material
+property,” /ECON 2016 - 42nd Annual Conference of the IEEE Industrial Electronics Society, Florence, 2016, pp. 1604-
+1609.
+

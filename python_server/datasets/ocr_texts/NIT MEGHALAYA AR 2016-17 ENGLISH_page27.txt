@@ -1,0 +1,99 @@
+vi.
+
+vil.
+
+vill.
+
+Xi.
+
+xii.
+
+xiii.
+
+xiv.
+
+XV.
+
+Xvi.
+
+xvii.
+
+xviii
+
+xix.
+
+XX.
+
+XXi.
+
+Xxii.
+
+Akhilendra Pratap Singh, Ujwal Kumar Singh; Amit Kumar;”User centric android application for future world; SyncApp”,
+IEEE International Conference on Computational Intelligence and Computing Research (ICCIC), Period -15-17 Dec, Place
+-Chennai, Page -1-5, 2016.
+
+AbhoyKole, P. Mercy Nesa Rani, KamalikaDatta, IndranilSengupta, and Rolf Drechsler, “Exact Synthesis of Ternary Reversible
+Functions using Ternary Toffoli Gates”, IEEE International Symposium on Multiple Valued Logic (ISMVL), pp. 179-184,
+Novi Sad, Serbia, May 22-24, 2017.
+
+AbhoyKole, Robert Wille, KamalikaDatta, and IndranilSengupta, “Test Pattern Generation Effort Evaluation of Reversible
+Circuits”, ”, 9" International Conference on Reversible Computation, pp. 162-175, Kolkata, India, July 6-7, 2017.
+
+P. Mercy Nesa Rani, AbhoyKole, Kamalika Datta, and IndranilSengupta, “Improved Decomposition of Multiple-Control
+Ternary Toffoli Gates using Muthukrishnan-Stroud Quantum Gates”, 9" International Conference on Reversible Computation,
+pp. 202-213, Kolkata, India, July 6-7, 2017.
+
+Leniency Marbaniang, AbhoyKole, Kamalika Datta, and IndranilSengupta, “Design of Efficient Quantum Circuits using
+Nearest Neighbor Constraint in 2D Architecture”, 9'" International Conference on Reversible Computation, pp. 248-253,
+Kolkata, India, July 6-7, 2017.
+
+AbhoyKole, and Kamalika Datta, “Improved NCV Gate Realization of Arbitrary Size Toffoli Gates”, 30" International
+Conference on VLSI Design (VLSID), pp. 289-294, Hyderabad, India, January 7-11, 2017.
+
+Phrangboklang L. Thangkhiew, Rahul Gharpinde, Varun C. Paturi, Kamalika Datta, and IndranilSengupta, “Area Efficient
+Implementation of Ripple Carry Adder using Memristor Crossbar Arrays”, 11" International Design and test Symposium
+(IDT), pp. 142-147, Hammamet, Tunisia, December 18-20, 2016.
+
+F. Lalchhandama, Brojo Gopal Sapui, and Kamalika Datta, “An Improved Approach for the Synthesis of Boolean Functions
+using Memristor based IMPLY and INVERSE-IMPLY Gates”, IEEE Computer Society Annual Symposium on VLSI (ISVLSI),
+pp. 319-324, Pittsburgh, USA, July 11-13, 2016.
+
+A.P.S. Thengal, N. Rastogi, A. Medhi, R. Shrivastava, and Kamalika Datta, “Parameter Sensing and Object Tracking using
+Global Positioning Sysytem”, 6" International Symposium on Embedded Computing and System Design (ISED), pp. 289-
+293, IIT Patna, December 15-17, 2016.
+
+Suchisman Burman, KamalikaDatta, Robert Wille, IndranilSengupta, and Rolf Drechsler, “An Improved Gate Library for
+Logic Synthesis of Optical Circuits”, 6 International Symposium on Embedded Computing and System Design (ISED), pp.
+1-6, IIT Patna, December 15-17, 2016.
+
+M. Ajij, S. Pratihar, K. Ganguly, Detection and Retargeting of Emphasized Text for Content Summarization, 5th Intl. Conf.
+on Advances in Computing, Communications and Informatics (ICACCI), Period -21-24 September, Place -LNMIIT, Jaipur,
+Pages -15-21, 2016.
+
+M. Ajij and S. Pratihar, Quasi-straightness based Features for Off-line Verification of Signatures, International Conference on
+Identity, Security and Behavior Analysis (ISBA), Period -February 22-24, Pages 1-7, Place -IIIT, New Delhi, 2017.
+
+C. Lalengmawia, A. Bhattacharya, A. Datta, Image Stenography using Advanced Encryption Standard for implantation of
+Audio/Video Data, to appear in Proc. International Conference on Recent Trends in Information Technology (IEEE ICRTIT),
+8-9 Apr. 2016.
+
+. K. Sinha, B. Gupta, S. Rahimi, A. Bhattacharya, Candidate Core Selection for Load-BalancedMulticore Shared Tree
+Multicasting”, in Proc. International Conference on Recent Advances in Information Technology (IEEE RAIT), 3-5 Mar.
+2016.
+
+A. Bhattacharya, S. Audhya, K. Sinha, An Anti-Jamming Protocol Based on Secret Reallocation of Channels”, in Proc.
+International Conference on Recent Advances in Information Technology (IEEE RAIT), 3-5 Mar. 2016.
+
+L. Bu, R. Ray, S. Schupp, ARCH-COMP17 Category Report: Bounded Model Checking of Hybrid Systems with Piecewise
+Constant Dynamics,ARCH17. 4th International Workshop on Applied Verification of Continuous and Hybrid Systems, Period
+-April, Place -Pittsburgh, USA, Page -134-142, 2017. https://easychair.org/publications/paper/352479
+
+M. Althoff, S. Bak, D. Cattaruzza, X. Chen, G. Frehse, R. Ray, S. Schupp, ARCH-COMP17 Category Report: Continuous
+and Hybrid Systems with Linear Continuous Dynamics, ARCH17. 4th International Workshop on Applied Verification of
+Continuous and Hybrid Systems, Period -April, Place -Pittsburgh, USA, Page -143-159, 2017. https://easychair.org/
+publications/paper/352651
+
+A. Gurung, A. Deka, E. Bartocci, S. Bogomolov, R. Grosu, R. Ray, Parallel Reachability Analysis for Hybrid Systems,
+MEMOCODE, Period -Nov 18-20, Place -IIT Kanpur, India, 2016. http://ieeexplore.ieee.org/document/7797741/
+
+Annual Report 2016-17 | 25

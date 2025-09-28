@@ -1,0 +1,82 @@
+[Name —_—|_ Designation | Qualification Specialization Date of Joining | Ph.D. guidance | Remarks —_|
+
+Ksh Milan Assistant PhD Instrumentation and Signal 24.05.2016 Nil
+
+Singh Professor Processing
+
+Biswajit Assistant PhD Control and Instrumentation 23.07.2012 Nil
+
+Halder Professor
+
+Ramyani Trainee M.Tech Power Electronics 21.07. 2014 NA pursuing PhD in
+Chakrabarty Teacher IIT Guwahati
+Mousam Assistant ME (Ph.D Power Electronics & Drives 23.08.2013 NA Left NIT
+Ghosh Professor Pursuing) Meghalaya on
+
+4.
+
+a.
+
+10.
+
+11.
+
+12.
+
+13.
+
+38
+
+13.08.2018
+
+List of Publications:
+
+Journals:
+
+Smitha Joyce Pinto, Gayadhar Panda and Rangababu Peesapati, “An Implementation of Hybrid Control Strategy for Distributed
+Generation System Interface Using Xilinx System Generator”, IEEE Transactions on industrial informatics, 2017, vol. 13, no.
+5, pp. 2735-2745.
+
+Bonu Ramesh Naidu, Gayadhar Panda and Pierluigi Siano “A Self-Reliant DC Microgrid: Sizing, Control, Adaptive Dynamic
+Power Management, and Experimental Analysis”, IEEE Transactions on industrial informatics, 2018, vol. 14, no. 8, pp. 3300-
+3313.
+
+Moushumi Patowary, Gayadhar Panda, Bonu Ramesh Naidu and Bimal C. Deka “ANN-based adaptive current controller for
+on-grid DG system to meet frequency deviation and transient load challenges with hardware implementation” IET Renewable
+Power Generation, 2018, vol. 12, no. 1, pp. 61-71.
+
+Moushumi Patowary, Gayadhar Panda, and Bimal C. Deka “An adaptive current control-detuned harmonics elimination
+schemes for enhancement of power quality in RES interfaced AC-grid network” Elsevier, Sustainable Energy Technologies and
+Assessments, 2018, vol. 25, pp.11-23.
+
+Satabdy Jena, Gayadhar Panda, and P. Rangababu, “FPGA based implementation for Improved control scheme of grid-
+connected PV system with three-phase three-level NPC-VSI” International Journal of Circuit Theory and Applications, Wiley, feb
+2018, DOI: https://doi.org/10.1002/cta.2448.
+
+Priyabat Garanayak and Gayadhar Panda, “An adaptive linear neural network with least mean M-estimate weight updating
+rule employed for harmonics identification and power quality monitoring”, Transactions of the Institute of Measurement and
+Control, SAGE journal, 2017, pp. 1-14.
+
+P.S.puhan, P.K.Ray & G.Panda “A Comparative Analysis of Artificial Neural Network and Synchronous detection Controller to
+improve power quality in Single Phase System” International Journal of Power Electronics, Inderscience” Accepted, 2017.
+
+Agamani Chakraborty, Debabrata Roy, Pradip Kr Sadhu, Ankur Ganguly, Atanu Banerjee “An Interference of High Frequency
+Series Resonant Inverter in Domestic Induction Heater Estimation in Emission Control Using FEM ”- Journal of Power
+Technologies, Vol.97, No.4, December, 2017,pp.283-288.
+
+Sanjoy Debbarma, Rituraj Shrivastwa, Grid Frequency Support from V2G Aggregators and HVDC Links in Presence of Non-
+synchronous Units, IEEE Systems Journal, Vol.-NA, pp. 1-10, 2018. (Accepted for Publication).
+
+Arunima Dutta, Sanjoy Debbarma, “Frequency Regulation in Deregulated Market Using Vehicle-to-Grid Services in Residential
+Distribution Network”, IEEE Systems Journal, Vol.- NA, pp. 1-9, 2017 (Accepted for Publication)
+
+P. P Singh, J. P. Singh, and B. K. Roy, “NAC-based Synchronisation and Anti-synchronisation Between Hyperchaotic and
+Chaotic Systems, Its Analogue Circuit Design and Application,” IETE Journal of Research, vol. 63, no. 6, pp. 1-17, 2017.
+
+V. Kumar, E. Tiwari, V. K. Chauhan, and P. P. Singh, Hybrid Synchronisation of Vallis Chaotic Systems Using Nonlinear Active
+Control, International Journal of Engineering and Technology, vol. 7, no. 2.21, pp. 50-52, 2018.
+
+Anand Kumar and P. P. Singh, Synchronisation of Unified Chaotic Systems using Nonlinear Active Control Technique and Its
+Comparative Performance Analysis, Jour of Adv Research in Dynamical & Control Systems, vol. 10, no. 3, pp. 139-144, 2018
+
+National Institute of Technology Meghalaya

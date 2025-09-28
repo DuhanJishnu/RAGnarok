@@ -1,0 +1,33 @@
+e Issues with H/W and S/W:
+
+Any new procurement of computers or it’s peripherals or any internet and network security related devices are processed
+through the Computer Centre. The staffs of Computer Centre manage the needs and issues related to any hardware problems,
+software installation and related issues, internet connectivity and networking issues in Lab-PCs and PCs of faculties and staffs.
+Computer Centre staffs help in establishing the technical environment for every conferences, workshops, webinars, video
+conferencing etc.
+
+All the hostels are well connected with the internet backbones provided to the institute to provide seamless internet to the
+hostels. So any new networking establishments or problems related to the networking are also handled by the Computer Centre
+staffs.
+
+e ERP:
+
+The ERP software application for the institute is hosted in the local server to manage all the administrative process smoothly.
+Any modification or updation of any modules or any issues with the ERP application is gracefully handled by a dedicated
+Computer Centre staff.
+
+LSAcodemio
+
+8
+
+TT ee
+HATLAL UR TITIUTE Ce THCHMCLOGY,
+Li ek
+
+CC Resource Person Utilization:
+
+Computer Centre has designed and has been maintaining a complaint portal through which any staff and faculty can raise service
+request related to any hardware or software or any internet connectivity problem. Once the problem is lodged it is assigned to the
+staffs via an admin panel. This helps in keep tracking the status of the problems and the reports regarding the problems.
+
+Annual Report 2017-18 79

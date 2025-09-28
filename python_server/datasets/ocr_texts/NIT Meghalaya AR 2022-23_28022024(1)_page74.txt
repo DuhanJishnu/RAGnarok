@@ -1,0 +1,57 @@
+72 | National Institute of Technology, Meghalaya
+
+CODING CLUB
+
+Workshop
+
+Networking & Bug Bounty:
+
+Date : 12-10-2022(9-12pm)
+Lecture Hall by Rohit Patedar Viraj Vaishnav
+Total Attendance :25
+
+Both networking and bug bounty programs are essential in the
+field of computer science and cybersecurity. Networking enables
+effective communication and data exchange, while bug bounty
+programs contribute to the ongoing improvement of software and
+system security.
+
+Networking: It explain how the computer are connected to each
+other and It involves understanding concepts like IP addressing,
+routing, switching, TCP/IP, DNS, and network topologies.
+
+Bug Bounty: Bug bounty programs in computer science and
+cybersecurity involve the identification and reporting of software
+vulnerabilities and security flaws. Ethical hackers participate in
+these programs to find and report bugs to software companies,
+web platforms, or organizations. In return, they receive monetary
+rewards, recognition, or other incentives.
+
+Competetive Coding:
+
+Date : 09-11-2022(10-12pm)
+New CC by : Ritikmani Yadav and Keshav Krishna
+Total Attendance : 20
+
+Competitive coding competitions and platforms provide a range
+of coding challenges that test problem-solving skills, algorithmic
+knowledge, and programming proficiency. Participants compete
+against each other to solve these challenges and achieve the best
+possible solution within the given constraints.
+
+They teach student how to use different platform to solve question
+regarding coding; also helped student in solving some of the
+question from leetcode and completed the lecture.
+
+They at last teach how codes for Digit code are generated and
+some mathematics involved like permutation and combination.
+
+Bug bounty programs encourage security researchers to discover
+and report vulnerabilities before they can be exploited by malicious
+actors. This helps improve the security of software, websites, and
+applications, ensuring that potential weaknesses areidentified and
+fixed promptly.
+
+They at last teach how codes for Digit code are generated and
+some mathematics involved like permutation and combination.
+

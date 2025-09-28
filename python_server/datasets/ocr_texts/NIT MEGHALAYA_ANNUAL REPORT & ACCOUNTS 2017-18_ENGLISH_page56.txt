@@ -1,0 +1,60 @@
+[Name ==  ~—*Y|_séDeessignation —_—| Qualification | Specialization | Date of Joining | Ph.D. guidance | Remarks |
+
+Dr. Hriday Mani Kalita Assistant Professor Ph.D Water Resources August 12, O1 Ongoing
+Engineering 2014
+Dr. Ratan Sarmah Assistant Professor Ph.D Water Resource July 27, 2015 -
+Dr. Smrutirekha Sahoo Assistant Professor Ph.D Geotechnical November -
+Engineering 02,2015
+Dr. Susmita Sharma Assistant Professor Ph.D Geotechnical May 10, 2016 -
+Engineering
+Dr. Debabrata Podder Assistant Professor Ph.D Structural June 23, 2016 -
+Engineering
+Dr. Dibyendu Adak Assistant Professor Ph.D Structural January 03, -
+Engineering 2018
+Dr. Subhrajit Dutta Assistant Professor Ph.D Structural January 03, -
+Engineering 2018
+Mr. Suman Kumar Trainee Teacher M.Tech Structural July 21, 2014 NA Ph.D
+Engineering Pursuing
+Ms. Rubi Chakraborty Trainee Teacher M.Tech Geotechnical July 21, 2014 NA Ph.D
+Engineering Pursuing
+Mr. Supratim Kaushik Trainee Teacher M.Tech Transportation 20 July, 2015 NA Ph.D
+Systems Pursuing
+Engineering
+
+4. List of Publications:
+
+a. Journals:
+Year 2018:
+
+1. H.M. Kalita, A. K. Sarma, An implicit scheme for shallow water flow with wet dry interface, Water Resources, Vol.-45, Issue
+No.-1, Page Nos -61-68, 2018.
+
+2. H.M. Kalita, A simple and efficient numerical model for simulating one dimensional dam break flows, Int. J. Hydrology Science
+and Technology (In press)
+
+3. Chakraborty R., Dey A. (2018) Effect of Toe Cutting on Hillslope Stability. In: 1.V. A., Maji V. (eds) Geotechnical Applications.
+Lecture Notes in Civil Engineering, vol 13. Springer, Singapore.
+
+4. K. Khate, M. L. Patton, C. Marthong, Structural behaviour of stainless steel stub column under axial compression: a FE study,
+International Journal of Steel Structures, Springer, Vol.-18, Page Nos -1-18, 2018.
+
+5. K. Khate, M. L. Patton, C. Marthong, Numerical Modelling of lean duplex stainless steel stub column built-up sections under
+pure axial compression, Journal of Advanced Research in Dynamical and control systems, Vol.-10, Page Nos -948-959, 2018.
+
+6. Sahoo, S., Manna, B. and Sharma, K. G. (2018). “Seismic response of a steep nailed soil slope: Shaking table test and
+numerical studies.” International Symposium on Geotechnics of Transportation Infrastructure (ISGTI 2018), IIT Delhi, India,
+April 07-08.
+
+7. P. Pathak and S. Sharma, Sorption isotherms, kinetics and thermodynamics of the contaminants onto Indian soils, Journal of
+Environmental Engineering, Journal of Environmental Engineering, ASCE, Vol. 144, Issue 10, 2018.
+
+8. N.Koshy, S.S U, $.Sharma, J. Joseph,V.Sharma and D.N. Singh, B. Jha, Characterization of the Soil Samples from the Lonar
+Crater, India, Geotechnical Engineering Journal of the SEAGS & AGSSEA, Vol.49, Issue 1, 2018.
+
+9. C. Marthong, A.S. Sangma, S.A. Choudhury, R.N. Pyrbot, S.L. Tron, L. Mawroh, G.S. Bharti (2017). “Structural Behavior of
+Recycled Aggregate Concrete Beam-Column Connection in Presence of Micro Concrete at Joint Region”, 11, 243-251.
+
+10. Comingstarful Marthong (2018). “Behaviour of recycled aggregate concrete beam-column connections in presence of PET
+fibers at the joint region,” Computers and Concrete, Techno Press, 21 (6), pp. 669-679.
+
+54 National Institute of Technology Meghalaya

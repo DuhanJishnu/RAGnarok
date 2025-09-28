@@ -1,0 +1,93 @@
+14
+
+15.
+
+16.
+
+17.
+
+18.
+
+19.
+
+20.
+
+21.
+
+22.
+
+b.
+1.
+
+QO
+
+. P. P. Singh and B. K. Roy, Comparative performances of synchronisation between different classes of chaotic systems using
+three control techniques, Annual Reviews in Control, vol. 45, pp. 152-165, 2018.
+
+R. Roy, K. K. Prabhakar and P. Kumar, “Core-loss calculation in different parts of induction motor,” in IET Electric Power
+Applications, vol. 11, no. 9, pp. 1664-1674, 11 2017.
+
+Shaik Affijulla and Praveen Tripathy, “Development of Dictionary based Phasor Estimator Suitable for P-class Phasor
+Measurement Unit”, IEEE Transactions on Instrumentation and Measurement, vol. In Press, pp. 1-13, 2018. (10.1109/
+TIM.2018.2824545)
+
+Shaik Affijulla and Praveen Tripathy, “A Robust Fault Detection and Discrimination Technique for Lines”, IEEE Transactions on
+Smart Grid, vol. In Press, pp. 1-11, 2017. (10.1109/TSG.2017.2709546)
+
+M. Ghosh, G.K. Panda, P.K. Saha, Analysis of Chaos and Bifurcation Due to Slotting-Effect and Commutation in a Current
+Discontinuous Permanent Magnet Brushed DC Motor Drive, IEEE TRANSACTIONS ON INDUSTRIAL ELECTRONICS, Vol.-65,
+Issue No.-3, 2018. http://dx.doi.org/10.1109/TIE.2017.2745446
+
+M. Ghosh, P.K. Saha, G.K. Panda, Hybrid Computational Mechanical Sensorless Fuzzified Technique for Speed Estimation of
+Permanent Magnet Direct Current Brushed Motor, IEEE TRANSACTIONS ON INDUSTRIAL ELECTRONICS, Vol.-65, Issue No.-
+6, 2018. http://dx.doi.org/10.1109/ TIE.2017. 2767553
+
+S. Ghosh, M. Ghosh, G.K. Panda, P.K. Saha, Mechanical Contact-Less Computational Speed Sensing Approach of PWM
+Operated PMDC Brushed Motor: A Slotting-Effect and Commutation Phenomenon Incorporated Semi-Analytical Dynamic
+Model Based Approach, IEEE TRANSACTIONS ON CIRCUITS AND SYSTEMS--II: EXPRESS BRIEFS, Vol.-65, Issue No.-1,
+2018. http://dx.doi.org/10.1109/TCSII.2017.2699080
+
+M. Ghosh, S. Ghosh, P.K. Saha, G.K. Panda, Sensorless Speed Estimation of Permanent Magnet DC Brushed Motor Considering
+the Effect of Armature Teeth-Slots and Commutation, IET POWER ELECTRONICS, Vol.-10, Issue No.-12, 2017. http://dx.doi.
+org/10.1049/iet-pel.2016.0634
+
+Ksh. Milan Singh, “Simultaneous Estimation of Moving-Vibration Parameters by Sliding Goertzel Algorithm in PLL Technique,”
+IEEE Trans. Instrumentation & Measurement., 2018. (Early Access)
+
+Book chapters:
+
+Vulisi Narendra Kumar, Gayadhar Panda and Bonu Ramesh Naidu “Seamless Control and Unified Dynamic Energy Management
+in a Renewable/Clean Energy Integrated Self-reliant DC Microgrid: Integration of Renewable Sources With High-Gain Power
+Processing Stages”, In Handbook of Research on Power and Energy System Optimization, ed. Pawan Kumar, Surjit Singh, Ikbal
+Ali and Taha SelimUstun, 511-551 (2018), doi:10.4018/978-1-5225-3935-3.chO15.
+
+Bonu Ramesh Naidu and Gayadhar Panda “Adaptive Dynamic Energy Management and Seamless Control for DC Microgrid
+System”, Control, Communication and Optimization of Smart Power Distribution Systems” Elsevier, 2017.
+
+Conferences:
+
+Vulisi Narendra Kumar, Gayadhar Panda “FPGA Implementation of Power Management Algorithm for Wind Energy Storage
+System with Kalman Filter MPPT Technique” 31st International Conference on VLSI Design and 2018 17th International
+Conference on Embedded Systems (VLSID), 2018, pp.449-450.
+
+Smitha Joyce Pinto, Gayadhar Panda “Combinational control scheme for utility interactive inverter system” IEEE Transportation
+Electrification Conference (ITEC-India), 2017, pp.1-6.
+
+Smitha Joyce Pinto, Gayadhar Panda, “Performance assessment of islanding detection using complex wavelet in a three-phase
+utility interactive inverter system” IEEE PES Asia-Pacific Power and Energy Engineering Conference (APPEEC), 2017, pp. 1-6.
+
+Vulisi Narendra Kumar, Bonu Ramesh Naidu, Gayadhar Panda “Hardware-in-loop validation of a dynamic control employed
+for a hybrid DC microgrid incorporating high gain DC-DC power stages” IEEE PES Asia-Pacific Power and Energy Engineering
+Conference (APPEEC), 2017, pp.1-6.
+
+Bonu Ramesh Naidu, Gayadhar Panda “A hybrid fuel cell-supercapacitor system employing adaptive control to overcome fuel
+starvation phenomenon of fuel cell” IEEE Innovations in Power and Advanced Computing Technologies (i-PACT), 2017, pp.1-5.
+
+PratapSekharPuhan, Pravat Kumar Ray; Gayadhar Panda “Performance improvement of shunt active power filter with combined
+control technique”, IEEE International Conference on Emerging Trends & Innovation in ICT (ICEI), 2017, pp. 56-61.
+
+S.K.Prince, K.Panda, V. Narendra Kumar and Gayadhar Panda, “Power Quality Enhancement in a Distribution Network Using
+PSO Assisted Kalman Filter - Based Shunt Active Power Filter”, in ENGINEER INFINITE e-TechNxt-2018, march 13-14,
+Pune. [Presented].
+
+Annual Report 2017-18 39

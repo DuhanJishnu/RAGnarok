@@ -1,0 +1,73 @@
+20.
+
+S.W. Hussain, T.V. Mahendra, S. Mishra and A. Dandapat, “A Quasi-Static Storage and Decision Block for Performance-
+Efficient Content Addressable Memory,’ 2019 IEEE 6th International Conference on Engineering Technologies and
+Applied Sciences (ICETAS), Kuala Lumpur, Malaysia, 2019, pp. |-6, doi: 10.1 109/ICETAS48360.2019.91 17334.
+
+T.V. Mahendra, S.W. Hussain, S. Mishra and A. Dandapat, “Low Match-Line Voltage Swing Technique for Content Addressable
+Memory,” 2019 7th International Conference on Smart Computing & Communications (ICSCC), Sarawak, Malaysia,
+Malaysia, 2019, pp. I-5, doi: 10.1 109/ICSCC.2019.8843590.
+
+T.V. Mahendra, S. Wasmir Hussain, S. Mishra and A. Dandapat, “Performance Analysis of N-CAM, P-CAM and TG-CAM
+Using 45-nm Technology,’ 2019 International Conference on Intelligent Computing and Control Systems (ICCS),
+Madurai, India, 2019, pp. 621-625, doi: 10.1 109/ICCS45141.2019.9065404.
+
+A. Gudmalwar,A. Dutta and C.V.R.Rao,“Estimation of Fundamental Frequency of Noisy Speech Signals using Correlogram
+based on Subband Filtering,’ 2019 IEEE 6th International Conference on Engineering Technologies and Applied Sciences
+(ICETAS), Kuala Lumpur, Malaysia, 2019, pp. 1-5, doi: 10.1 109/ICETAS48360.2019.91 17333.
+
+. A.Dutta, G.Ashishkumar and C.V.Rama Rao,‘“Auditory inspired Acoustic Model for Hybrid ASR System using Gammatone
+
+based Gabor Filters,” 2019 IEEE International Symposium on Signal Processing and Information Technology (ISSPIT),
+Ajman, United Arab Emirates, 2019, pp. 1-6, doi: 10.1 109/ISSPIT47144.2019.9001859.
+
+. S. Gogoi and R. Peesapati, “Design and Implementation of low power 4 x 4/8 x 8 2D-DTT architecture for image
+
+and video compression,” 2019 Women Institute of Technology Conference on Electrical and Computer Engineering
+(WITCON ECE), Dehradun Uttarakhand, India, 2019, pp. 200-205, doi: 10.1 109/WITCONECE48374.20 1 9.9092937.
+
+. S.J. Pinto, N.B.P,R.Peesapati and G. Panda,“Monitoring and Control of MultiBus Microgrid System Using FPGA Platform,”
+
+20191EEE Region | 0 Symposium (TENSYMP),Kolkata,India,20 | 9,pp.260-265,doi:10. 1 109/TENSYMP46218.2019.8971 116.
+
+. D.I. Kaplun et al., “Hardware Implementation of Video Processing Device using Residue Number System,” 2019 42nd
+
+International Conference on Telecommunications and Signal Processing (TSP), Budapest, Hungary, 2019, pp. 701-704, doi:
+10.1 109/TSP.2019.8768827.
+
+. P._N. Babu, P. R. Bana, R. B. Peesapati and G. Panda, “An Interleaved Buck Converter Based Active Power Filter for
+
+Photovoltaic Energy Application,” 2019 International Conference on Power Electronics Applications and Technology in
+Present Energy Scenario (PETPES), Mangalore, India, 2019, pp. 1-6, doi: 10.1 109/PETPES47060.201 9.9003964.
+
+. N. Babu P, R. B. Peesapati and G. Panda, “An Adaptive Current Control Technique in Grid-tied PV System with Active
+
+Power Filter for Power Quality Improvement,’ TENCON 2019 - 2019 IEEE Region 10 Conference (TENCON), Kochi,
+India, 2019, pp. 187-191, doi: 10.1 109/TENCON.2019.8929487.
+
+. PN. Babu, R.B. Peesapati and G. Panda,‘‘A Pre-filtering based Current Control Strategy in Grid-tied Photovoltaic Systems
+
+with Active Power Filter for Harmonic Mitigation,” TENCON 2019 - 2019 IEEE Region 10 Conference (TENCON),
+Kochi, India, 2019, pp. 1003-1008, doi: 10.1 109/TENCON.2019.8929638.
+
+. §. Gogoi and R. Peesapati, “A Hybrid Motion Estimation Search Algorithm for HEVC/H.265,” 2019 IEEE International
+
+Symposium on Smart Electronic Systems (iSES) (Formerly iNiS), Rourkela, India, 2019, pp. 129-132, doi: 10.1109/
+iSES47678.201 9.00037.
+
+. R. Peesapati and S. L. Sabat, “Programmable Auxiliary Co-Processing Unit for H.264 Decoder,’ 2019 IEEE International
+
+Symposium on Smart Electronic Systems (iSES) (Formerly iNiS), Rourkela, India, 2019, pp. 172-176, doi: 10.1109/
+iSES47678.2019.00046.
+
+. §. Kumar, G. D. Ropmay, P. Rangababu and P. K. Rathore, ‘A Stress Sensitive CMOS Operational Amplifier Based Pressure
+
+Sensor with Varying Input and Gain,” 2019 IEEE 9th International Conference on System Engineering and Technology
+(ICSET), Shah Alam, Malaysia, 2019, pp. 408-413, doi: 10.1 109/ICSEngT.2019.8906336.
+
+S. Kumar, G. D. Ropmay, P. Kumar Rathore and P Rangababu, “An idea of implementing CMOS operational amplifier in
+summer configuration for the designing of highly sensitive pressure transducer,’ 2019 2nd International Conference on
+Innovations in Electronics, Signal Processing and Communication (IESC), Shillong, India, 2019, pp. 211-214, doi: 10.1 109/
+IESPC.2019.8902445.
+
+48 | Annual Report 2019-20

@@ -1,0 +1,151 @@
+Annual Report 2022-23 | 97
+
+24.
+
+25.
+
+26.
+
+27.
+
+28.
+
+29.
+
+30.
+
+Bh:
+
+32.
+
+Shang, Cuijuan, Chih-Yung Chang, Wen-Hwa Liao, and
+Diptendu Sinha Roy __|JEEE Internet of Things Journal
+(2023).
+
+JECP: Joint Energy Conservation and Collision Avoidance for
+Paths Construction in Bluetooth Networks Li, Xuan,
+Qiaoyun Zhang, Chih-Yung Chang, Shin-Jer Yang, and
+Diptendu Sinha Roy IEEE Sensors Journal (2023)
+
+CSCP: Energy Charging Mechanism for Surveillance Quality,
+Network Connectivity and Perpetual Lifetime in WRSNs Kan,
+Yuanping, Chih-Yung Chang, Shih-Jung Wu, Chin-Hwa Kuo,
+and Diptendu Sinha Roy Journal of Internet Technology
+24, no. 2 (2023): 461-474.
+
+State-of-the-Art Load Balancing Algorithms for Mist-Fog-
+Cloud Assisted Paradigm: A Review and Future Directions
+Tripathy, Subhranshu Sekhar, Kaushik Mishra, Diptendu Sinha
+Roy, Kusum Yadav, Ali Alferaidi, Wattana Viriyasitavat, J.
+Sharmila, Gaurav Dhiman, and Rabindra K. Barik Archives of
+Computational Methods in Engineering (2023): 1-36.
+
+Performance Evaluation and Cyberattack Mitigation in a
+Blockchain-Enabled Peer-to-Peer Energy Trading Framework
+Pradhan, Nihar Ranjan, Akhilendra Pratap Singh, S. V. Sudha,
+K. Hemanth Kumar Reddy, and Diptendu Sinha Roy. Sensors
+23, no. 2 (2023): 670
+
+An Intelligent Health Care System in Fog Platform with
+Optimized Performance Tripathy, Subhranshu Sekhar, Mamata
+Rath, Niva Tripathy, Diptendu Sinha Roy, John Sharmila
+Anand Francis, and Sujit Bebortta Sustainability 15, no. 3
+(2023): 1862.
+
+A neuro evolutionary scheme for improved loT energy
+efficiency in smart cities. Choudhury, Sanjoy, Ashish Kr
+Luhach, Waleed Alnumay, Buddhadeb Pradhan, and Diptendu
+Sinha Roy. Computers and Electrical Engineering 104 (2022):
+108443.
+
+Automated generation of text handles from scanned images of
+scholarly articles for indexing in digital archive. Ajij, Md,
+Diptendu Sinha Roy, and Sanjoy Pratihar Multimedia Tools
+and Applications (2022): 1-32.
+
+RS-STQ: Recharge Scheduling Algorithm for Maximizing
+Spatial and Temporal Data Accuracy. Dande, Bhargavi,
+Chih-Yung Chang, Chin-Hwa Kuo, and Diptendu Sinha Roy
+IEEE Sensors Journal 22, no. 23 (2022): 23565-23580.
+
+An Efficient Fog Layer Task Scheduling Algorithm for Multi-
+Tiered loT Healthcare Systems. Behera, Ranjit Kumar, Amrut
+Patro, K. Hemant Kumar Reddy, and Diptendu Sinha Roy
+International Journal of Reliable and Quality E-Healthcare
+(IJRQEH) 11, no. 4 (2022): 1-11
+
+33.
+
+34.
+
+35.
+
+36.
+
+3/2
+
+38.
+
+39.
+
+40.
+
+Towards energy efficient Smart city services: A software
+defined resource management scheme for data centers.
+Reddy, K. Hemant K., Ashish K. Luhach, V. Vinoth Kumar,
+Sanjoy Pratihar, Deepak Kumar, and Diptendu S. Roy.
+Sustainable Computing: Informatics and Systems 35 (2022):
+100776.
+
+GaitRec-Net: a deep neural network for gait disorder detection
+using ground reaction force Pandey, Chandrasen, Diptendu
+Sinha Roy, Ramesh Chandra Poonia, Ayman Altameem,
+Soumya Ranjan Nayak, Amit Verma, and Abdul Khader Jilani
+Saudagar. PPAR research 2022 (2022).
+
+A lightweight device-level Public Key Infrastructure with
+DRAM based Physical Unclonable Function (PUF) for secure
+cyber physical systems. Chanda, Susovan, Ashish Kumar
+Luhach, Waleed Alnumay, Indranil Sengupta, and Diptendu
+Sinha Roy. Computer Communications 190 (2022): 87-98.
+
+JSQE: Joint Surveillance Quality and Energy Conservation for
+Barrier Coverage in WSNs Shao, Xuemei, Chih-Yung Chang,
+Shenghui Zhao, Chin-Hwa Kuo, Diptendu Sinha Roy, Xinzhe
+Pi, and Shin-Jer Yang Sensors 22, no. 11 (2022): 4120.
+
+Extended indirect controller-legacy switch forwarding for
+
+link discovery in hybrid multi-controller SDN Hussain, Mir
+Wajahat, Mohammad S. Khan, K. Hemant Kumar Reddy, and
+Diptendu Sinha Roy. Computer Communications 189 (2022):
+148-157.
+
+A novel blockchain-based healthcare system design and
+performance benchmarking on a multi-hosted testbed.
+Pradhan, Nihar Ranjan, Akhilendra Pratap Singh, Sahil
+Verma, Navneet Kaur, Diptendu Sinha Roy, Jana Shafi,
+MarcinWozniak, and Muhammad Fazal Ijaz Sensors 22, no. 9
+(2022): 3449.
+
+Traffic classification in underwater networks using sdn and
+data-driven hybrid metaheuristics. Pradhan, B., Gautam
+Srivastava, D. S. Roy, K. H. K. Reddy, and Jerry Chun-Wei
+Lin ACM Transactions on Sensor Networks (TOSN) 18, no. 3
+(2022): 1-15.
+
+MSQAC: maximizing the surveillance quality of area coverage
+in wireless sensor networks. Dande, Bhargavi, Chih-Yung
+Chang, Wen-Hwa Liao, and Diptendu Sinha Roy. IEEE Sensors
+Journal 22, no. 6 (2022): 6150-6163.
+
+(B) Book Chapters:
+
+1
+
+Blockchain-Based Smart Contract for Transportation of Blood
+Bank System, NR Pradhan, DA Kumar, AP Singh, The Role of
+loT and Blockchain: Techniques and Applications, 253-265.
+
+Recent advances on social media analytics and multimedia
+systems: issues and challenges Thoudam Doren Singh,

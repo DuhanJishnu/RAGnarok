@@ -1,0 +1,112 @@
+102 | National Institute of Technology, Meghalaya
+
+4. Staff Profile:
+
+Designation
+
+Qualification Date of Joining Nature of Job
+
+Mr. Sushanta Nath Technical Assistant B.E (NIT Agartala) 13/08/2012 Regular
+M.Tech (NIT Meghalaya)
+Mr. Bankitbok Laloo Technical Assistant Diploma 16/12/2021 Regular
+Mr. Ankur Rai Technical Assistant M.Tech (NIT Nagaland) 22/12/2021 Regular
+Mr. Felix Albert Nongneng Technician M.Tech (IIT Madras) 14/12/2021 Regular
+Mr. Rishandonborlang Mawrie | Technician B.Tech 16/12/2021 Regular
+Mr. Nangskhem Khongwir Technician B.Tech 20/12/2021 Regular
+Ms. Julene Seka H Thabah Technician M.Tech 13/12/2021 Regular
+Mr. Vicky Staryson Wahlang Lab Attendant B.Tech 23/12/2021 Regular
+
+5. List of Publications:
+
+(A) Journals:
+1.
+
+S. D. Roy and S. Debbarma, “Imposter Attacks in Energy
+Market Operation,” in /EEE Transactions on Smart Grid, vol.
+13, no. 5, pp. 3836-3839, Sept. 2022.
+
+Siddhartha Deb Roy, S. Debbarma, Josep. M. Guerrero,
+
+A Data-driven Algorithm to Detect False Data Injections
+Targeting both Frequency Regulation and Market Operation
+in Power Systems, International Journal of Electrical Power
+& Energy Systems, Elsevier, Vol. 143, December 2022,
+108409.
+
+Sugandha K and P. P. Singh, “Generation of Multi-scroll
+Chaotic System via Smooth State Transformation, Journal of
+Computational Electronics”, vol. 21, no. 04, pp. 781-791,
+April 2022.
+
+Prakash Chandra Gupta and Piyush Pratap Singh,
+“Multistability, multiscroll chaotic attractors and angle
+instability in multi-machine swing dynamics”, IFAC-Papers
+Online, Vol. 55, pp. 572-578, May 2022.
+
+Piyush Pratap Singh and Binoy Krishna Roy, “Pliers shaped
+coexisting bifurcation behaviors in a simple jerk chaotic
+system in comparison with 21 reported systems”, IFAC-Papers
+Online, Vol. 55, pp. 920-926, May 2022.
+
+P. P. Singh and B. K. Roy, “Chaos and Multistability Behaviors
+in 4D Dissipative Cancer Growth/Decay Model with Unstable
+Line of Equilibria”, Chaos, Solitons and Fractals, vol. 161,
+pp. 112312, June 2022.
+
+P. P. Singh, Ankur Rai and B. K. Roy, “Memristor-based
+asymmetric extreme multistable hyperchaotic system with a
+line of equilibria, coexisting attractors, its implementation
+
+and nonlinear active-adaptive projective synchronisation”, The
+European Physical Journal Plus, vol. 137, Article ID: 875,
+July 2022.
+
+10.
+
+11.
+
+12.
+
+13.
+
+14.
+
+Prakash Chandra Gupta, and P. P. Singh, “Chaos,
+multistability and coexisting behaviours in small-scale grid:
+Impact of electromagnetic power, random wind energy,
+periodic load and additive white Gaussian noise”, Pramana -
+J. Phys, vol. 97, no. 3, December 2022.
+
+P. P. Singh, Manashita Borah, Asim Datta, Sajad Jafari and
+Binoy K. Roy, “Integer cum fractional ordered active-adaptive
+synchronization to control vasospasm in chaotic blood vessels
+to reduce risk of COVID-19 infections”, International Journal
+of Computer Mathematics, vol. xx, no. xx, pp. xx, Jan 2023.
+DOI: 10.1080/00207160.2022.2163167
+
+S. K. Prince, Shaik Affijulla and G. Panda, “Protection of DC
+microgrids based on complex power during faults in on/off-
+grid”, IEEE Transactions on Industry Applications, vol. 59, no.
+Ol, pp. 244-254, 2023.
+
+S. L. Chukkaluru and Shaik Affijulla, “Review of discrete
+Fourier transform during dynamic phasor estimation and the
+design of synchrophasor units”, The ECTI Transactions on
+Electrical Engineering, Electronics, and Communications, vol.
+21, no. O1, pp. 01-18, 2023.
+
+S. L. Chukkaluru and Shaik Affijulla, “Chirp Z-Transform
+based dynamic phasor estimator suitable for phasor
+measurement units in electric grid”, Springer Journal of
+Control, Automation and Electrical Systems, vol. 34, no.01,
+pp. 216-229, 2023.
+
+S. K. Prince, K. P. Panda, R.T. Naayagi, P. Sanjeevikumar,
+B. Khan, Shaik Affijulla and Gayadhar Panda, “Challenges
+and Advancements in Protection of DC Microgrid System-A
+Comprehensive Review”, Taylor & Francis - Energy Sources,
+Part A: Recovery, Utilization, and Environmental Effects, vol.
+44, no. 04, pp. 10481-10505, 2022.
+
+Aniruddha Agrawal, Donnagratia Syndor, Dallang M Momin
+and Shaik Affijulla, “Theorems to explore the nature of

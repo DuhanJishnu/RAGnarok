@@ -1,0 +1,86 @@
+List of Publications:
+
+vi.
+
+vil.
+
+vill.
+
+xi.
+
+xii.
+
+xiii
+
+xiv.
+
+iV.
+
+Journals: 14
+
+A. Datta, S. Ghosh and A. Ghosh, “Unsupervised Band Extraction for Hyperspectral Images using Clustering and kernel
+Principal Component Analysis “, International Journal of Remote Sensing, Vol. 38, No. 3, pp. 850-873, 2017
+
+A. Datta, S. Ghosh and A. Ghosh, “ Supervised Band Extraction of Hyperspectral Images using Partitioned Maximum Margin
+Criterion”, IEEE Geoscience and Remote Sensing Letters, Vol. 14, No. 1, pp. 82-86, 2017
+
+AbhoyKole, KamalikaDatta, and IndranilSengupta, “A New Heuristic for N-Dimensional Nearest Neighbor Realization of a
+Quantum Circuit”, IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems (TCAD), DOI: 10.1109/
+TCAD.2017.2693284. (To appear)
+
+AbhoyKole, KamalikaDatta, and IndranilSengupta, “A Heuristic for Linear Nearest Neighbor Realization of Quantum Circuits
+by SWAP Gate Insertion using N-Gate Lookahead”, IEEE Journal on Emerging and Selected Topics in Circuits and Systems,
+Vol. 6, No. 1, pp. 62-72, January 2016.
+
+B. Paria, S. Pratihar, and P. Bhowmick, On Farey Table and its Compression for Space Optimization with Guaranteed Error
+Bounds, Mathematics for Applications (published by the Institute of Mathematics, Brno University of Technology, Czech
+Republic), Vol. 5(2), Pages 123 - 145, 2016.
+
+S. Pratihar and P. Bhowmick, On Farey Sequence and its Augmentation for Applications to Image Analysis, International
+Journal of Applied Mathematics and Computer Science (AMCS), Vol.27(3) , 2017 (to be published).
+
+Bhattacharya, A.; Ghosh, S. C.; Sinha, B.P.; Multi-path Routing for Secure Multimedia Com-munication Over Cognitive
+Radio Networks”, International Journal of Computer Networks and Distributed Systems (Inderscience), to appear.
+
+A. Bhattacharya,K. Sinha, An E_cient Protocol for Multipath Load-Balanced Routing in Mobile Ad Hoc Networks”, in Ad Hoc
+Networks (Elsevier), Vol. 63, pp. 104-114, Aug. 2017.
+
+A. Bhattacharya, K. Sinha, D. Datta, B. P. Sinha, MRBNS: A New Energy-E_cient Communication Scheme in Low Power
+Wireless Networks”, in International Journal of Sensor Networks (Inderscience), vol. 23 no. 3, pp. 155-169. Apr. 2017.
+
+A. Bhattacharya, P. Majumder, K. Sinha, B. P. Sinha, K. V. N. Kavitha, An Energy-E_cient Wireless Communication
+Scheme using Quint Fibonacci Number System”, in International Journal of Computer Networks and Distributed Systems
+(Inderscience), vol. 16 no. 2, pp. 140-161, Feb. 2016.
+
+B. Nongpoh, R. Ray, S. Dutta, A. Banerjee, AutoSense: A Framework for Automated Sensitivity Analysis of Program Data,
+IEEE Transactions on Software Engineering, Vol.-To appear, 2017. url: http://nitmeghalaya.in/nitm_web/fp/cse_dept/uploads/
+IEEE_TSE_2017.pdf
+
+Mohanta, D. K., Murthy, C., & Sinha Roy, D. (2016). A Brief Review of Phasor Measurement Units as Sensors for Smart
+Grid. Electric Power Components and Systems, 44(4), 411-425,(2016).
+
+. Reddy, K. Hemant Kumar, Geetika Mudali, and Diptendu Sinha Roy. “A novel coordinated resource provisioning approach
+
+for cooperative cloud market.” Journal of Cloud Computing (Springer), 8 :(2017) 6.1.
+
+Nalluri, MadhuSudana Rao, K. Kannan, M. Manisha, and Diptendu Sinha Roy. “Hybrid Disease Diagnosis Using Multiobjective
+Optimization with Evolutionary Parameter Optimization.” Journal of Healthcare Engineering, 2017.
+
+Conferences: 26
+
+D. Das, and A. Chakrabarty, “Emotion Recognition from Face Dataset Using Deep Neural Nets,” in IEEE International
+Symposium on INnovations in Intelligent SysTems and Applications 2016 (INISTA 2016), Sinaia, Romania, IEEE
+Publications, 2016, pp. 1-6.
+
+P. M. N. Rani, A. Kole, K. Datta, and A. Chakrabarty, “Realization of Ternary Reversible Circuits Using Improved Gate
+Library,” in 6th International Conference on Advances in Computing & Communications (ICACC-2016), Kochi, Kerala,
+India, Elsevier, 2016, Vol. 93, pp. 153-160.
+
+D. Das, and A. Chakrabarty, “Human Gait Recognition using Deep Neural Networks,” Proc. 2nd International Conference on
+ICT for Competitive Strategies (ICTCS 2016), Computer Society of India Udaipur, India, ACM - ICPS, 2016, pp. 132:1--132:6.
+
+A. Chakrabarty, and N. Das, “Assessment of values of time-domain and frequency domain parameters for ECG signals through
+HRV analysis using Symlets for Arrhythmia prediction,” in Advances in Computational Intelligence: Proc. International
+Conference on Computational Intelligence 2015, BIT Mesra, Ranchi, India, Springer, 2016, pp. 439-447.
+
+24 | National Institute of Technology Meghalaya

@@ -1,0 +1,50 @@
+Department of
+Mathematics
+
+1. Brief Introduction to the Department:
+
+The Department of Mathematics was established in 2012 with the inception of National Institute of Technology Meghalaya.
+The department offers Ph.D. and 2 year-M.Sc. programme in Mathematics. The department also supports all the engineering
+departments by offering undergraduate and postgraduate level courses in mathematics to the B.Tech and M. Tech students over a
+number of semesters. The department has been organizing seminars and summer internship programs for students and research
+scholars. The department has at present six regular faculty members. The faculties are actively engaged in research, teaching,
+training and administrative work. The main objective of the department is to attract the students of science and engineering, and
+to provide them academically coherent programmes, with courses that range from the fundamental to the advanced.
+
+2. Programmes Offered:
+
+2 year M.Sc programme, Ph.D programme
+
+3. Faculty Profile:
+[Name | _Designation | Qualification | Specialization | Date of Joining | Ph.D. guidance | _ Remarks _|
+
+Dr. Saikat Mukherjee Assoc. Professor Ph.D Functional 25-07-2013 Two ongoing
+Analysis
+Dr. Tikaram Subedi Asst. Professor Ph.D Abstract Algebra 01-06-2012 Two ongoing
+Dr. Manideepa Saha Asst. Professor Ph.D Linear Algebra 22-07-2013
+Dr. Bapan Ghosh Asst. Professor Ph.D Mathematical 28-01-2015 One ongoing
+Biology
+Dr. Bidyasagar Asst. Professor Ph.D Fluid Dynamics 20-07-2015 One ongoing
+Kumbhakar
+Dr. Srinivas Jangili Asst. Professor Ph.D Fluid Dynamics 27-07-2015
+Dr. Nabakumar Jana —_ Asst. Professor Ph.D Statistics 27-08-2015 Left the institute
+on October 24,
+2017
+
+4. List of Publications:
+
+a. Journals:
+
+e  Saikat Mukherjee, Youngsaeng Lee, Jong-Min Kim, Jun Jang, and Jeong-Soo Park, “Construction of bivariate asymmetric
+copulas”Communications for Statistical Applications and Methods, Vol.-25, Issue No.-2, Page Nos - 217-234, 2018.
+https://doi.org/10.29220/CSAM.2018.25.2.217
+
+e G.S. Seth, R. Sharma, B. Kumbhakar and R. Tripathi, MHD Stagnation Point Flow over Exponentially Stretching Sheet with
+Exponentially Moving Free-Stream, Viscous Dissipation, Thermal Radiation and Non-Uniform Heat Source/Sink, Diffusion
+Foundations, Vol. 11, pp 182-190, 2017
+
+e §.0. Adesanya, H.A. Ogunseye and Srinivas Jangili, “Unsteady squeezing flow of a radiative Eyring-Powell fluid channel
+flow with chemical reactions”, International Journal of Thermal Sciences (Elsevier), Vol.-125, pp. 440-447, 2018.
+https://www.sciencedirect.com/science/article/pii/S1290072917315016
+
+70 National Institute of Technology Meghalaya

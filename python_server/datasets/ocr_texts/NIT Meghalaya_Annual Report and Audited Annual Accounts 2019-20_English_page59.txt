@@ -1,0 +1,88 @@
+20.
+
+21.
+
+22.
+
+23
+
+24.
+
+25.
+
+26.
+
+21,
+
+28.
+
+29,
+
+30.
+
+Technique,” in 5th Students’ Conference on Engineering and Systems, (SCES-2019) at MNNIT Allahabad, 29% -3|*
+May, 2019.
+
+. N. Babu P, R. B. Peesapati and G. Panda, “An Adaptive Current Control Technique in Grid-tied PV System with Active
+
+Power Filter for Power Quality Improvement,’ TENCON 2019 - 2019 IEEE Region 10 Conference (TENCON), Kochi,
+India, 2019, pp. 187-191, doi: 10.1 109/TENCON.2019.8929487.
+
+. PN. Babu, P. R. Babu, B. Chittibabu and G. Panda, “Three-Phase Grid-tied Photovoltaic System with an Adaptive
+
+Current Control Scheme in Active Power Filter,’ 2019 IEEE Ist International Conference on Energy, Systems and
+Information Processing (ICESIP), Chennai, India, 2019, pp. 1-6, doi: 10.1 109/ICESIP46348.2019.8938367.
+
+. K. P. Panda, P. R. Bana and G. Panda, “A Single Source Switched-Capacitor Based Multilevel Inverter for Photovoltaic
+
+Application,” 2020 IEEE International Conference on Power Electronics, Smart Grid and Renewable Energy
+(PESGRE 2020), Cochin, India, 2020, pp. 1-6, doi: 10.1 109/PESGRE45664.2020.9070546.
+
+S.K. Prince, K.P. Panda, M. Patowary and G. Panda, “FPA tuned Extended Kalman Filter for Power Quality Enhancement in
+PV integrated ShuntActive Power Filter,’ 2019 International Conference on Computing, Power and Communication
+Technologies (GUCON), NCR New Delhi, India, 2019, pp. 257-262.
+
+P.R. Bana, K.P. Panda and G. Panda, ““Novel Reduced Source Switched-Capacitor Boost Multilevel Inverter for Photovoltaic
+Application,” 2020 IEEE International Conference on Power Electronics, Smart Grid and Renewable Energy
+(PESGRE 2020), Cochin, India, 2020, pp. I-6, doi: 10.1 109/PESGRE45664.2020.9070729.
+
+K. P. Panda, P. R. Bana and G. Panda, “Design and Control of An Asymmetrical Cascaded Compact Module Multilevel
+Inverter for PV System,” TENCON 2019 - 2019 IEEE Region 10 Conference (TENCON), Kochi, India, 2019, pp.
+2616-2621, doi: 10.1 109/TENCON.2019.8929608.
+
+K. P. Panda, P. R. Bana and G. Panda, “Design and Control of A Switched-Diode Multilevel Inverter for Photovoltaic
+Application,” 2019 IEEE Milan PowerTech, Milan, Italy, 2019, pp. 1-6, doi: 10.1 109/PTC.2019.8810526.
+
+P.N. Babu, PR. Bana,R.B.Peesapati and G.Panda,“An Interleaved Buck Converter BasedActive Power Filter for Photovoltaic
+Energy Application,” 2019 International Conference on Power Electronics Applications and Technology in Present
+Energy Scenario (PETPES), Mangalore, India, 2019, pp. 1-6, doi: 10.1 109/PETPES47060.201 9.9003964.
+
+S. J. Pinto, N. B. P R. Peesapati and G. Panda, “Monitoring and Control of MultiBus Microgrid System Using FPGA
+Platform,” 2019 IEEE Region 10 Symposium (TENSYMP), Kolkata, India, 2019, pp. 260-265, doi: 10.1109/
+TENSYMP46218.2019.8971 116.
+
+P.N. Babu, R. B. Peesapati and G. Panda,‘‘A Pre-filtering based Current Control Strategy in Grid-tied Photovoltaic Systems
+with Active Power Filter for Harmonic Mitigation,’ TENCON 2019 - 2019 IEEE Region 10 Conference (TENCON),
+Kochi, India, 2019, pp. 1003-1008, doi: 10.1 109/TENCON.2019.8929638.
+
+Darshan Prakash Borthakur and Supriyo Das, “Understanding the Life and Ageing of XLPE Insulation considering Free
+Energy Barrier Concept”, IEEE 4 International Conference on Condition Assessment Techniques in Electrical
+Systems (CATCON), November 2019, India.
+
+Ashok Narayan Tripathi, Adnan Iqbal and Supriyo Das, “Understanding the Ageing of XLPE Cable Insulation using
+Impedance Analyser”, IEEE International Conference on Electrical, Electronics and Computer Engineering
+(UPCON), November 2019, India.
+
+B.Thangabalan and Supriyo Das,“Understanding the Flashover Characteristics across Stay Arm Insulator due to Lightning
+Stroke”, IEEE | 1** Asia — Pacific International Conference on Lightning (APL), June 2019, Hong Kong.
+
+R. Chakrabarty and R. Adda, “Reduced Switch Single DC Source Cascaded H-bridge Multilevel Inverter based
+DSTATCOM,” IECON 2019 - 45% Annual Conference of the IEEE Industrial Electronics Society, Lisbon, Portugal,
+2019, pp. 7074-7079, doi: 10.1 |O9/IECON.2019.89271 19.
+
+PATENTS:
+
+HaricharanNannam,Atanu Banerjee, Pratikanta Mishra-“Impedance Network based EnhancedVoltage Cascaded H-bridge
+Converter” Published in Journal of Intellectual Property India (Journal No-03/2020), Department of Industrial Policy
+
+Annual Report 2019-20 | 59 A

@@ -1,0 +1,79 @@
+10.
+
+11.
+
+12.
+
+13.
+
+14.
+
+B. M. Gunji, B.B. Deepak, MR. Bahubalendruni and B.B. Biswal, “An Optimal Robotic Assembly Sequence Planning by
+Assembly Subsets Detection Method Using Teaching Learning Based Optimization Algorithm”. IEEE Transactions on Automation
+Science and Engineering.
+
+Rahul, Saurav Datta, Manoj Masanta, Bibhuti Bhusan Biswal, Siba Sankar Mahapatra, Analysis on Surface Characteristics of
+Electro-Discharge Machined Inconel 718, Int. J. Materials and Product Technology, Vol. 56, Nos. 1/2, pp.135-168 2018
+
+B. Panda, M. Leite, B. B. Biswal, X. Niu, and A. Garg, (2018), “Experimental and numerical modelling of mechanical
+properties of 3D printed honeycomb structures. Measurement, 116, 495-506.SCI Index
+
+B. B. Deepak, B.M.Gunji, MR. Bahubalendruni and B. B. Biswal, (2018), “Assembly sequence planning using soft computing
+methods: A review”, Proceedings of the Institution of Mechanical Engineers, Part E: Journal of Process Mechanical Engineering
+: 0954408918764459.
+
+B. M. Gunji, B. B. Deepak and B.B. Biswal, (2017), A Novel Design for Assembly Approach for Modified Topology of Industrial
+Products. International Journal of Performability Engineering. 2017 Nov;13(7):1013.
+
+Rahul, Saurav Datta, Bibhuti Bhusan Biswal, Siba Sankar Mahapatra, Electrical discharge machining of Inconel 825 using
+cryogenically treated copper electrode: Emphasis on surface integrity and metallurgical characteristics, Journal of Manufacturing
+Processes, Vol. 26, pp. 188-202, 04, 2017
+
+Rahul, Saurav Datta, Manoj Masanta, Bibhuti Bhusan Biswal, Siba Sankar Mahapatra, A Novel Satisfaction Function and
+Distance-Based Approach for Machining Performance Optimization during Electro-Discharge Machining on Super Alloy Inconel
+718, Arabian Journal for Science and Engineering, Vol.42. No 5, pp.1999-2020, 02, 2017
+
+Rahul, Kumar Abhishek, SauravDatta, Bibhuti Bhusan Biswal, SibaSankarMahapatra, Machining Performance Optimization
+during EDM of Inconel 718: A Case Experimental Investigation, International Journal of Productivity and Quality Management,
+Vol. 21, No. 4, pp. 460-489, 06, 2017
+
+B. M. Gunji, B. B. Deepak, M R. Bahubalendruni and B. B. Biswal, (2017). Hybridized genetic-immune based strategy to
+obtain optimal feasible assembly sequences. International Journal of Industrial Engineering Computations. 2017; 8(3):333-
+46.
+
+B. N. Panda, MR. Bahubalendruni, B. B. Biswal and M. Leite, (2017), “A CAD-based approach for measuring volumetric error
+in layered manufacturing.” Proceedings of the Institution of Mechanical Engineers, Part C: Journal of Mechanical Engineering
+Science 231.13 (2017): 2398-2406.
+
+MR. Bahubalendruni and B. B. Biswal, (2017), A novel concatenation method for generating optimal robotic assembly
+sequences. Proceedings of the Institution of Mechanical Engineers, Part C: Journal of Mechanical Engineering Science 231,
+no. 10 (2017): 1966-1977.
+
+c. Conferences:
+
+1s
+
+84
+
+G. B. Mahanta, B. B. V. L. Deepak, B. B. Biswal, Amruta Rout, and B. M. Gunji, “Design Optimization of Robotic Gripper
+Links Using Accelerated Particle Swarm Optimization Technique.” In Proceedings of the Second International Conference on
+Computational Intelligence and Informatics,2018, pp. 337-345. Springer, Singapore
+
+G. B. Mahanta, Amruta Rout, B. M. Gunji, B. B. V. L. Deepak, and B. B. Biswal, “Application of Hybrid Nelder-Mead Bat
+Algorithm to Improve the Grasp Quality during the Automated Robotic Grasping.” Procedia Computer Science 133, 2018,
+612-619.
+
+B. M. Gunji, B.B.Deepak, B.B. Biswal, G.B.Mahanta, and Amruta Rout, , Robotic Optimal Assembly Sequence Using Improved
+Cuckoo Search Algorithm. Procedia Computer Science, 2018, 133, pp.323-330.
+
+Amruta Rout, M. Dileep, G.B. Mahanta, B. B. V. L. Deepak, and B. B. Biswal. “Optimal time-jerk trajectory planning of 6 axis
+welding robot using TLBO method.” Procedia Computer Science133 ,2018, 537-544.
+
+G. B. Mahanta, B. B. V. L. Deepak, and B. B.Biswal, “Geometric modelling and design optimization of a robotic gripper using
+meta-heuristic optimization techniques”, International Conference on Robotics and Artificial Intelligence” May 21-22, 2018
+Los Angeles USA
+
+B. M. Gunji, P. K .Sahu, B. B. V. L. Deepak, and B. B. Biswal.” Modified BAT Algorithm for Optimum Assembly Sequence
+Planning.” In IOP Conference Series: Materials Science and Engineering, , 2018, vol. 377, no. 1, p. 012091. IOP Publishing.
+
+National Institute of Technology Meghalaya

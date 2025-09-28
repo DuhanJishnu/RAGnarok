@@ -1,0 +1,75 @@
+7. Invited Talks Delivered:
+ES a es
+
+From Architecture to Computing to Invited Workshop on Emerging Trend in Hands-on session by:
+loT Dr. Kamalika Datta Talk | Computer Science, Martin Luther Phrangboklang Lyngton
+Christian University, Shillong, May Thangkhiew, Dev Narayan Yadav
+2018
+2 Advances in Computer Architecture Invited 3rd workshop on Computing:
+Dr. Kamalika Datta Talk Theory and Application, Organized
+
+by ISI Kolkata & NIT Meghalaya,
+February 2018
+
+3 loT Systems: Challenges and Security Invited In-House training program on
+Issues in Various Applications Talk Modern Power System, NEEPCO,
+Dr. Kamalika Datta Shillong, November 2017
+
+4 Memristors: Technology, Circuit Tutorial VLSI Design Conference, Co-speaker: Prof. |. Sengupta
+Models, Applications Hyderabad, India, January 2017 (IIT Kharagpur)
+Dr. Kamalika Datta
+
+5 Invited talk delivered at the 11th Invited Invited talk delivered at the Invited talk delivered at the
+International Workshop on Numerical talk. 11th International Workshop on 11th International Workshop
+Verification of Softwares, Department Numerical Verification of Softwares, | on Numerical Verification of
+of Computer Science, University of Department of Computer Science, Softwares, Department of
+Oxford, United Kingdom. University of Oxford, United Computer Science, University of
+Dr. Rajarshi Ray Kingdom. Oxford, United Kingdom.
+
+8. Sponsored Project:
+
+Title of the Project Investigators Funding Agency Funding
+(P.I. / Co-P.I.) amount
+
+Investigation of Dynamic Pl: Kamalika Datta DeitY, Rs. 15.0 Jan-2016 to Completed
+Reconfigurable Issues in Co-PI: P. Rangababu, Government of Lakhs Apr-2017
+Cryptographic Algorithm Anup Dandapat India
+
+Implementation on FPGA Platform
+2 Efficient Multi-dimensional Qubit PI: Kamalika Datta DST, Government Rs.14.82 Mar-2016 to Ongoing
+
+Placement in Quantum Circuits of India Lakhs Mar-2019
+
+3 Development of CAD Tools for Pl: Kamalika Datta DST, Government Rs.8.65 Lakhs July-2017 to Ongoing
+Synthesis, Optimization and (Robert Wille is the Pl — of India (Indo- July-2019
+Verification of Digital Circuits from Austria) Austria Joint
+using Memristors Project)
+
+4 Development of Solid State Co-PI: Kamalika Datta DST, Government Rs. 9.78 July-2017 to Ongoing
+Transformer based Efficient Power Pl: A. Datta, Mizoram of India (Indo- Lakhs July-2020
+Conditioning Unit for Photovoltaic University Mexico Joint
+System for Hybrid AC/DC Project)
+
+Microgrid Applications
+
+5 Efficient and Adaptive Mapping Pl: Kamalika Datta DST, Government Rs. 43.5 3 years Approved
+and Testing of Quantum Circuits | Co-Pl: Santosh Biswas _ of India (under Lakhs
+in IBM QX and Nearest Neighbor (IITG), Indranil QuST scheme)
+
+Architectures Sengupta (IITKGP)
+
+6 Efficient Realization of Quantum Co-PI: Kamalika Datta DST, Government Rs. 47.8 lakhs 3 years Approved
+Gate Operations Incorporating PI: Indranil Sengupta of India (under
+Parallelism and Fault Tolerance (IITKGP) QuST scheme)
+
+7 Parallel Model Checking of Hybrid P.I. DST-SERB Rs. 21 L 3 Years On-going
+Systems
+
+8 SMDP-C2SD Co-P.1. Deity Rs. 94L 5 Years On-going
+
+9 Investigation on Data-Driven P.I. DST-SERB 2989000 3 years On-going
+
+Event Detection using Indian
+Power Grid’s Synchrophasor Data
+
+30 National Institute of Technology Meghalaya
