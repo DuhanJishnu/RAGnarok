@@ -1,0 +1,54 @@
+Department of Computer
+Science & Engineering
+
+1. Brief Introduction to the Department:
+
+The Department of CSE at NITM has adequate facilities to support teaching activities needed for a batch of 30 students (per
+semester). It has a well-qualified and experienced faculty team consisting of 11 faculty members. The Computer Science &
+Engineering department makes all efforts in imparting high quality education to its motivated students. One of the aims of this
+department is to play its role of producing Computer Engineers ready to satisfy the needs of the Computer and IT world. The
+Department is also actively involved in various research activities.
+
+2. Programmes Offered:
+
+The Department of Computer Science & Engineering offers the B. Tech programme, the full-time M.Tech. programme and the Ph.
+D. programme (full-time and part-time).
+
+3. Faculty Profile:
+[Name __| Designation} Qualification |_Specialization _|[ Date of Joining | Ph.D. guidance] Remarks _|
+
+Dr. Diptendu Associate Ph.D., Distributed, Grid and Cloud 01/07/2016 1 ongoing Head of
+Sinha Roy Professor Engineering Computing Department
+Dr. Alok Assistant PhD Pattern Recognition 20/06/2012 1
+Chakrabarty Professor
+Dr. Kamalika Assistant PhD Emerging Technologies, Logic 31/07/2014 3 ongoing
+Datta Professor Design
+Dr. Rajarshi Assistant Ph.D. in Formal Methods in System 03/09/2013 1 submitted
+Ray Professor Computer Verification thesis, 2 under
+Science guidance
+Dr. Akhilendra Assistant PhD Service oriented Network 03/09/2013 1 ongoing
+Pratap Singh Professor Architecture, Computer Network,
+Wireless Sensor Network
+
+Surmila Assistant M.Tech. Cloud Computing, cryptography 26/09/2012 PhD
+Thokchom Professor (submitted)
+Deepak Assistant M.E. Computational Arithmetic 20/12/2012 PhD
+Kumar Professor (submitted)
+Dr. Yogita Assistant Ph.D. Data Mining 08/01/2018 O01 (Ongoing)
+
+Professor
+Dr. Vipin Pal Assistant Ph.D. Computer Networks, Wireless 28/12/2017 02 (Ongoing)
+
+Professor Sensor Networks
+Dr. Soumen Assistant Ph.D. Wireless Body Area Networks, 15/12/2018 O01 (Ongoing)
+Moulik Professor Wireless Sensor Networks,
+
+Internet of Things
+
+Dr. Bunil Assistant Ph.D. Computer Vision, Robotics 14/12/2017 1 (Ongoing)
+Kumar Professor
+Balabantaray
+Dr. Aloke Assistant Ph.D. Computer Vision, Remote Sensing 25/08/2014
+Datta Professor
+
+26 National Institute of Technology Meghalaya

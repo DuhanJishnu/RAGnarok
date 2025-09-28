@@ -1,0 +1,84 @@
+Name Designation | Qualification Specialization DM ot Free Remarks
+Joining guidance
+
+Dr. Piyush Pratap Singh Assistant Ph.D. Control 31.05.2016 NIL
+Professor Systems,
+Nonlinear
+
+Dynamics and
+Chaos Control
+
+Ms. Ramyani Chakrabarty Trainee M.Tech Power and 21.07.14 NIL Ph.D pursuing
+
+Teacher Control
+
+List of Publications:
+
+a. Journals: 17
+
+vi.
+
+vil.
+
+vill.
+
+xi.
+
+xii.
+
+xiii.
+
+xiv.
+
+Pratap Sekhar Puhan, Pravat Kumar Ray and Gayadhar Panda, “Development of Real Time Implementation of 5/5 Rule
+based Fuzzy Logic Controller Shunt Active Power Filter for Power Quality Improvement”, Int. J. Emerg. Electr. Power Syst.
+2016; 17(6): 607-617.
+
+Priyabat Garanayak and Gayadhar Panda, “An adaptive linear neural network with least mean M-estimate weight updating
+rule employed for harmonics identification and power quality monitoring”, Transactions of the Institute of Measurement and
+Control, 1-14, 2017.
+
+P.S. Puhan, P.K.Ray & G.Panda “A Comparative Analysis of Artificial Neural Network and Synchronous detection Controller
+to improve power quality in Single Phase System” International Journal of Power Electronics, Inderscience” Accepted,
+2017.
+
+Smitha Joyce Pinto, Gayadhar Panda, and Rangababu Pessapati “An Implementation of Hybrid Control Strategy for Distributed
+Generation System Interface Using Xilinx System Generator” IEEE TRANSACTIONS ON INDUSTRIAL INFORMATICS,
+accepted, 2017.
+
+Moving-Window DFT Based Frequency-Locked Loop for FM Demodulation, /EEE COMMUNICATIONS LETTERS, VOL. 20,
+NO. 5, MAY 2016
+
+P. P. Singh, J. P. Singh, B. K. Roy, “SMC based Synchronization and Anti- synchronization of Chaotic Systems for Secure
+Communication and Analog Circuit Realization,” /nt. J. Control Theory and Application, Vol. 9, No. 39, pp. 171-183, 2016.
+
+P. P. Singh, J. P. Singh, B. K. Roy, “Implementation for Synchronization of Chen and Liu-Yang Chaotic Systems using SMC
+and Active Control Schemes,” /nt. J. Control! Theory and Application, Vol. 9, No. 39, pp. 159-169, 2016.
+
+P. P Singh, J. P. Singh, and B. K. Roy, “NAC-based Synchronisation and Anti-synchronisation Between Hyperchaotic
+and Chaotic Systems, Its Analogue Circuit Design and Application,” /ETE Journal of Research, 2017. DOI:
+10.1080/03772063.2017.1331758
+
+M. Ghosh, S. Ghosh, P.K. Saha, G.K. Panda, “Semi-Analytical Dynamic Model of Permanent Magnet Direct Current Brushed
+Motor Considering Slotting Effect, Commutation and PWM Operated Terminal Voltage”, /EEE Transactions on Industrial
+Electronics, Vol.-64, Issue No.-4, April, 2017. (Published on 07-Dec-2016)
+
+S. Affijulla, P. Tripathy, A Robust Fault Detection and Discrimination Technique for Transmission Lines, /EEE Transactions
+on Smart Grid, Vol.-PP, Issue No.-99, Page Nos -1-11, 2017
+
+S. Affijulla, P. Tripathy, Development of Phasor Estimation Algorithm for P-Class PMU Suitable in Protection Applications, /EEE
+Transactions on Smart Grid, Vol.-PP, Issue No.-99, Page Nos -1-10, 2016.
+
+Palash Pal, Debabrata Roy, Avik Datta, Pradip K. Sadhu, Atanu Banerjee “ AClosed-loop power controller model of series-
+resonant-inverter-fitted induction heating system” — Archives of Electrical Engineering ,Vol.65 ,No.4 ,December , 2016,
+pp.827-841.
+
+ChiranjitSain, Atanu Banerjee, P K Biswas, “Comparative Performance Study for Closed Loop Operation of an Adjustable
+Speed Permanent Magnet Synchronous Motor Drive with Different Controllers”- International Journal of Power Electronics
+and Drive Systems (IJPEDS), Vol.7, No.4, December, 2016, pp. 1089-1098.
+
+Agamani Chakraborty, Debabrata Roy, Pradip Kr Sadhu, Ankur Ganguly, Atanu Banerjee “An Interference of High Frequency
+Series Resonant Inverter in Domestic Induction Heater Estimation in Emission Control Using FEM ”- Journal of Power
+Technologies, accepted & will be published.
+
+Annual Report 2016-17 | 37

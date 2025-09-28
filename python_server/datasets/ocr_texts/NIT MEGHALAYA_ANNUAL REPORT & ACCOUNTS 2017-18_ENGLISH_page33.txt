@@ -1,0 +1,65 @@
+Title of the Project Investigators Funding Agency Funding
+(P.I. / Co-P.I.) amount
+
+10 Cloud-assisted Data Analytics P.I. - Dr. Vipin Pal NMHS 44,40,880.00 3 Years Ongoing
+based Real-Time Monitoring and -Co-P.I. - Dr. Yogita, Dr.
+Detection of Water Leakage in Soumen Moulik, Dr.
+Transmission Pipelines using Shubhankar Majumdar
+Wireless Sensor Network for Hilly
+Regions
+
+9. Laboratories Setup:
+
+Si No TLaboratoy | Major Equipment & Software] Location] cost (Rupees in aks)
+Computer Center ANSYS SCADE Purchase and ME, EE, ECE, CSE Approx. 90L
+Installation Labs
+2 Computer Center HoneyNet Purchase and Installation CS Lab Approx. 190 L
+3 Data Science Laboratory Computer Systems and Data Science CSE Department, NIT In Process
+Software Meghalaya
+4 Computer Vision and Vision System, Mobile Robots CSE Department In Process
+
+Automation Laboratory
+
+10. Administrative Responsibilities Held:
+
+ESS ER SS eT
+r. Kamalika Datta In-Charge Centre for Technology Enabled Learning from
+November 2017 till date
+2 Dr. Rajarshi Ray Head of Computer Center March 2017- March 2018.
+3 Dr. Diptendu Sinha Roy Head, Department of CSE January 2017 — till date
+4 Dr. Diptendu Sinha Roy Faculty-in-charge, Computer Centre March 2018 — till date
+5. Dr. Diptendu Sinha Roy Senate nominated Member, BoG, NIT Meghalaya July 2017 — till date
+6 Dr. Diptendu Sinha Roy Member Convenor, Campus Networking Committee August 2018 - till date
+7 Dr. Diptendu Sinha Roy Chairman, Website Committee April 2018 — till date
+8 Dr. Diptendu Sinha Roy Chairman, ERP Coordination Committee November 2016 — till date
+9 Dr. Yogita Warden, Lapalang Girls Hostel July 2018 —till date
+
+11. Membership of Professional Bodies:
+
+| SI. No. [Name of Faculty Member of
+
+1 Diptendu Sinha Roy IEEE, CSI (Life Member), ISTE(Life Member)
+2 Dr. Alok Chakrabarty IEEE,ACM
+
+3 Kamalika Datta IEEE and ACM
+
+4 Rajarshi Ray ACM Professional
+
+5 Akhilendra Pratap Singh CSI (Life Member), ISTE(Life Member)
+
+6 Dr. Yogita [EEE
+
+7 Dr. Vipin Pal IEEE
+
+8 Bunil Kumar Balabantaray ISTE (LM)
+
+12. Any Other Notable Information:
+
+1. Diptendu Sinha Roy, Invited Visiting Professor at the School of Computing, University of Eastern Finland, Kuopio, Finland
+during June, 2018.
+2. Dr. Alok Chakrabarty, Acting as Counsellor CSI student branch, NIT Meghalaya.
+
+3. Rajarshi Ray, Invited Academic Visitor at the Department of Computer Science, Australian National University, Canberra,
+Australia during 7-18 May 2018.
+
+Annual Report 2017-18 31

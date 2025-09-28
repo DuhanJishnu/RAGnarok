@@ -36,14 +36,13 @@ export const pdfProcessingWorker = async (job: Job<PdfProcessingData>) => {
     const finalSizeInMB = parseFloat((stats.size / (1024 * 1024)).toFixed(2));
 
     // Update database
-    await updateDocumentStatus(
+    await updateDocumentStatus({
       documentId,
-      compressedPath,
-      finalSizeInMB,
-      true,
-      new Date(),
-      null // PDF doesn't have thumbnail
-    );
+      documentPath: compressedPath,
+      currentFileSize: finalSizeInMB,
+      isCompressed: true,
+      thumbFilePath: ''
+  });
     
     await job.updateProgress(95);
 

@@ -67,10 +67,10 @@ model Document {
   originalFileSize    Float
   fileExtension       String
   uploadDateTime      DateTime @default(now())
-  isProcessed         Boolean  @default(false)
+  isCompressed        Boolean  @default(false)
   documentPath        String?
   currentFileSize     Float?
-  processedDateTime   DateTime?
+  compressedDateTime  DateTime?
   thumbPath           String?
 }
 

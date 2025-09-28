@@ -1,0 +1,75 @@
+Qualification | Specialization fee Ph.D. guidance
+
+Dr. Prabir Assistant Ph.D. Computer Arithmetic, VLSI 13.06.2012 Pursuing — 1
+Saha Professor Design, Digital Signal Processing,
+VLSI Circuit Optimization
+Techniques
+Dr. Pradeep Assistant Ph.D. Microelectronics & MEMS Sensors 11.08.2014 Pursuing — 1
+Kumar Professor and their fabrication techniques
+Rathore
+Dr. Vinay Assistant Ph.D. Analog and Digital VLSI Design, 10.12.2012 Nil
+Kumar Professor Optimization Techniques for
+Digital Circuits, CMOS Image
+Sensors, Neural Networks & Its
+Applications
+Ms. Assistant M.E. Signal Processing, Image 03.01.2013 Nil
+Bishnulatpam Professor processing
+Pushpa Devi
+Mr. Abhishek Assistant M.E. Electromagnetism and Antenna 23.08.2013 Nil
+Sarkhel Professor Engineering
+Mr. Mridupawan Assistant M.Tech. Information theory and Coding 07.08.2013 Nil
+Sonowal Professor
+
+List of Publications:
+
+a. Journals: 15
+
+vi.
+
+vil.
+
+vill.
+
+xi.
+
+xii.
+
+S. Mishra, T. V. Mahendra, and A. Dandapat, “ A 9-T 833-MHz 1.72-fJ/bit/search quasi static ternary fully associative cache
+tag with selective matchline evaluation for wire speed applications,” /EEE Transactions on Circuits and Systems |: Regular
+Papers, Vol.-63, Issue No.-11, pp. 1910-1920, 2016.
+
+V. Kumar and A. Dandapat, “Design Methodology for Multiple Output Combinational Circuits Using Cyclic Combinational
+Technique,” Journal of Circuits, Systems, and Computers, Vol.-25, Issue No.-12, pp. 120, 2016.
+
+Vv. Kumar, C. K. Jha, G. Thapa, and A. Dandapat, “ A Novel Methodology for Design of Cyclic Combinational Circuits,”
+Journal of Low Power Electronics, Vol.-12, pp. 113, 2016.
+
+S. Mishra and A. Dandapat, “EMDBAM: A Low Power Dual Bit Associative Memory with Match Error and Mask Control,” IEEE
+Transactions on Very Large Scale Integration Systems, Vol.-24, Issue No.-6, pp. 21422151, 2016.
+
+A. Sarkhel and S. R. B. Chaudhuri, “Enhanced-gain printed slot antenna using an electric metasurfacesuperstrate,” Springer:
+Applied Physics, Vol.-122, Issue No.-10, pp. 122-934, 2016.
+
+A. Shadap and P. Saha “Discrete Fourier transformation processor based on complex radix (1 + j) number system,”
+Engineering Science and Technology, an International Journal (Elsevier), Accepted 2016.
+
+S. Mishra and A. Dandapat, “Energy-efficient adaptive match-line controller for large-scale associative storage,” IEEE
+Transactions on Circuits and Systems II: Express Briefs, Vol.-64, Issue No.-6, pp. 710-714, 2017.
+
+T. V. Mahendra, S. Mishra, and A. Dandapat, “Self controlled high performance pre-charge free content addressable
+memory,” IEEE Transactions on Very Large Scale Integration (VLSI) Systems, Vol.-25, Issue No.-8, pp. 2388-2392, 2017.
+
+V. A. Kumar, Ch. V. R. Rao, and A. Dutta, “Performance analysis of blind source separation using canonical correlation,”
+in Springer, Circuits, Systems, and Signal Processing, DOI: 10.1007/sO0034-017-0566-x , 2017.
+
+V. A. Kumar and Ch. V. R.Rao, “Unsupervised noise removal technique based on constrainedNMF,” in IET Signal Processing,
+http://dx.doi.org/10.1049/ietspr.2016.041 4, Online ISSN 1751-9683, 2017.
+
+S. J. Pinto, G. Panda and P. Rangababu, “An Implementation of Hybrid Control Strategy for Distributed Generation System
+Interface Using Xilinx System Generator,” IEEE Transactions on Industrial Informatics, Accepted, 2017.
+
+K. K. Anumandla, P. Rangababu and S. L. Saba, “Hardware Implementation of Multi-Objective Differential Evolution
+algorithm: A Case Study of Spectrum Allocation in Cognitive Radio Networks,” International Journal of Innovative Computing
+and Applications (Inderscience), pp. 1-10, 2017.
+
+Annual Report 2016-17 | 31

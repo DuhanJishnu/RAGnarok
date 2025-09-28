@@ -82,14 +82,13 @@ export const imageProcessingWorker = async (job: Job<ImageProcessingData>) => {
     const finalSizeInMB = parseFloat((stats.size / (1024 * 1024)).toFixed(2));
 
     // Update database
-    await updateDocumentStatus(
+    await updateDocumentStatus({
       documentId,
-      finalFilePath,
-      finalSizeInMB,
-      true,
-      new Date(),
-      thumbPath
-    );
+      documentPath: finalFilePath,
+      currentFileSize: finalSizeInMB,
+      isCompressed: true,
+      thumbFilePath: thumbPath
+  });
     
     await job.updateProgress(90);
 

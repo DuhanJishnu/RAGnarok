@@ -1,0 +1,34 @@
+12 | National Institute of Technology, Meghalaya
+
+IV) Student’s Data upto 2022-23
+Admitted in 2022-23
+
+Programme Discipline Intake Capacity Male Female SC ST OBC Total
+B.Tech CE 33 21 10 3 15 5 31
+CS 36 27 6 4 12 3 So
+EC 33 28 7 2 13 5 35
+EE 33 24 9 3 14 7 33
+ME 33 25 6 3 13 4 31
+Sub Total 165 125 38 15 67 24 163
+M.Tech CE 20 2 3 ) 3 ) 5
+CSE 20 4 1 1 2 2 5
+ECE 20 1 O O 0 ) 1
+EE 20 1 O O O 1 1
+ME 20 O O O O ) 0
+Sub Total 100 8 4 1 5 3 12
+M.Sc. PH 16 10 4 1 4 4 14
+CY 16 5 6 2 2 2 11
+MA 16 4 6 2 4 fe) 10
+Sub Total 48 19 16 5 10 6 35
+Ph.D. CE NA fe) fe) ) ) fe) 0
+CSE NA 2 2 ) 2 ) 4
+ECE NA 2 3 ) 2 2 5
+EE NA 2 2 1 1 ) 4
+ME NA 3 3 fe) 1 2 6
+PH NA 5 3 1 ) 3 8
+CY NA 5 2 2 2 ) 7
+MA NA 5 2 ) 2 ) 7
+HSS NA fe) 2 fe) fe) 1 2
+Sub Total NA 24 19 4 10 8 43
+Total 176 77 25 92 41 253
+

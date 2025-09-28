@@ -1,0 +1,47 @@
+Annual Report 2022-23 | 149
+
+Computer Centre
+
+The Computer Centre at NIT Meghalaya is a vital part of the
+institute. It provides support to all departments and sections,
+and it offers technical services to all users. The Computer
+Centre’s internet facilities, such as Google Meet and Microsoft
+Teams, have made it possible for the institute to continue its
+academic activities, including interviews, online tests, and online
+admissions. The Computer Centre also provides VPN connections
+for research scholars to work remotely from home.
+
+A workshop was held for postgraduate students and research
+scholars at the National Institute of Technology Meghalaya to teach
+them about parallel computing. The workshop was conducted
+using the High Performance Computing resources that had been
+installed at NIT Meghalaya. The workshop covered the basics of
+parallel computing, as well as how to use MATLAB for parallel
+computing. The workshop was a success, and the participants
+learned a lot about parallel computing and MATLAB. Also, a
+1(One) Day workshop on Microsoft Office Tools has been organized
+by the Microsoft team and the Computer Centre to all the staff/
+faculties and students of NIT Meghalaya.
+
+Image: New Data Centre at Sohra Campus
+
+A new Smart Data Centre using the state of the art technologies
+for monitoring and secured network infrastructure has been
+inaugurated at NIT Meghalaya Permanent campus which will be
+able to host all the institute servers. The data center is designed
+by efficiently integrating power and distribution systems, thermal
+management, security, IT management, and other critical
+components.
+
+Progress has been made in the ICT infrastructure at Sohra,
+including the completion of tasks such as laying fiber cables
+along the boundary wall and establishing building-to-building
+connectivity with rack installation.
+
+Network and Connectivity: The Centre manages the campus
+network and provides intra-campus connectivity through high-
+speed fibre links to all hostels over Shillong city. The total
+bandwidth capacity of 1Gbps has been maintained by NKN
+(National Knowledge Network) through the underlying network of
+BSNL and a redundant link of 100 Mbps through Powergrid.
+

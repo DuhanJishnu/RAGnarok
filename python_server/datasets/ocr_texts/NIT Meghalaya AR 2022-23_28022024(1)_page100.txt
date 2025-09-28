@@ -1,0 +1,106 @@
+98 | National Institute of Technology, Meghalaya
+
+Surmila Thokchom, Laiphrakpam Dolendro Singh, Bunil
+Kumar Balabantaray ,2023, Springer.
+
+Zoaya Mohammadi, Smitha Joyce Pinto, Gayadhar Panda,
+Surmila Thokchom, “A Survey of Cyber Security in
+
+Smart Microgrid”, Sustainable Energy and Technological
+Advancements: Proceedings of ISSETA 2021, pp 687-698,
+Springer Singapore.
+
+(C) Edited Book:
+
+1.
+
+Social network analysis (Theory and Applications)
+
+, Mohammad Gouse Galett, Chiai Al Atroshi, Bunil
+Balabantaray, Sachi Nnadan Mohanty ,2022 , Scrinever
+Publishing.
+
+(D)Conferences: (International):
+
+1.
+
+Copyright Infringement Detection of Multimedia Objects
+using KL Transform S Pandey, NR Pradhan, AP Singh, DS
+Kushwaha, 2022 4th International Conference on Energy,
+Power and Environment (ICEPE), 1-4.
+
+A Deep Learning based Approach to Stock Market Price
+Prediction using technical indicators Nirupama Parida,
+Bunil Kumar Balabantaray, Rajashree Nayak, Jitendra
+Kumar Rout 2023 International Conference on Advances in
+Intelligent Computing and Applications (AICAPS) 1st to 3rd
+FEBRUARY 2023
+
+Batch Image Encryption and Compression using Chaotic
+Map Infused Autoencoder Network S. Das, A. Gautam, S.
+Thokchom, B.K. Balabantaray 2022 IEEE 9th Uttar Pradesh
+Section International Conference on Electrical, Electronics
+and Computer Engineering (UPCON) Dec 2022 Machine
+Learning-Driven
+
+Snow Cover Mapping Techniques using Google Earth Engine
+S. Panda, R. Anilkumar, B.K. Balabantaray, D. Chutia
+
+and R. Bharti IEEE 19th India Council International
+Conference (INDICON) 2022 Nov2022
+
+AVENet: Attention based VGG16 with ELM for obscene image
+classification S. Samal, S. Pandit, B.K. Balabantaray, A.K.
+Sahani, R. Nayak 3rd International Conference on Frontiers
+
+10.
+
+11.
+
+12.
+
+in Computing and Systems (COMSYS-2022) 19th - 21st
+December 2022
+
+ED-NET: Educational Teaching Video Classification Network A.
+Gautam, S. Hazra, R. Verma, P. Maji, B.K. Balabantaray
+International Conference on Computer Vision and Machine
+Intelligence, IIIT Allahabad, Prayagraj, INDIA 12-13 August
+2022
+
+U-Shaped Xception-Residual Network for Polyps Region
+Segmentation P. Sharma, B.K. Balabantary, P. Rangababu
+Proceedings of International Conference on Frontiers in
+Computing and Systems: COMSYS 2021 29th September to
+Ist October 2021
+
+IFChatbot: Convolutional Neural Network based chatbot
+
+for Image Forgery Detection and Localization N. Manna, S.
+Kumar, R. Kakar, S. Nayak, J. K Rout, and B.K. Balabantaray
+2022 IEEE India Council International Subsections
+Conference (INDISCON) July 15-17, 2022, SAU-NET: Scale
+Aware Polyp Segmentation using Encoder-Decoder
+
+Network A. Gautam, S. Das, P. Sharma, P. Maji and B. K.
+Balabantaray 2022 IEEE Region 10 Symposium (TENSYMP)
+1ST - 3RD JULY 2022
+
+Melanoma Detection using Advanced Deep Neural Network P.
+Sharma, A. Gautam, R. Nayak, B.K. Balabantaray 2022 4th
+International Conference on Energy, Power and Environment
+(ICEPE) 9.
+
+Suchana Das, Anmol Gautam, Surmila Thokchom, Bunil
+Kumar Balabantaray, “Batch Image Encryption and
+Compression using Chaotic Map Infused Autoencoder
+Network”, 2022 IEEE 9th Uttar Pradesh Section International
+Conference on Electrical, Electronics and Computer
+Engineering (UPCON).
+
+D. P. Yadav, D. Kumar and A. S. Jalal, “FHSINet: A
+hybrid model for the analysis of hyperspectral images,”
+2022 Seventh International Conference on Parallel,
+Distributed and Grid Computing (PDGC), Solan, Himachal
+Pradesh, India, 2022, pp. 708-714, doi: 10.1109/
+PDGC56933.2022.10053218.

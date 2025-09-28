@@ -1,0 +1,73 @@
+Annual Report 2022-23 | 73
+
+Web Development:
+
+Date :19-11-2022(10-12pm)
+Online Meet by
+
+Anubhav Dixit and Prashant Kumar
+Total Attendance :35
+
+Web development refers to the process of creating and
+
+building websites and web applications. It involves the design,
+development, and maintenance of the various elements that make
+up a website, including its structure, layout, functionality, and
+content.Web development encompasses several components, such
+as front-end development, back-end development, and database
+management.
+
+They start with the basic based on HTML; CSS; JavaScript then
+move forward with react nodeJs and different front end and
+
+App Development:
+
+Date :11-02-2023(11-12pm)
+
+Lecture Hall by
+
+Dorababu Arigi and Mahdhushudan Mondal
+Total Attendance :55
+
+App development refers to the process of creating applications that
+
+run on mobile devices such as smartphones and tablets.
+
+Flutter It allows developers to create high-quality native mobile
+apps for both iOS and Android platforms using a single codebase.
+
+Flutter uses the Dart programming language and provides a rich set
+
+of pre-designed UI components and widgets, enabling developers
+to build visually appealing and interactive user interfaces.
+
+DSA & OOPs:
+
+Date :11-02-2023(11-12pm)
+
+New CC by Samarth Verma and Nishant
+Total Attendance :15
+
+Understanding DSA is crucial for developing efficient and
+optimized software solutions. It enables programmers to select
+the appropriate data structures and algorithms to solve specific
+problems and perform tasks with maximum efficiency. Proficiency
+in DSA allows for better problem-solving skills, as it provides a
+toolkit of algorithms and data structures that can be applied to a
+wide range of programming challenges.
+
+Studying DSA involves learning and practicing various algorithms
+such as sorting, searching, graph traversal, dynamic programming,
+and more. It also involves analyzing the time and space complexity
+of algorithms to evaluate their efficiency and scalability.
+
+backend technique and helped student to understand a simple
+website and its backend.
+
+They explain them how to use github and develop there own profile
+and development.
+
+They help to define OOPs and DSA the four pillar of OOPs and
+motivated them to learn this too to master there knowledge,
+
+ww Sa ; ae

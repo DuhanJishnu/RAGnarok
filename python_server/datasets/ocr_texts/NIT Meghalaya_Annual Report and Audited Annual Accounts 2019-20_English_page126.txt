@@ -1,0 +1,110 @@
+34.
+
+35.
+
+36.
+
+37.
+
+38.
+
+39.
+
+40.
+
+41.
+
+42.
+
+43.
+
+AA.
+
+45.
+
+46.
+
+47.
+
+48.
+
+49.
+
+50.
+
+51.
+
+52.
+
+53.
+
+54.
+
+MR Choudhury, K Debnath, On the analysis of compressive failure load of single-lap bolted joint of green composites,
+IOP Conference Series: Materials Science and Engineering 635 (1), 012028
+
+MR Choudhury, K Debnath, A review of the research and advances in electromagnetic joining of fiber-reinforced
+thermoplastic composites, Polymer Engineering & Science 59 (10), 1965-1985
+
+MR Choudhury, K Debnath, Experimental analysis of tensile and compressive failure load in single-lap bolted joint of
+green composites, Composite Structures 225, 111180
+
+H Dutta, K Debnath, DK Sarma,A study of material removal and surface characteristics in micro-electrical discharge
+machining of carbon fiber-reinforced plastics, Polymer Composites 40 (10), 4033-4041
+
+T Bose, S Roy, K Debnath, Detection of Delamination in Fiber Metal Laminates Based on Local Defect Resonance,
+Reinforced Polymer Composites: Processing, Characterization and Post Life ...
+
+PK Gupta, K Debnath, Electrochemical discharge machining of glass fiber-reinforced epoxy composites: a challenging
+approach, Journal of Physics: Conference Series 1240 (1), 012044
+
+N Babu, JM Guerrero, P Siano, R Peesapati, G Panda, An Improved Adaptive Contategy in Grid-Tied PV System With
+Active Power Filter for Power Quality Enhancement, IEEE Systems Journal
+
+V Aarthi, VRS Dhulipala, P Rangababu, Attenuation Factor approach to minimize the correlation effect in Soft Output
+Viterbi Algorithm, Physical Communication 39, 101021
+
+NP Babu, CB Babu, RB Peesapati, G Panda, An optimal current control scheme in grid-tied hybrid energy system with
+active power filter for harmonic mitigation, INTERNATIONAL TRANSACTIONS ON ELECTRICAL ENERGY SYSTEMS
+30 (3)
+
+S Baldev, KK Anumandla, R Peesapati, Scalable Wavefront Parallel Streaming Deblocking Filter Hardware for HEVC
+Decoder, IEEE Transactions on Consumer Electronics 66 (1), 41-50
+
+R Peesapati,SL Sabat, Programmable Auxiliary Co-Processing Unit for H.264 Decoder, 2019 IEEE International Symposium
+on Smart Electronic Systems (iSES ...
+
+G Panda, RB Peesapati, A Pre-filtering based Current Control Strategy in Grid-tied Photovoltaic Systems with Active
+Power Filter for Harmonic Mitigation, IEEE
+
+S Kumar, GD Ropmay, PK Rathore, P Rangababu, J Akhtar, Fabrication and testing of PMOS current mirror-integrated
+MEMS pressure transducer, Sensor Review
+
+N Babu, R Peesapati, G Panda,An adaptive differentiation frequency based advanced reference current generator in grid-
+tied pv applications, IEEE Journal of Emerging and Selected Topics in Power Electronics
+
+S Kumar, GD Ropmay, PK Rathore, P Rangababu, J Akhtar, Fabrication and testing of PMOS current mirror-integrated
+MEMS pressure transducer, Sensor Review
+
+PAC Lopes, SS Yaday,A Ilic, SK Patra, Fast block distributed CUDA implementation of the Hungarian algorithm, Journal
+of Parallel and Distributed Computing 130, 50-62
+
+S.Das, S. Dutta, C. Putcha, S. Majumdar, D.Adak,“A data-driven physics informed method for prognosis of infrastructure
+systems : Theory and application to crack prediction,’ ASCE-ASME Journal of Risk and Uncertainty in Engineering
+Systems, Part A : Civil Engineering (American Society of Civil Engineers (ASCE)) , vol 6, no 2, pp 04020013.
+
+DS Saini, A Ghosh, S Tripathy, A Kumar, SK Sharma, N Kumar,A Promising Proton Conducting Electrolyte BaZr |-x Ho
+x O 3-6 (0.05 xs 0.20) Ceramics for Intermediate Temperature Solid Oxide Fuel Cells, Scientific Reports 10 (1), I-12
+
+R. Nayak, D. Patra, D. and B. K. Balabantaray, B., 2020. Super-Resolution Image Reconstruction Using Molecular Docking.
+IET Image Processing (https://doi.org/10.1049/iet-ipr.2019.0491). (SCI and Impact Factor 2.004).
+
+R. Nayak, B. K. Balabantaray, and D. Patra, D.,2020.A new single image super-resolution using efficient feature fusion and
+patch similarity in Non-Euclidean space,Arabian Journal for Science and Engineering (4662), (DOI: 10.1007/s13369-020-
+04662-9), (SCI and Impact Factor 1.518) DOI: https://doi.org/10.1007/s 13369-020-04662-9
+
+KHK Reddy, RK Behera, A Chakrabarty, DS Roy, A Service Delay Minimization Scheme for QoS Constrained, Context
+Aware Unified loT Applications, IEEE Internet of Things Journal
+
+A 126 | Annual Report 2019-20
+

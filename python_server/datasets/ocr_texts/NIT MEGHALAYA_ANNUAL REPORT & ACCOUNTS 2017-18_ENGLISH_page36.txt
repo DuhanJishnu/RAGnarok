@@ -1,0 +1,79 @@
+Rangababu Peesapati, Sonketa Das, Swamy Baldev, Shaik Rafi Ahamed, Design of Streaming Deblocking Filter for HEVC
+Decoder, IEEE Transactions on Consumer Electronics, Vol.-63, Issue No.-3, Page Nos -1-9, 2017.
+
+S. Majumdar, S. Majumder, A. Kakati, Effect of Aluminum Wet Etching on GaAs and Poly-DiMethy! Siloxane Substrate: Surface
+Morphology and Topography Analysis, Materials Focus, Vol.-7, Issue No.-1, Page Nos -45-49, 2018.
+
+V. Kumar, K. L. Baishnab and B. Kumar, A Novel Shared Active Pixel Architecture (SAPA) with Low Dark Current and High Fill-
+Factor (FF) for CMOS Image Sensors, Journal of Low Power Electronics, Vol.-13, Issue No.-3, Page Nos -490-496, 2017.
+
+S. D. Thabaha, M. Sonowal, P. Saha On the Design of Efficient Residue-to-Binary Converters Procedia Computer Science,
+Volume 132, Pages 816-82, 2018.
+
+B.Pushpa Devi, Kh. Maglem Singh, Sudipta Roy, New Copyright Protection Scheme for Digital Images Based on Visual
+Cryptography, IETE Journal of Research, Vol 63, Issue 6, Page No. 870-880, 2017.
+
+b. Conferences: 07
+
+6.
+
+V. M. Tripathi, S. Mishra, J. Saikia, and A. Dandapat, A Low-Voltage 13T Latch-Type Sense Amplifier with Regenerative
+Feedback for Ultra Speed Memory Access, 2017 30th International Conference on VLSI Design and 2017 16th International
+Conference on Embedded Systems (VLSID), Period -Jan, Place —Hyderabad, India, Page -341-346, 2017.
+
+Puja ghosh, Rangababu P, Design and Implementation of Ternary Content Addressable Memory (TCAM) based Hierarchical
+Motion Estimation for Video Processing, International Symposium on VLSI Design and Test, Period -29-06-2017 to 2-07-
+2017, Place —-IIT Roorkee, Page -742-750, 2017.
+
+Rituparnachoudary, Rangababu P, Design and Implementation of Mixed Parallel and Dataflow Architecture for Intra-prediction
+Hardware in HEVC Decoder, International Symposium on VLSI Design and Test, Period -29-06-2017 to 2-07-2017, Place -IIT
+Roorkee, Page -557-569, 2017.
+
+S. Gautam, A.Gupta, S. Majumdar, A. Patraa, R. Dhabalia, J. Teraiya, Prediction of particulate matter concentration profile
+in an opencast copper mine in India using an artificial neural network model, Recycle — International conference on waste
+management, IIT Guwahati, 2018.
+
+M. Khalid, S. Majumdar, M.J. Siddiqui, Reduction of hardware complexity of digital circuits by threshold logic gates using
+RTDs, 3rd International Conference on Information and Communication Technology for Intelligent Systems, Ahemdabad, 2018.
+
+R.U. Ahamed, P. Saha, “Modeling of Threshold Voltage and Subthreshold Current for P-Channel Symmetric Double-Gate
+MOSFET in Nanoscale Regime” IEEE iNIS, 2017, pp. 179-183, Dec. 2017.
+
+R. Kant and V. Kumar, “Approximate Computing for Machine Learning”, 2nd International Conference on Communication,
+Computing and Networking, Chandigarh, India, March 29-30, 2018.
+
+. Conference / Workshop / Seminar Organized: 02
+
+TEQIP Sponsored Workshop on Signal Processing Techniques for Real Time Applications, 23 — 27 March, 2018.
+
+Short Term Training Programme on Digital Design and Analysis at Backend Level Using CADENCE during 5th Mar-9th Mar,
+2018
+
+Conferences / Workshops / Seminars / Trainings Attended by faculty members:
+
+Lim] Name of Faculty Name of the programme attended
+
+5
+6
+
+Dr.AbhishekSarkhel Indo-French Workshop on Microwave Nanotechnologies (MiNa) July 3-4, 2017
+CeNSE, IISC Bangalore
+
+Dr.Ch V Rama Rao Winter School of Speech and Audio Processing 2018 at Indian Jan. 19- 22, 2018
+Institute of Technology Guwahati
+
+Dr.P.Rangababu IEP WorkShop on “High Level Design to Silicon” Feb. 24-27, 2018
+
+Dr.Pradeep Kumar Ath National Workshop on NEMS/MEMS and Theranostics Feb. 26-28, 2018
+
+Rathore Devices at IIT Guwahati
+
+Dr.Vinay Kumar BIT’s 9th Annual International Congress of Cardiology-2017 Nov. 15-17, 2017
+
+Dr.Vinay Kumar Training Workshop for Faculty-Mentors on _ Induction Oct. 13- 15, 2017
+
+Programme for New Students
+
+34
+
+| National Institute of Technology Meghalaya

@@ -1,0 +1,76 @@
+114 | National Institute of Technology, Meghalaya
+
+Name of the faculty
+member
+
+Title of the Project
+
+Period
+(From -To)
+
+Sponsoring
+Organisation
+
+Amount
+[in Lakhs]
+
+Role
+[PI/Co-PI]
+
+5 Dr. Shubhankar Air quality network for smart city: Aug 2021- | ASEAN-India STI 26.25
+Majumdar real-time air quality monitor, Jul 2023 Cooperation
+evaluation, andprediction of air
+pollutants using machine learning
+through the deployment of low-cost
+air quality sensor (LAQS) in India
+and two selected asean countries
+(Malaysia, Philippines)
+6 Dr. Shubhankar Development of E-mode III-Nitride | 2020-2023 | Department of 27.764+26.75 Pl
+Majumdar devices for Energy Optimized Agile Science & Technology | (CEERI
+Power Electronics Indo-Czech (International Bilateral | PILLANI)+euro
+Project with Alice Hospodkov Co-operation Division) | 3,00,000 (czech
+side)
+7 Dr. Shubhankar Fully acoustics testing of low 2022-25 Aeronautics R and D INR 24.02
+Majumdar velocity impact damage in Board
+composite plate using the concept
+of local defect resonance
+8 Dr. Pradeep Kumar Development of High Sensitivity Indian Space Research | 32.46 Co-P|
+Rathore CMOS-MEMS Integrated Pressure Organisation (ISRO),
+Sensor and System for Space Department of Space,
+Application Government of India
+9 Dr. Pradeep Kumar Design and Development of Highly Department of 44.93 PI
+Rathore Sensitive Non-Conventional Ring Science & Technology,
+Channel Shaped MOSFET Based Ministry of Science
+Current Mirror Integrated Pressure and Technology,
+Sensors Government of India
+10 | Dr. Pradeep Kumar Capacitive Micro-machined SERB, Department of 36.33 Co-PI
+Rathore Ultrasonic Transducer (CMUT) for Science & Technology,
+Medical Imaging and Under Water Ministry of Science
+Communication and Technology,
+Government of India
+11 | Dr. B. Shravan Deep-cancellation: A deep learning | 2021-2023 | TEQIP-III 1.83 Pl
+Kumar approach to mitigate interference
+in GFDM receiver for future
+wireless systems
+12 | Dr. Abhishek Sarkhel | Compact Antenna System for 2021-2023 | TEQIP-III 1.99 Pl
+High Speed Device to Device
+Communication
+13 | Dr. P. Rangababu Al Empowered Advanced Wireless | Sanctioned | DST -FIST 75.00 Lakhs Dept
+Dr. Abhishek Sarkhel | Communication Systems on Sep 19 | 2020
+Dr.B. Shravan Kumar 2021
+Dr. Shubhankar 2021-
+Majumdar 2026
+
+Dr. Satyendra Singh
+Yadav
+
+Dr.B. Pushpa Devi
+Dr. Pradeep Kumar
+Rathore
+
+Dr. Prabir Saha
+
+Dr. Anup Dandapat
+Dr. Salam Shuleenda
+Devi
+

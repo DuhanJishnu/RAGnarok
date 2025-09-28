@@ -1,0 +1,84 @@
+20.
+
+21
+
+22
+
+23.
+
+24.
+
+Mohanta, (2020), “Dynamic State Estimation of Synchronous Generator Ro-tor Angle Using PMU and EKF”, ICETSGAI
+4.0 (Accepted).
+
+. SoumenMoulik, Debapratim Dey, Kaushik Ray, and Kamal Das, “Reliable Transmission of Critical Packets in IEEE
+
+802.15.4-based Body Area Networks”, IEEE ANTS, Goa, India, Dec. 2019.
+
+. SoumenMoulik, Kaushik Ray,“d-CARE: Context-Aware Regulation of Backoff Delay in Wireless Personal Area Networks”,
+
+IEEE TENCON, Kerala, India, Oct. 2019, DOI: 10.1 109/TENCON.2019.8929352.
+
+. Anil Ku. Swain, Bunil Kumar Balabantaray, Jitendra Kumar Rout and An Optimal Deep learning approach for
+
+Classification of Age Groups in Social Network”, | Ith International Multi-Conference on Complexity, Informatics and
+Cybernetics (IMCIC 2020), Orlando, USA, on 10th -13th March, 2020.
+
+. S.C. Barik, S Mohapatra, B. Das, M. Acharya, B K Balabantaray, “Advanced Colored Image Encryption Method using
+
+Evolution Function”, in International Conference on Machine Learning and Computational Intelligence (2019-ICMLC)I),
+14th -1 5th December, 2019.
+
+. C. Lalengmawia, and A. Chakrabarty, “Compiling NCV Quantum Circuits for Nearest Neighbour Realization”, Proc. 2020
+
+International Conference on Emerging Trends in Information Technology and Engineering, Vellore, India, IEEE Publications,
+24-25 Feb 2020, pp. 1-5, doi: 10.1 109/ic-ETITE47903.2020.305.
+
+. Deepak Kumar and Prabir Saha,““Accelerating latency of binary division through Vedic methodology”, Fourth International
+
+Conference on Smart Trends for Computing and Communications, Bangkok, Thailand, 24-25 January 2020.
+
+. M Sarkar, JW Sangma, Yogita, V Pal “Human Behaviour Analysis: Using Clustering for Identifying Co-evolving EEG Data
+
+Streams”, Ninth International Workshop Statistical Analysis of Neuronal Data (SAND9), University of Pittsburgh,
+Pittsburgh, USA, May 21 - 23, 2019.
+
+. Upasana, J. Sangma,V. Pal, Yogita “Data-Driven Extraction of Quantitative Multi-dimensional Associations of Cardiovascular
+
+Drugs and Adverse Drug Reactions.” In International Conference on Practical Applications of Computational Biology &
+Bioinformatics, pp. 70-77. Springer, Cham, 2019.
+
+| B Prasad, B Rout, V Pal, Yogita “M-Way Balanced Tree Data Aggregation Approach for Clustered Wireless Sensor
+Networks”, OWT, 2019.
+
+V Pal Anju Yaday, Yogita, “Analysis of Optimal Number of Cluster Heads on Network Lifetime in Clustered Wireless
+Sensor Networks”, International Conference on Deep Learning, Artificial Intelligence and Robotics, (ICDLAIR) 2019.
+
+V Pal, IB Prasad, B Rout, Yogita, “Fuzzy Logic Based Clustering for Energy Efficiency in Wireless Sensor Networks”,
+International Conference on Deep Learning, Artificial Intelligence and Robotics, (ICDLAIR) 2019.
+
+Vinay Kumar, A alxim Prasanna, Dush Nalin, K Jayakody, AkhilendraParatp Singh, Compressive Data Gathering for Ml
+Based Clustered Non-Conventional WSNs, International Conference on Emerging Technologies of Information and
+Communications (ETIC 2019), Bhutan, March, 2019
+
+Nihar Ranjan Pradhan, Vinay Kumar,Akhilendra Pratap Singh,” Blockchain Enabled Traceable, Transparent Transportation
+System For Blood Bank”, 2nd International conference on VLSI (very-large-scale integration), communication and signal
+processing, Springer Nature,2019, 21-23 October 2019, MNNIT Allahabad, India.
+
+0. CONFERENCE /WORKSHOP/SEMINAR ORGANIZED:
+
+ce
+
+Dr. SurmilaThokchom, “One Week National Workshop on Cyber Security”, NIT Meghalaya, Shillong in association with
+Relearn Academy, Chandigarh, 14th — 19th Oct 2019. Sponsored by TEQIP-III.
+
+Dr. Diptendu Sinha Roy, “Application of Artificial Intelligence/ Deep Learning for Medical Big Data Analysis”, NIT
+Meghalaya, Shillong, 9 August 2019. Sponsored by TEQIP.
+
+Dr. B. K. Balabantaray, Dr. P. Rangababu, “FDP on Advancements in signal processing and optimization techniques”, NIT
+Meghalaya, Shillong, 3- 7 June 2019.
+
+Dr. B. K. Balabantaray, Dr.A. P. Singh, “FDP on Network Security”, NIT Meghalaya, Shillong, 20- 24 May 2019.
+Dr.B. K. Balabantaray, Dr.A. P. Singh, ““FDP on Deep Learning and Applications”, NIT Meghalaya, Shillong, 27- 31 May 2019.
+
+38 | Annual Report 2019-20

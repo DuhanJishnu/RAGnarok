@@ -1,0 +1,83 @@
+120 | National Institute of Technology, Meghalaya
+
+4. List of Publications:
+
+a) Journals:
+
+1 S.K. Yadav, A. Singh, and K. | Experimental Investigation of Powder-Mixed Electrolyte on CFRP Composites using
+Debnath Electrochemical Discharge Machining Process. /nternational Journal of Machining and
+Machinability of Materials. (Accepted)
+2 K. Debnath and B.C. Behera | Fabrication of Micro-Hole in 3D Printed CFRP Composite by Electrical-Discharge Machining
+Process. Journal of Advanced Manufacturing Systems, DOI: 10.1142/S0219686723500348.
+
+3 G. Surya Rao, R. Paul, S. Influence of Conventionally Drilled and Additively Fabricated Hole on Tensile Properties of
+Singh, and K. Debnath 3D Printed ONYX/CGF Composites. Journal of Materials Engineering and Performance. DOI:
+
+10.1007/s11665-022-07529-2.
+
+4 A. Das, A. Gautam, A. Comparative Performance Evaluation Between Uncoated and TiIAIN+AICrN Coated Carbide Tools
+Panda, S.R. Das, K. in Hard Turning of AISI H11 Steel. Proceedings of the Institution of Mechanical Engineers, Part
+Debnath, Ch. Ramakrishna, E: Journal of Process Mechanical Engineering, DOI: 10.1177/095440892211104.
+and S.K. Patel
+
+5 R. Vishwakarma, S. Using Harris Hawk Algorithm for Experimental Study on the Hole Dilation Mechanism During
+Kesarwani, R.K. Verma, K. Micro-Machining (uM) of Graphene Nanoplatelets/Carbon Fiber (GnP/C) Reinforced Polymeric
+Debnath, and J.P. Davim Composite. Materials Research Express, Vol. 10, 024005, 2023.
+
+6 R. Davis, A. Singh, K. Enhanced Abrasive-Mixed-u-EDM Performance towards Improved Surface Characteristics
+Debnath, P. Soares, S.H. of Biodegradable Mg AZ31B alloy. The International Journal of Advanced Manufacturing
+Och, A.K. Keshri, L. Technology, Vol. 124(7-8), 2685-2700, 2023.
+
+Sopchenski, and H.A. Terryn
+
+y G. Surya Rao, K. Debnath, Multi-Response Optimization of the Chemical Treatment Process Parameters Influencing
+
+and R.N. Mahapatra the Tensile, Flexural, Compression, and Shear Properties of the Injection Moulded Green
+Composites. Journal of Polymers and the Environment, Vol. 31(1), 112-130, 2023.
+
+8 R. Rathore, S. Effect of Injection Parameters on Tensile and Flexural Properties of Green Composites.
+Bhattacharjee, P. Bora, G. Composites Theory and Practice, Vol. 22(4), 196-204, 2022.
+
+Surya Rao, S. Samanta, and
+K. Debnath
+
+9 G. Surya Rao, K. Debnath, A Critical Review on Mechanical and Morphological Characteristics of Injection Molded
+R.N. Mahapatra, and T.S. Biodegradable Composites. Polymer Composites, Vol. 43(12), 8634-8672, 2022.
+
+Srivatsan
+
+10 | S. Kesarwani, R.K. Verma, Modified JAYA Algorithm for Machinability Assessment and Conflicting Response Optimization
+and K. Debnath During Milling of Nanostructured Carbon Onions Reinforced Epoxy Composites. Experimental
+
+Techniques, Vol. 46, 1007-1025, 2022.
+
+11 | H. Dutta, K. Debnath, and Experimental Investigation of Parametric Effects and Characterization of the Machined Surface
+
+D.K. Sarma in HED-milling of CFRP Composite. Arabian Journal for Science and Engineering, Vol. 47,
+16341-16353, 2022.
+
+12 | S.K. Yadav, A. Singh, and K. | Analysis of Mass Concentration and Morphology of Fume Particles During ECDM of CFRP
+Debnath Composites. Materials Science Forum, Vol. 1073, 29-35, 2022.
+
+13 | S.K. Yadav, A. Singh, and K. | Investigation of Machining Characteristics During Micro-Hole Fabrication in CFRP Composite by
+Debnath ECDM Process. Engineering Research Express, Vol. 4, 035055, 2022.
+
+14 | H. Dutta, K. Debnath, and Preliminary Investigation of Powder-Mixed Microelectrical Discharge Drilling of CFRP
+D.K. Sarma Composite. Surface Review and Letters, Vol. 29(8), 2250111, 2022.
+
+15 | M. Roy Choudhury, G. Surya | Analysis of Force, Temperature, and Surface Roughness During End Milling of Green
+Rao, K. Debnath, and R.N. Composites. Journal of Natural Fibers, Vol. 19(13), 5019-5033, 2022.
+
+Mahapatra
+
+16 | M. Roy Choudhury and K. Analysis of Hybrid Joints of Green Composites Under Tensile and Compressive Loadings. Green
+Debnath Materials, Vol. 10(2), pp. 70-82, 2022.
+
+17 | A. Das, D. Barrenkala, K. Comparative Assessments of Machining Forces in 3D Printed Polymer Composite During Milling
+
+Debnath, P. Kumar, R.
+Rajan, and S.K. Patel
+
+Operation Using Two Coated Carbide End Mills. Materials Today: Proceedings, Vol. 62, pp.
+6107-6114, 2022.
+

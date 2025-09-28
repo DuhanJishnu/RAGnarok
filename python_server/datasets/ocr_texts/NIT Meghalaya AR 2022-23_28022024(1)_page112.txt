@@ -1,0 +1,78 @@
+110 | National Institute of Technology, Meghalaya
+
+Department of Electronics and Communication
+
+Engineering
+
+1. Brief Introduction to the
+
+Department:
+
+The Department of Electronics and Communication Engineering
+(ECE) was established in 2010 with the inception of National
+Institute of Technology Meghalaya. The department offers B.
+Tech Programme with an intake capacity of thirty & M.Tech
+Programme with an intake capacity of twenty in VLSI and
+Embedded Systems and Ph.D. program in various specialized
+
+The major research groups of the department are Microelectronics,
+Microwave and Communication, Signal and Image processing.
+
+The major areas of faculty expertise of the department include
+High Speed and Low Power VLSI Systems, VLSI Architectures,
+
+areas of Electronics and Communication Engineering. The major
+
+objective of the Department is to impart high-quality technical
+education and research with a strong foundation in Electronics and b)
+
+Communication Engineering.
+
+3. Faculty Profile:
+
+Time)
+
+2. Programmes Offered:
+
+c) Ph. D (Full Time & Part Time)
+
+Computer Arithmetic, Microelectronics Device and MEMS, High-
+Performance Computing, Communication and RF & Microwave
+Engineering, Antenna design, Signal and Speech Processing,
+Biomedical Signal Processing and Machine learning.
+
+a) B. Tech in Electronics and Communication Engineering
+M.Tech in VLSI and Embedded Systems (Full Time & Part
+
+Designation | Qualification Specialization aa ee
+of Joining guidance
+
+Dr. Anup Associate Ph.D Low Power VLSI, Low Power Digital | 20.12.2012 | Pursuing —-1 Regular -8
+Dandapat Professor Circuits, Low Power High Speed Awarded - 8
+Multipliers, Low Power High Speed
+Memories
+Dr. Prabir Kumar | Assistant Ph.D VLSI Design, Computer Arithmetic, | 13.06.2012 | Pursuing-4 | Regular - 1
+Saha Professor Digital Signal Processing, Awarded —2 Part time — 2
+Reconfigurable Computing Submitted-O | Co supervisor - 1
+Dr. P Rangababu | Assistant Ph.D FPGA-based Embedded Systems for | 11.08.2014 | Pursuing —7 Regular - 1
+Professor Multimedia and DSP Applications, Awarded - 3 Part time - 6
+VLSI Chip Design, Reconfigurable
+Systems for Medical Diagnosis
+Dr. Pradeep Assistant Ph.D Micro-Electro-Mechanical Systems | 11.08.2014 | Pursuing—4 | Regular -2
+Kumar Rathore Professor (MEMS), Microelectronics, Device Awarded- 1 Part time - 2
+Fabrication Technology
+Dr. Bishnulatpam | Assistant Ph.D Image processing, Hyperspectral 03.01.2013 | Pursuing -3 Regular - 2
+Pushpa Devi Professor Image Analysis, Digital Part time - 1
+Watermarking
+Dr. Abhishek Assistant Ph.D Microwave metamaterials and its 23.08.2013 | Pursuing—4 | Regular -2
+Sarkhel Professor applications, Microwave antennas Part time —1
+Co supervisor- 1
+Dr. Shubhankar | Assistant Ph.D RF, High Speed and Power 13.12.2017 | Pursuing —7 Regular - 2
+Majumdar Professor Semiconductor Devices, VLSI Part time - 1
+circuit design and Modeling Low Project - 4
+cost Energy efficient system for
+Agriculture & Health Sector
+Dr. Salam Assistant Ph.D Medical Image Analysis, Cancerous | 24.09.2019 | Pursuing—3 | Part time - 1
+Shuleenda Devi | Professor cell analysis, Pattern recognition, Regular - 2
+machine learning
+

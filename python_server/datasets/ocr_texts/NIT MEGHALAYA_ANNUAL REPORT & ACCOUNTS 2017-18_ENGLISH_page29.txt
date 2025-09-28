@@ -1,0 +1,90 @@
+4.
+
+10.
+
+11.
+
+12.
+
+13.
+
+14.
+
+15.
+
+16.
+
+17.
+
+18.
+
+List of Publications:
+
+Journals:
+Sinha Roy, Diptendu, Behera, Ranjit K, Reddy, K. Hemant Kumar, Buyya, Rajkumar, (2018) “A Context-Aware, Fog Enabled
+Scheme for Real-Time, Cross-Vertical loT Applications”, IEEE Internet of Things Journal (Accepted).
+
+Reddy, K. Hemant Kumar, Hussain, Mir Wajahat, Paik, Subhendu Sekhar, Sinha Roy, Diptendu, (2018) “A Counter Based
+Approach to Intelligent Data Placement in Hadoop Clusters”, Cluster Computing (Springer), (Accepted)
+
+Reddy, K. H. K, Pandey, Vishal, Roy, D. S, (2018), A Novel Entropy Based Dynamic Data Placement Strategy for Data Intensive
+Applications in Hadoop Clusters, International Journal of Big Data Intelligence, Inderscience Publication
+
+Rao, Nalluri MadhuSudana, Krithivasan Kannan, Xiao-zhi Gao, and Diptendu Sinha Roy. “Novel classifiers for intelligent
+disease diagnosis with multi-objective parameter evolution.” Computers & Electrical Engineering 67 (2018): 483-496.
+
+Behera, Ranjit Kumar, K. Hemant Kumar Reddy, and Diptendu Sinha Roy. “Modeling and assessing reliability of service-
+oriented internet of things.” International Journal of Computers and Applications (2018): 1-12.
+
+Reddy, K. Hemant Kumar, Geetika Mudali, and Diptendu Sinha Roy. “A novel coordinated resource provisioning approach for
+cooperative cloud market.” Journal of Cloud Computing 6, no. 1 (2017): 8.
+
+Nalluri, M. R., & Roy, D. S. (2017). Hybrid Disease Diagnosis Using Multiobjective Optimization with Evolutionary Parameter
+Optimization. Journal of healthcare engineering, 2017.
+
+P.L. Thangkhiew, K. Datta, “Scalable In-Memory Mapping of Boolean Functions in Memristive Crossbar Array Using Simulated
+Annealing”, Journal of Systems Architecture, DOI: 10.1016/j.sysarc.2018.07.002, 2018 (Accepted).
+
+L. Marbaniang, K. Datta, “Efficient Design of Quantum Circuits using Nearest Neighbor Constraint in 3D Architecture”, Journal of
+Circuits, Systems and Computers, Vol. 28, No. 5, pp. 1950084:1-1950084:19, 2019, DOI: 10.1142/S0218126619500841,
+2018 (Accepted).
+
+P.L. Thangkhiew, R. Gharpinde, K. Datta, “Efficient Mapping of Boolean Functions to Memristor Crossbar using MAGIC NOR
+Gates”, IEEE Transactions on Circuits and Systems-I: Regular Papers, Vol. 65, No. 8, pp. 2466-2476, August 2018.
+
+R. Gharpinde, P.L. Thangkhiew, K. Datta, |. Sengupta, “A Scalable In-Memory Logic Synthesis Approach using Memristor
+Crossbar”, IEEE Transactions on Very Large Scale Integration Systems, Vol. 26, No. 2, pp. 355-366, February 2018.
+
+Kole, K. Datta, |. Sengupta, “A New Heuristic for N-Dimensional Nearest Neighbor Realization of a Quantum Circuit”, IEEE
+Transactions on Computer-Aided Design of Integrated Circuits and Systems, Vol. 37, No. 1, pp. 182-192, January 2018.
+
+“Parallel Reachability Analysis of Hybrid Systems in XSpeed”, A. Gurung, R. Ray, E. Bartocci, S. Bogomolov and R. Grosu, To
+appear in the International Journal on Software Tools for Technology Transfer (STTT). Springer [SCI].
+
+Shubham Singh, Akhilendra Pratap,” Ensuring Data Security in Cloud Storage”, International Journal of Machine Learning and
+Computing, April 2018. (Accepted).
+
+Surmila Thokchom and Dilip Kr. Saikia, “Privacy Preserving and Public Auditable Integrity Checking on Dynamic Cloud Data”,
+International journal of Network Security (Accepted).
+
+Deepak Kumar, Prabir Saha and Anup Dandapat, “Vedic algorithm for cubic computation and VLSI implementation”, Elsevier
+Engineering Science and Technology, an International Journal, Vol./Issue : 20/5, pp. 1494-1499, 2017.
+
+D. Kumar, P. Saha and A. Dandapat, “Hardware Implementation of Methodologies of Fixed Point Division Algorithms”,
+International Journal on Smart Sensing and Intelligent Systems, Vol.10, No.3, pp.630-645, 2017.
+
+P. Saha, and D. Kumar, “A new algorithm for the computation of the decimals of inverse”, Scientia Iranica journal, Vol.24,
+No.3, pp.1363-1372, 2017.
+
+Book Chapters:
+
+Akhilendra Pratap Singh, Vinee Brahma, Nabhjyoti Medhi, “An Energy-Efficient Model Using Cooperative MIMO in Wireless
+Sensor Network”, Ambient Communications and Computer Systems, Springer,2018
+
+Conferences: (International)
+
+Singh Akhilendra Pratap, Kumar, G. Hemant, Paik, Subhendu Sekhar, Sinha Roy, Diptendu, “Storage and Analysis
+of Synchrophasor Data for Event Detection in Indian Power System Using Hadoop Ecosystem.” In 2018 Proceedings of
+International Conference on Computing, Power and Communication Technologies (GUCON 2018), (Accepted)
+
+Annual Report 2017-18 27

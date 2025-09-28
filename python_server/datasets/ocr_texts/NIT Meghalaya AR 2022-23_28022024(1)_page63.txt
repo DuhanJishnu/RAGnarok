@@ -1,0 +1,60 @@
+Annual Report 2022-23 | 61
+
+Event 5
+
+Name of the Event : Catch me if you can
+Organizing Section : Coding Club
+
+Coordinator of Event : Dorababu, Avishek Paul
+Co - coordinator of theEvent : Ananya , Divyasree
+Date : 7th November 2022
+
+Venue : New CC
+
+No of Participants: NIT Meghalaya + Outside of NIT
+Meghalaya
+
+8. About the Event :
+
+aS O® Moe 2 Ww
+
+This was a debugging contest in which students have todebug
+the given program based on their knowledge on Functional
+Programming,Data Structures, OOPS.
+
+9. Winners :
+1st.Akshayan M
+
+2nd.Yash Raj Gupta
+3rd.Vineet Malewar
+
+Event 6
+
+Name of the Event : Andha-Vishwas
+
+Organizing Section : Coding Club
+
+Coordinator of Event : Meenakshi , Tarun, Shivankar
+Co - coordinator of theEvent : Nishant, Samuel
+
+Date : 7th November 2022
+
+Venue : PANDAL
+
+s @ fe 2 SY
+
+No of Participants: NIT Meghalaya + Outside of NIT
+Meghalaya
+
+8. About the Event :
+
+This was a team coding contest where one teammate will be
+blindfolded and the other’s hands were tied.
+
+Every team was given 3 problems to solve in 30 minutes.
+9. Winners :
+WARRIORS: Kalpesh Vishwakarm, Harshit Dhage
+
+JSR: Aditya Vikram Somvanshi, Vasundhara Singh
+UNIQUE_CODERS: Akshayan M, Shreya Poddar
+

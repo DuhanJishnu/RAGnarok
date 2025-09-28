@@ -101,13 +101,13 @@ export class FileService {
     const encryptedId = generateRandom128CharString();
 
     // Insert initial document data
-    const documentId = await insertInitialDocumentData(
-      fileType,
-      file.originalname,
+    const documentId = await insertInitialDocumentData({
+      docType: fileType,
+      displayName: file.originalname,
       encryptedId,
-      sizeInMB,
-      path.extname(file.originalname)
-    );
+      originalSize: sizeInMB,
+      fileExt: path.extname(file.originalname)
+  });
 
     // Generate sanitized filename
     const ext = path.extname(file.originalname);

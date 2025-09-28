@@ -1,0 +1,104 @@
+10.
+
+11.
+
+12.
+
+13.
+
+14.
+
+15.
+
+16.
+
+17.
+
+18.
+
+19.
+
+20.
+
+21.
+
+22.
+
+23.
+
+24.
+
+25.
+
+26.
+
+27.
+
+28.
+
+Rahul, Kumar Abhishek, Saurav Datta, Bibhuti Bhusan Biswal, SibaSankarMahapatra, Machining Performance Optimization
+during EDM of Inconel 718: A Case Experimental Investigation, International Journal of Productivity and Quality Management,
+Vol. 21, No. 4, pp. 460-489, 06, 2017
+
+B. M. Gunji, B. B. Deepak, M R. Bahubalendruni and B. B. Biswal, (2017). Hybridized genetic-immune based strategy to
+obtain optimal feasible assembly sequences. International Journal of Industrial Engineering Computations. 2017; 8(3):333-
+46.
+
+B. N. Panda, MR. Bahubalendruni, B. B. Biswal and M. Leite, (2017), “A CAD-based approach for measuring volumetric error
+in layered manufacturing.” Proceedings of the Institution of Mechanical Engineers, Part C: Journal of Mechanical Engineering
+Science 231.13 (2017): 2398-2406.
+
+MR. Bahubalendruni and B. B. Biswal, (2017), A novel concatenation method for generating optimal robotic assembly
+sequences. Proceedings of the Institution of Mechanical Engineers, Part C: Journal of Mechanical Engineering Science 231,
+no. 10 (2017): 1966-1977.
+
+Asita Kumar Rath, Dayal R. Parhi, Harish Chandra Das, Manoj Kumar Muni, Priyadarshi Biplab Kumar , Analysis and use of
+fuzzy intelligent technique for navigation of humanoid robot in obstacle prone zone, Defence Technology, 1-6, 2018
+
+Asita Kumar Rath, Harish Chandra Das, DayalR.Parhi, PriyadarshiBiplab Kumar , Application of artificial neural network for
+control and navigation of humanoid robot, Journal of Mechanical Engineering and Sciences, 12, 3529-3538, 2018
+
+Asita Kumar Rath, Dayal R.Parhi, Harish Chandra Das, Priyadarshi Biplab Kumar , Behaviour based navigational control of
+humanoid robot using genetic algorithm technique in cluttered environment, Modelling, Measurement and Control B, 91, 32-
+36, 2018
+
+Numerical, Experimental and Fuzzy Logic Applications for Investigation of Crack Location and Crack Depth Estimation in a
+Free-Free Aluminum Beam, Sanjay K. Behera, DayalR.Parhi, Harish Chandra Das , Vibrations in Physical Systems, 29, 1-20,
+2018
+
+Sanjay K. Behera, DayalR.Parhi, Harish Chandra Das , Approach to establish a Hybrid Intelligent Model for Crack Diagnosis in
+a Fix-Hinge Beam Structure , International Journal of Structural Integrity, accepted, 2018
+
+Binayak Pattanayak, Siba Shankar Mohapatra, Harish Chandra Das, Mathematical Modelling for Low Temperature Batch Drying
+of Paddy using Fluidized Bed Technology, International Journal of Mathematical Modelling and Numerical Optimisation, 2018
+
+Shakti P. Jena, Saroj K. Acharya, Harish C. Das, Pragyan P. Patnaik , Investigation of the effect of FeCl3 on combustion and
+emission of diesel engine with thermal barriercoating., Sustainable Environment Research, 28, 72-76, 2018
+
+Pruthiviraj Nemalipuri, Dr. Malay Kumar Pradhan, Dr. Harish Chandra Das, Dr. Rabindra Narayan Mahapatra, Barsha Das ,
+Prediction of Air pollutants Emitting from Chimney of a CHP using CFD, 9, 105-110, 2018
+
+Pragyan P Patnaik, Shakti P Jena, Saroj K Acharya, Harish C Das, Effect of FeCI3 and diethyl! ether as additives on compression
+ignition engine emissions, Sustainable Environment Research , 27, 154-161,2017
+
+Saroj Kumar Padhi,Ranjeet Kumar Sahu, S. S. Mahapatra, Harish Chandra Das, Anoop Kumar Sood, Brundaban Patro,A. K.
+Mondal , Optimization of fused deposition modelling process parameters using a fuzzy inference system coupled with Taguchi
+philosophy, International Journal of Advance Manufacturing, 5, 231-242, 2017
+
+Saroj Kumar Padhi, S.S. Mahappatra and Harish Chandra Das , Performance of a Copper electroplated plastic electrical
+discharge machining electrode compared to a Copper electrode, International Journal of Pure and applied Mathematics, 114,
+459-469, 2017.
+
+Sanjay K. Beheral, Dayal R. Parhi, Harish C. Das , A hybrid intelligent model for crack diagnosis in a free-free aluminium beam
+structure, Modelling, Measurement and Control B, 87, 2, 2018.
+
+Application of genetic algorithm for crack diagnosis of a free-free aluminum beam with transverse crack subjected to axial and
+bending load, Sanjay K. Beheral, Dayal R. Parhi, Harish C. Das, , 2018
+
+B. K. Sarkar, Modeling and Validation of a 2-DOF Parallel Manipulator for Pose Control Application Reference, Robotics and
+Computer Integrated Manufacturing, Vol.-50, Page No:-234-241, 2018.
+
+M. A. Singh, K. Das, D. K. Sarma, Thermal simulation of machining of alumina with wire electrical discharge machining
+process using assisting electrode, Journal of Mechanical Science and Technology, 32, 1, Page No:333-343, 2018.
+
+Annual Report 2017-18 45
