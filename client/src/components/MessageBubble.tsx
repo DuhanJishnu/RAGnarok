@@ -6,12 +6,14 @@ import remarkGfm from "remark-gfm";
 export default function MessageBubble({
   role,
   text,
+  image,
   timestamp,
-}: {
+}: Readonly<{
   role: "user" | "assistant";
   text: string;
+  image?: File | string; 
   timestamp: string | Date;
-}) {
+}>) {
   const isUser = role === "user";
   const time = typeof timestamp === "string" ? new Date(timestamp) : timestamp;
   const formattedTime = time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -27,8 +29,15 @@ export default function MessageBubble({
             : "bg-gray-100 dark:bg-white/5 text-gray-900 dark:text-gray-100"
         }`}
       >
-        {/* Scrollable container */}
-        <div className="overflow-x-auto max-w-full">
+        {image && (
+          <img
+            src={typeof image === "string" ? image : URL.createObjectURL(image)}
+            alt="message"
+            className="max-w-full max-h-64 rounded-md object-cover"
+          />
+        )}
+        
+        {text && (<div className="overflow-x-auto max-w-full">
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             components={{
@@ -46,7 +55,7 @@ export default function MessageBubble({
           >
             {text}
           </ReactMarkdown>
-        </div>
+        </div>)}
       </div>
 
       <div className={`mt-1 text-xs ${isUser ? "text-gray-300" : "text-gray-500"}`}>

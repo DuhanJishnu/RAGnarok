@@ -5,7 +5,12 @@ import ChatInput from "./ChatInput";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 
-type Msg = { id: string; role: "user" | "assistant"; text: string };
+type Msg = {
+  id: string;
+  role: "user" | "assistant"; 
+  text: string, 
+  image?: File | string; 
+};
 
 export default function ChatWindow() {
   const [messages, setMessages] = useState<Msg[]>([]);
@@ -28,20 +33,34 @@ export default function ChatWindow() {
     setAtBottom(scrollTop + clientHeight >= scrollHeight - 20);
   };
 
-  const onSend = (text: string) => {
-    if (!text.trim()) return;
-    const userMsg: Msg = { id: "u" + Date.now(), role: "user", text };
-    setMessages((m) => [...m, userMsg]);
 
-    setTimeout(() => {
-      const reply: Msg = {
-        id: "a" + Date.now(),
-        role: "assistant",
-        text: `${text}`,
-      };
-      setMessages((m) => [...m, reply]);
-    }, 700);
+  const onSend = (text: string, image?: File) => {
+  // Ignore if no content
+  if (!text.trim() && !image) return;
+  const imageUrl = image ? URL.createObjectURL(image) : undefined;
+  // Create user message
+  const userMsg: Msg = { 
+    id: "u" + Date.now(),
+    role: "user",
+    text: text || "",
+    image: imageUrl,
   };
+
+  // Add to messages
+  setMessages((m) => [...m, userMsg]);
+
+  // Simulate assistant reply (optional)
+  setTimeout(() => {
+    const reply: Msg = {
+      id: "a" + Date.now(),
+      role: "assistant",
+      text: image ? "You sent an image" : `You sent: ${text}`,
+      image: undefined, // or a URL string if sending images from assistant
+    };
+    setMessages((m) => [...m, reply]);
+  }, 700);
+};
+
 
   return (
     <div className="relative flex flex-col w-full h-full  bg-gradient-to-b from-white/80 to-transparent dark:from-transparent rounded-lg shadow-md overflow-hidden">
@@ -66,6 +85,7 @@ export default function ChatWindow() {
               <MessageBubble
                 role={m.role}
                 text={m.text}
+                image={m.image} 
                 timestamp={new Date()}
               />
             </motion.div>
