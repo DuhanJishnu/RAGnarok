@@ -4,7 +4,7 @@ import fs from 'fs/promises';
 import mime from 'mime-types';
 import { redisConnection } from '../config/redis';
 import { generateRandom128CharString } from '../lib/crypto';
-import { insertInitialDocumentData, getFilePath, getThumbFilePath } from '../lib/dbOperations';
+import { insertInitialDocumentData, getFilePath, getThumbFilePath, getUnprocessedFilesFromDB, updateFileStatusInDB } from '../lib/dbOperations';
 import { IMAGE_MAX_SIZE } from '../config/envExports';
 
 // Queue configuration
@@ -430,6 +430,20 @@ export class FileService {
     const mimeType = mime.lookup(filePath) || 'application/octet-stream';
     
     return { filePath, mimeType };
+  }
+
+  static async getUnprocessedFiles(): Promise<any[]> {
+    const unprocessedFiles = await getUnprocessedFilesFromDB();
+    return unprocessedFiles;
+  }
+
+  static async updateFileStatus(documentId: string, status: 'PENDING' | 'PROCESSING' | 'COMPLETED' | 'FAILED', retriesCount?: number): Promise<any> {
+    try {
+      const result = await updateFileStatusInDB(documentId, status, retriesCount);
+      return result;
+    } catch (error) {
+      throw new Error('Failed to update file status');
+    }
   }
 
   /**

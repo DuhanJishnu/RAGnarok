@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import multer from 'multer';
 import { errorHandler } from '../error-handler';
-import { upload, getJobStatus, serveFile, serveThumbnail } from '../controllers/file';
+import { upload, getJobStatus, serveFile, serveThumbnail, getUnprocessedFiles, updateFileStatus } from '../controllers/file';
 
 const fileRoutes: Router = Router();
 
@@ -16,5 +16,7 @@ fileRoutes.post('/upload', uploadMiddleware.array('files'), errorHandler(upload)
 fileRoutes.get('/job/:id', errorHandler(getJobStatus));
 fileRoutes.get('/files/:encryptedId', errorHandler(serveFile));
 fileRoutes.get('/thumb/:encryptedId', errorHandler(serveThumbnail));
+fileRoutes.get('/unprocessed', errorHandler(getUnprocessedFiles)); 
+fileRoutes.post('/update-status', errorHandler(updateFileStatus)); 
 
 export default fileRoutes;
