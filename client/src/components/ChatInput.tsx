@@ -6,14 +6,15 @@ export default function ChatInput({
   onSend,
 }: Readonly<{
   onSend: (txt: string,  image?: File) => void;
+  conv_id: string;
+  setConvId: (conv_id : string)=>void
 }>) {
   const [text, setText] = useState("");
   const [image, setImage] = useState<File | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const send = () => {
-    console.log("sending", text, image);
-    if (!text.trim() && !image) return;
+    if (!text.trim() ) return;
     onSend( text.trim(), image || undefined );
     setText("");
     setImage(null);
