@@ -4,7 +4,7 @@ from models.enhanced_retriever import EnhancedRetriever
 from models.llm_grounding import LLMGrounding
 from models.safe_llm_grounding import SafeLLMGrounding
 from models.embedding_service import EmbeddingService
-from models.vector_db import VectorDB
+from models.vector_store import VectorDB
 
 chat_bp = Blueprint('chat', __name__)
 
