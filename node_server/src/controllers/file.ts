@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { FileService } from "../services/file";
+import { updateFileStatusSchema } from "../schemas/document";
 
 /**
  * Upload controller - handles file uploads
@@ -80,6 +81,35 @@ export const serveThumbnail = async (req: Request, res: Response, next: NextFunc
     
     res.setHeader('Content-Type', mimeType);
     res.sendFile(filePath);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getUnprocessedFiles = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const unprocessedFiles = await FileService.getUnprocessedFiles();
+    res.json(unprocessedFiles);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateFileStatus = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const parsedBody = updateFileStatusSchema.safeParse(req.body); 
+    if (!parsedBody.success) {
+      return res.status(400).json({ error: 'Invalid request data', details: parsedBody.error });
+    }
+
+    const { documentId, status, retriesCount } = parsedBody.data;
+
+    const result = await FileService.updateFileStatus(documentId, status, retriesCount);
+    if (result.success === true) {
+      return res.status(200).json({ message: 'File status updated successfully' });
+    } else {
+      return res.status(400).json({ error: result.message });
+    }
   } catch (error) {
     next(error);
   }

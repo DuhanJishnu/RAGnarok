@@ -22,3 +22,9 @@ export const updateDocumentStatusSchema = z.object({
   }, z.boolean()),
   thumbFilePath: z.string().nullable(),
 });
+
+export const updateFileStatusSchema = z.object({
+  documentId: z.string(),
+  status: z.enum(['PENDING', 'PROCESSING', 'COMPLETED', 'FAILED']),
+  retriesCount: z.number().int().optional(),
+});
