@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# RAGnarok Client Documentation
 
-## Getting Started
+## Project Overview
 
-First, run the development server:
+This document provides a detailed overview of the client-side application for RAGnarok, a powerful assistant for multi-format data interpretation and analysis. The client is a modern, responsive web application built with Next.js and React, designed to provide a seamless and intuitive user experience.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Core Technologies
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Framework:** [Next.js](https://nextjs.org/) (React)
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **HTTP Client:** [Axios](https://axios-http.com/)
+- **State Management:** React Context API
+- **UI Components:** [shadcn/ui](https://ui.shadcn.com/)
+- **Animations:** [Framer Motion](https://www.framer.com/motion/)
+- **Linting:** [ESLint](https://eslint.org/)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Authentication Flow
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The authentication system is designed to be secure and robust, providing a seamless experience for users while protecting sensitive data and routes.
 
-## Learn More
+### 1. Login and Signup
 
-To learn more about Next.js, take a look at the following resources:
+- **User Credentials:** Users can sign up for a new account or log in with their existing credentials (email and password).
+- **Token Issuance:** Upon successful authentication, the backend server issues two tokens:
+  - `access_token`: A short-lived (15 minutes) JWT used to authenticate API requests.
+  - `refresh_token`: A long-lived (7 days) token used to obtain a new `access_token` when the current one expires.
+- **Cookie Storage:** Both tokens are sent as **HttpOnly cookies**, which means they are automatically and securely stored by the browser and are not accessible to client-side JavaScript. This is a critical security measure to prevent Cross-Site Scripting (XSS) attacks.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 2. Session Management
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **`AuthContext`:** The `AuthContext` is the cornerstone of session management on the client. It provides the authentication state (`isAuthenticated`, `user`, `loading`) to all components wrapped within the `AuthProvider`.
+- **Initial Load:** When the application first loads, the `AuthProvider` makes a request to the `/auth/v1/me` endpoint. Since the authentication tokens are stored in HttpOnly cookies, the browser automatically includes them in the request. If the request is successful, the user's data is stored in the context, and the `isAuthenticated` state is set to `true`.
 
-## Deploy on Vercel
+### 3. Protected Routes
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Route protection is implemented at two levels:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Middleware (`middleware.ts`):** A Next.js middleware runs on the server side before any page is rendered. It checks for the presence of the `accessToken` cookie. If the cookie is not present, the user is immediately redirected to the `/login` page. This provides a strong, server-side guard for all protected routes.
+- **`withAuth` HOC:** The `withAuth` Higher-Order Component provides an additional layer of protection on the client side. It wraps protected pages and ensures that the user is authenticated before rendering the component. It also displays a loading state while the authentication status is being verified.
+
+### 4. Automated Token Refresh
+
+To provide a seamless user experience, the application automatically refreshes the `access_token` without requiring the user to log in again.
+
+- **Axios Interceptor:** An Axios interceptor is configured in `src/service/api.ts`. This interceptor automatically catches any API request that fails with a `401 Unauthorized` status code.
+- **Refresh Process:**
+  1. When a `401` error is detected, the interceptor pauses the original request and sends a new request to the `/auth/v1/refresh` endpoint.
+  2. The browser automatically includes the `refresh_token` cookie in this request.
+  3. If the `refresh_token` is valid, the backend responds with a new `access_token`.
+  4. The interceptor updates the `Authorization` header of the original failed request with the new `access_token` and retries the request.
+- **Refresh Failure:** If the `refresh_token` is also expired or invalid, the refresh request will fail. In this case, the interceptor will automatically redirect the user to the `/login` page, effectively logging them out.
+
+## API Interaction
+
+The client communicates with the backend via a RESTful API. All API-related logic is centralized in the `src/service` directory.
+
+- **`api.ts`:** This file contains the main Axios instance, including the base URL and the response interceptor for token refreshing.
+- **`auth.ts`:** This service handles all authentication-related API calls, including `login`, `signup`, `logout`, `refreshToken`, and `getMe`.
+- **`conv.ts`:** This service is responsible for fetching conversation data, such as the list of recent conversations.
+- **`exch.ts`:** This service manages the chat exchanges, including fetching previous messages and creating new ones.
+
+## State Management
+
+The application uses React's Context API for global state management, ensuring a clear and predictable data flow.
+
+- **`AuthContext`:** Manages the global authentication state, including the user's profile and authentication status.
+- **`ChatContext`:** Manages the state of the chat interface, including the current conversation ID, title, and the list of exchanges.
+
+## Component Structure
+
+The UI is built with a modular and reusable component architecture.
+
+- **`Sidebar.tsx`:** Displays the list of recent conversations and includes a "New Chat" button. It features infinite scrolling to load more conversations as the user scrolls.
+- **`ChatWindow.tsx`:** The main chat interface where users interact with the assistant. It displays the conversation history and includes the chat input field. It also features infinite scrolling to load older messages.
+- **`ChatInput.tsx`:** A controlled component for typing and sending messages, including support for image uploads.
+- **`MessageBubble.tsx`:** Renders individual chat messages for both the user and the assistant.
+- **`Header.tsx`:** The main application header, which includes a button to toggle the sidebar.

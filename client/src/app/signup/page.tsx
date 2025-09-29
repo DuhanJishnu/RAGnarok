@@ -3,8 +3,9 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { Button } from "@/components/ui/button";
+import { signup } from "@/service/auth";
 
 const signupSchema = z.object({
   fullname: z.string().min(1, { message: "Full name is required" }),
@@ -100,24 +101,8 @@ export default function SignupPage() {
     setIsSubmitting(true);
 
     try {
-      const res = await fetch("/api/auth/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: formData.fullname,
-          email: formData.email,
-          password: formData.password,
-        }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.error || "Something went wrong");
-      }
-
+      const res = await signup(formData.fullname, formData.email, formData.password);
+      console.log(res);
       toast.success("Account created successfully!");
       setTimeout(() => router.push("/login"), 1500);
     } catch (err) {
@@ -186,6 +171,8 @@ export default function SignupPage() {
           </div>
         </div>
       )}
+
+      <Toaster position="top-right" reverseOrder={false} />
 
       <div className="w-full max-w-md relative z-10">
         <div className="bg-gray-950/80 backdrop-blur-xl border border-gray-800 rounded-2xl shadow-2xl p-8 space-y-6">
