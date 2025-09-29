@@ -17,6 +17,6 @@ fileRoutes.get('/job/:id', errorHandler(getJobStatus));
 fileRoutes.get('/files/:encryptedId', errorHandler(serveFile));
 fileRoutes.get('/thumb/:encryptedId', errorHandler(serveThumbnail));
 fileRoutes.get('/unprocessed', errorHandler(getUnprocessedFiles)); 
-fileRoutes.post('/update-status', errorHandler(updateFileStatus)); 
+fileRoutes.patch('/update-status', errorHandler(updateFileStatus)); 
 
 export default fileRoutes;

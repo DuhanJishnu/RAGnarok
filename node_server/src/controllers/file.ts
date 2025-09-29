@@ -88,7 +88,9 @@ export const serveThumbnail = async (req: Request, res: Response, next: NextFunc
 
 export const getUnprocessedFiles = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const unprocessedFiles = await FileService.getUnprocessedFiles();
+    const batch_size: number = parseInt(req.query.batch_size as string) || 4;
+
+    const unprocessedFiles = await FileService.getUnprocessedFiles(batch_size);
     res.json(unprocessedFiles);
   } catch (error) {
     next(error);

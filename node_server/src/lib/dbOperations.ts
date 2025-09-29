@@ -168,17 +168,31 @@ export async function deleteDocumentById(documentId: number) {
   }
 }
 
-export const getUnprocessedFilesFromDB = async () => {
+export const getUnprocessedFilesFromDB = async (batchSize: number) => {
+  let files = []; 
   try {
-    const unprocessedFiles = await prisma.document.findMany({
-      where: { isCompressed: true, status: 'PENDING' },
-      select: { documentEncryptedId: true, documentType: true }
+    files = await prisma.document.findMany({
+      where: { isCompressed: true, status: { in: ['PENDING', 'FAILED'] } },
+      select: { documentEncryptedId: true, documentType: true, status: true },
     });
-    return unprocessedFiles;
   } catch (error) {
     console.error('Error fetching unprocessed files:', (error as Error).message);
     throw error;
   }
+
+  // Separate pending and failed
+  const pendingFiles = files.filter(f => f.status === 'PENDING');
+  const failedFiles = files.filter(f => f.status === 'FAILED');
+
+  let unprocessedFiles;
+
+  if (pendingFiles.length > 0) {
+    unprocessedFiles = pendingFiles.slice(0, batchSize);
+  } else {
+    unprocessedFiles = failedFiles.slice(0, batchSize);
+  }
+
+  return unprocessedFiles;
 };
 
 export const updateFileStatusInDB = async (documentId: string, status: 'PENDING' | 'PROCESSING' | 'COMPLETED' | 'FAILED', retriesCount?: number) => {

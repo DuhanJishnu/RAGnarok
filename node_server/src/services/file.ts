@@ -432,8 +432,8 @@ export class FileService {
     return { filePath, mimeType };
   }
 
-  static async getUnprocessedFiles(): Promise<any[]> {
-    const unprocessedFiles = await getUnprocessedFilesFromDB();
+  static async getUnprocessedFiles(batchSize: number): Promise<any[]> {
+    const unprocessedFiles = await getUnprocessedFilesFromDB(batchSize);
     return unprocessedFiles;
   }
 
