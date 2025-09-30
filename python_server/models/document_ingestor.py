@@ -1,5 +1,6 @@
 import os
 import uuid
+import torch
 from datetime import datetime
 from typing import List, Dict, Any, Optional
 from PyPDF2 import PdfReader
@@ -10,24 +11,30 @@ from sentence_transformers import SentenceTransformer
 from transformers import BlipProcessor, BlipForConditionalGeneration
 from langchain_community.document_loaders import PyPDFLoader, UnstructuredWordDocumentLoader, UnstructuredPowerPointLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_ollama import OllamaEmbeddings
+from config import Config
 
 class DocumentIngestor:
     def __init__(
         self,
         upload_folder: str,
-        text_embedder_name: str = "all-MiniLM-L6-v2",
         image_embedder_name: str = "clip-ViT-B-32",
         caption_model_name: str = "Salesforce/blip-image-captioning-large",
-        device: str = "cpu"
+        device: str = None
     ):
+        if device is None:
+            self.device = "cuda" if torch.cuda.is_available() else "cpu"
+        else:
+            self.device = device
+
         self.upload_folder = upload_folder
         os.makedirs(upload_folder, exist_ok=True)
 
         # timestamp format for saved files
         self.ts_format = "%Y%m%d_%H%M%S"
 
-        # initialize models (can be heavy; pass model names you prefer)
-        self.text_embedder = SentenceTransformer(text_embedder_name)
+        # initialize models
+        self.text_embedder = OllamaEmbeddings(model=Config.EMBEDDING_MODEL)
         self.image_embedder = SentenceTransformer(image_embedder_name)
         self.caption_processor = BlipProcessor.from_pretrained(caption_model_name)
         self.caption_model = BlipForConditionalGeneration.from_pretrained(caption_model_name).to(device)
@@ -269,55 +276,61 @@ class DocumentIngestor:
         object (in _image_obj).
         Returns new list with vectors attached.
         """
-        processed = []
+        
+        text_contents = []
+        text_indices = []
+        
+        # Separate text and image chunks
         for i, chunk in enumerate(chunks):
-            c = dict(chunk)  # shallow copy
-            c.pop("vector", None)  # remove any existing vector
+            if chunk["type"] in ("text", "image_caption", "image_ocr"):
+                text_contents.append(chunk["content"])
+                text_indices.append(i)
 
-            try:
-                if c["type"] in ("text", "image_caption", "image_ocr"):
-                    # encode text
-                    vec = self.text_embedder.encode(c["content"], convert_to_numpy=True)
-                    c["vector"] = vec.tolist()
-                    c["vector_dim"] = int(vec.shape[0])
-                elif c["type"] == "image":
-                    # image embedding (expects np array or PIL)
-                    img_obj = c.get("_image_obj")
-                    if img_obj is None and "local_path" in c["metadata"]:
-                        try:
-                            img_obj = Image.open(c["metadata"]["local_path"]).convert("RGB")
-                        except Exception:
-                            img_obj = None
-                    if img_obj is not None:
-                        # some SentenceTransformer image models accept PIL or np.array
-                        vec = self.image_embedder.encode(img_obj, convert_to_numpy=True)
-                        c["vector"] = vec.tolist()
-                        c["vector_dim"] = int(vec.shape[0])
-                    else:
-                        # fallback: embed caption/text field for image
-                        vec = self.text_embedder.encode(c.get("content",""), convert_to_numpy=True)
-                        c["vector"] = vec.tolist()
-                        c["vector_dim"] = int(vec.shape[0])
+        # Batch embed text chunks
+        if text_contents:
+            text_embeddings = self.text_embedder.embed_documents(text_contents)
+            for i, embedding in enumerate(text_embeddings):
+                chunk_index = text_indices[i]
+                chunks[chunk_index]["vector"] = embedding
+                chunks[chunk_index]["vector_dim"] = len(embedding)
+
+        # Process image chunks and handle fallbacks
+        for i, chunk in enumerate(chunks):
+            if chunk["type"] == "image":
+                img_obj = chunk.get("_image_obj")
+                if img_obj is None and "local_path" in chunk["metadata"]:
+                    try:
+                        img_obj = Image.open(chunk["metadata"]["local_path"]).convert("RGB")
+                    except Exception:
+                        img_obj = None
+                
+                if img_obj is not None:
+                    vec = self.image_embedder.encode(img_obj, convert_to_numpy=True)
+                    chunk["vector"] = vec.tolist()
+                    chunk["vector_dim"] = int(vec.shape[0])
                 else:
-                    # unknown type: embed content as text
-                    vec = self.text_embedder.encode(c.get("content",""), convert_to_numpy=True)
-                    c["vector"] = vec.tolist()
-                    c["vector_dim"] = int(vec.shape[0])
-            except Exception as e:
-                # on any failure, set neutral vector (zeros) to avoid crashes downstream
-                import numpy as _np
-                dim = self.text_embedder.get_sentence_embedding_dimension() if hasattr(self.text_embedder, "get_sentence_embedding_dimension") else 768
-                c["vector"] = _np.zeros(dim).tolist()
-                c["vector_dim"] = dim
-                c["embed_error"] = str(e)
+                    # Fallback for image: embed caption/text field
+                    fallback_embedding = self.text_embedder.embed_query(chunk.get("content", ""))
+                    chunk["vector"] = fallback_embedding
+                    chunk["vector_dim"] = len(fallback_embedding)
 
-            # drop the PIL image object before returning (not serializable)
-            if remove_image_obj and "_image_obj" in c:
-                c.pop("_image_obj", None)
+            # Final check for any unprocessed chunks
+            if "vector" not in chunk:
+                try:
+                    fallback_embedding = self.text_embedder.embed_query(chunk.get("content", ""))
+                    chunk["vector"] = fallback_embedding
+                    chunk["vector_dim"] = len(fallback_embedding)
+                except Exception as e:
+                    import numpy as _np
+                    dim = 768 # default for nomic
+                    chunk["vector"] = _np.zeros(dim).tolist()
+                    chunk["vector_dim"] = dim
+                    chunk["embed_error"] = str(e)
 
-            processed.append(c)
+            if remove_image_obj and "_image_obj" in chunk:
+                chunk.pop("_image_obj", None)
 
-        return processed
+        return chunks
 
 # -------------------------
 # Example usage
@@ -330,8 +343,10 @@ if __name__ == "__main__":
     # file_path = saved["saved_path"]
 
     # 2) If you have a local sample image/pdf:
-    sample_image_path = "sample.png"   # replace with real path
-    sample_pdf_path = "sample.pdf"     # replace with real path
+    sample_image_path = "../uploads/sample/sample.png"
+    sample_pdf_path = "../uploads/sample/sample.pdf"
+    sample_audio_path = "../uploads/sample/smaple.mp3"
+    sample_doc_path = "../uploads/sample/sample.doc"
 
     # create minimal metadata
     meta_image = {

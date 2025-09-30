@@ -16,7 +16,7 @@ class Config:
     # Models
     EMBEDDING_MODEL = "nomic-embed-text:v1.5"
     LLM_MODEL = "gemma3:4b"
-    RERANKER_MODEL = "BAAI/bge-reranker-base"
+    
     
     # Vector DB
     UPSTASH_VECTOR_REST_URL = os.getenv('UPSTASH_VECTOR_REST_URL')

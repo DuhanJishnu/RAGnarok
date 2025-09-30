@@ -22,7 +22,7 @@ from models.vector_store import VectorDB
 class IngestionProcessor:
     """Processes a single document for ingestion."""
 
-    def __init__(self, ingestor: "DocumentIngestor", vector_db: "VectorDB"):
+    def __init__(self, ingestor: DocumentIngestor, vector_db: VectorDB):
         self.ingestor = ingestor
         self.vector_db = vector_db
 
@@ -51,6 +51,13 @@ class IngestionProcessor:
                 return False
 
             self.vector_db.add_documents(embedded_chunks)
+
+            # Remove file from server after ingestion
+            try:
+                os.remove(file_path)
+                logging.info("Successfully processed and removed file: %s", file_path)
+            except Exception as e:
+                logging.error("Processed but failed to delete file %s: %s", file_path, e)
 
             logging.info("Successfully processed file: %s", file_path)
             return True
