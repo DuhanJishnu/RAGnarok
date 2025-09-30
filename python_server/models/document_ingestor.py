@@ -36,34 +36,12 @@ class DocumentIngestor:
         # initialize models
         self.text_embedder = OllamaEmbeddings(model=Config.EMBEDDING_MODEL)
         self.image_embedder = SentenceTransformer(image_embedder_name)
-        self.caption_processor = BlipProcessor.from_pretrained(caption_model_name)
+        self.caption_processor = BlipProcessor.from_pretrained(caption_model_name, use_fast = True)
         self.caption_model = BlipForConditionalGeneration.from_pretrained(caption_model_name).to(device)
 
         # text splitter for chunking extracted text
-        self.splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
+        self.splitter = RecursiveCharacterTextSplitter(chunk_size=Config.CHUNK_SIZE, chunk_overlap=Config.CHUNK_OVERLAP)
 
-    # ---------- file saving ----------
-    def save_uploaded_file(self, file) -> Dict[str, str]:
-        """Save uploaded file with metadata (file is expected to have .save and .filename)"""
-        file_id = str(uuid.uuid4())
-        original_filename = file.filename
-        file_extension = original_filename.split('.')[-1].lower()
-
-        # Create filename with timestamp
-        timestamp = datetime.now().strftime(self.ts_format)
-        saved_filename = f"{file_id}_{timestamp}.{file_extension}"
-        file_path = os.path.join(self.upload_folder, saved_filename)
-
-        # Save file
-        file.save(file_path)
-
-        return {
-            "file_id": file_id,
-            "original_filename": original_filename,
-            "saved_path": file_path,
-            "file_extension": file_extension,
-            "upload_timestamp": timestamp
-        }
 
     # ---------- high-level ingest ----------
     def ingest_file(self, file_path: str, file_metadata: Dict[str, Any]) -> List[Dict[str, Any]]:
@@ -303,7 +281,7 @@ class DocumentIngestor:
                         img_obj = Image.open(chunk["metadata"]["local_path"]).convert("RGB")
                     except Exception:
                         img_obj = None
-                
+
                 if img_obj is not None:
                     vec = self.image_embedder.encode(img_obj, convert_to_numpy=True)
                     chunk["vector"] = vec.tolist()
@@ -343,7 +321,7 @@ if __name__ == "__main__":
     # file_path = saved["saved_path"]
 
     # 2) If you have a local sample image/pdf:
-    sample_image_path = "../uploads/sample/sample.png"
+    sample_image_path = "../python_server/uploads/sample/sample.jpg"
     sample_pdf_path = "../uploads/sample/sample.pdf"
     sample_audio_path = "../uploads/sample/smaple.mp3"
     sample_doc_path = "../uploads/sample/sample.doc"
@@ -358,8 +336,9 @@ if __name__ == "__main__":
 
     # process image
     chunks = ingestor.ingest_file(sample_image_path, meta_image)
+    print(chunks)
     chunks_with_vectors = ingestor.embed_chunks(chunks)
-
+    print(chunks_with_vectors)
     # Now chunks_with_vectors contains vector-ready entries you can upsert to any vector DB.
     # Example item:
     # {

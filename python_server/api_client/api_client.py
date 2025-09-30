@@ -28,8 +28,8 @@ def get_files_from_api(batch_size: int) -> List[str]:
 
         # Ensure the API returns a list
         if isinstance(files, list):
-            # file_path = [] convert doc id : file to file path
-            return files
+            file_paths = convert_docs_to_paths(files)
+            return file_paths
 
         logging.warning(f"API returned non-list data: {files}")
         return []
@@ -37,6 +37,15 @@ def get_files_from_api(batch_size: int) -> List[str]:
     except requests.exceptions.RequestException as e:
         logging.error(f"Error fetching files from API: {e}")
         return []
+
+def convert_docs_to_paths(files):
+    if isinstance(files, list):
+        file_paths = [
+            f"{API_BASE_URL}/api/file/v1/files/{doc['documentEncryptedId']}"
+            for doc in files if isinstance(doc, dict) and "documentEncryptedId" in doc
+        ]
+        return file_paths
+    return files
 
 def update_status_via_api(doc_id: str, success: bool, error_msg: Optional[str] = None) -> bool:
     """
