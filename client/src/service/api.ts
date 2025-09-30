@@ -13,22 +13,18 @@ export const api = axios.create({
 });
 
 // Response interceptor for handling token refresh
-api.interceptors.response.use(
+ api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
-
+    console.log(error);
     // If the error is 401 and we haven't already tried to refresh the token
-    if (error.response.status === 401 && !originalRequest._retry) {
+    if (error.code === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
       try {
         // Attempt to refresh the token
-        const { accessToken } = await refreshToken();
-
-        // Update the Authorization header with the new token
-        api.defaults.headers.common['Authorization'] = accessToken;
-        originalRequest.headers['Authorization'] = accessToken;
+        await refreshToken();
 
         // Retry the original request
         return api(originalRequest);

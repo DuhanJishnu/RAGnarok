@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode, useMemo, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { getMe, logout as logoutService } from '@/service/auth';
 
@@ -21,12 +21,8 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User | null>({
-  id: "123dfrrfr",
-  username: "Shashank",
-  email: "uamrshashank@gmail.com",
-}); //testing
-  const [isAuthenticated, setIsAuthenticated] = useState(true);//testing
+  const [user, setUser] = useState<User | null>(null); 
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
@@ -43,23 +39,32 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       .finally(() => setLoading(false));
   }, []);
 
-  const login = () => {
-    getMe().then(userData => {
-      setUser(userData);
-      setIsAuthenticated(true);
-      router.push('/');
-    });
-  };
 
-  const logout = async () => {
-    await logoutService();
+  const login = useCallback(() => {
+  getMe().then(userData => {
+    setUser(userData);
+    setIsAuthenticated(true);
+    router.push('/');
+  });
+}, [router]);
+
+
+  const logout = useCallback(() => {
+  logoutService().finally(() => {
     setUser(null);
     setIsAuthenticated(false);
     router.push('/login');
-  };
+  });
+}, [router]);
+
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, user, login, logout, loading }}>
+    <AuthContext.Provider 
+      value={useMemo(
+        () => ({ isAuthenticated, user, login, logout, loading }),
+        [isAuthenticated, user, login, logout, loading]
+      )}
+    >
       {children}
     </AuthContext.Provider>
   );

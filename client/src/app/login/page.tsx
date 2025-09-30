@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useRouter } from "next/navigation";
+
 import { z } from "zod";
 import toast, { Toaster } from "react-hot-toast";
 import {Button} from "@/components/ui/button";
@@ -34,7 +34,7 @@ const predefinedParticles = [
 ];
 
 export default function LoginPage() {
-  const router = useRouter();
+  
   const { login: authLogin } = useAuth();
   const [formData, setFormData] = React.useState({ email: "", password: "" });
   const [isSubmitting, setIsSubmitting] = React.useState(false);
@@ -253,7 +253,7 @@ export default function LoginPage() {
           </form>
 
           <p className="text-center text-sm text-gray-400 pt-4">
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <a href="/signup" className="font-semibold text-blue-400 hover:text-blue-300 transition-colors duration-200">
               Sign up
             </a>

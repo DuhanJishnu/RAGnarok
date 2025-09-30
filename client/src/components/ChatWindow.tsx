@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import MessageBubble from "./MessageBubble";
 import ChatInput from "./ChatInput";
 import { AnimatePresence, motion } from "framer-motion";
@@ -32,20 +32,20 @@ export default function ChatWindow() {
     setAtBottom(scrollTop + clientHeight >= scrollHeight - 20);
   };
 
+  const handleObserver = useCallback((entities: IntersectionObserverEntry[]) => {
+    const target = entities[0];
+    if (target.isIntersecting && hasMoreExchanges) {
+      setExchangePage(prevPage => prevPage + 1);
+    }
+  }, [hasMoreExchanges]);
+
   useEffect(() => {
     const observer = new IntersectionObserver(handleObserver, { root: null, rootMargin: "20px" });
     if (loader.current) {
       observer.observe(loader.current);
     }
     return () => observer.disconnect();
-  }, [hasMoreExchanges]);
-
-  const handleObserver = (entities: IntersectionObserverEntry[]) => {
-    const target = entities[0];
-    if (target.isIntersecting && hasMoreExchanges) {
-      setExchangePage(prevPage => prevPage + 1);
-    }
-  };
+  }, [handleObserver]);
 
   useEffect(() => {
     if (convId) {
