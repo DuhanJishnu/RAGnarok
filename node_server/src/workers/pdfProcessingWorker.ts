@@ -27,21 +27,21 @@ export const pdfProcessingWorker = async (job: Job<PdfProcessingData>) => {
     await job.updateProgress(20);
 
     // Compress the PDF
-    const compressedPath = await compressPDF(filePath, finalFilePath);
-    
+    const { compressedPdfPath, thumbnailPath } = await compressPDF(filePath, finalFilePath);
+
     await job.updateProgress(80);
 
     // Get file stats
-    const stats = await fs.stat(compressedPath);
+    const stats = await fs.stat(compressedPdfPath);
     const finalSizeInMB = parseFloat((stats.size / (1024 * 1024)).toFixed(2));
 
     // Update database
     await updateDocumentStatus({
       documentId,
-      documentPath: compressedPath,
+      documentPath: compressedPdfPath,
       currentFileSize: finalSizeInMB,
       isCompressed: true,
-      thumbFilePath: ''
+      thumbFilePath: thumbnailPath
   });
     
     await job.updateProgress(95);
@@ -58,7 +58,7 @@ export const pdfProcessingWorker = async (job: Job<PdfProcessingData>) => {
     
     return {
       documentId,
-      finalPath: compressedPath,
+      finalPath: compressedPdfPath,
       finalSizeInMB
     };
 

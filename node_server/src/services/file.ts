@@ -59,14 +59,10 @@ export class FileService {
    */
   static async processUploadedFiles(files: Express.Multer.File[], payload: any, query: any): Promise<any[]> {
     const fileType: number = parseInt(query.fileType as string) || 1;
-    
-    if (!payload?.projectName || !payload?.directory) {
-      throw new Error('Project name and directory are required');
-    }
 
     // Use project root directory for uploads
     const projectRoot = process.cwd();
-    const pathToUpload = path.join(projectRoot, 'uploads', payload.projectName, payload.directory, 'temp');
+    const pathToUpload = path.join(projectRoot, 'uploads', 'temp');
     
     // Ensure upload directory exists
     try {
@@ -183,7 +179,7 @@ export class FileService {
     await fs.writeFile(tempInput, file.buffer);
     
     const projectRoot = process.cwd();
-    const finalFilePath = path.join(projectRoot, 'uploads', payload.projectName, payload.directory, path.parse(fileName).name + '.webp');
+    const finalFilePath = path.join(projectRoot, 'uploads', path.parse(fileName).name + '.webp');
 
     return await imageProcessingQueue.add('image-processing', {
       documentId,
@@ -226,7 +222,7 @@ export class FileService {
     }
 
     const projectRoot = process.cwd();
-    const outputPath = path.join(projectRoot, 'uploads', payload.projectName, payload.directory, fileName);
+    const outputPath = path.join(projectRoot, 'uploads', fileName);
     const tempInput = path.join(pathToUpload, `temp-${fileName}`);
     await fs.writeFile(tempInput, file.buffer);
 
@@ -268,7 +264,7 @@ export class FileService {
     }
 
     const projectRoot = process.cwd();
-    const outputPath = path.join(projectRoot, 'uploads', payload.projectName, payload.directory, fileName);
+    const outputPath = path.join(projectRoot, 'uploads', fileName);
     const tempInput = path.join(pathToUpload, `temp-${fileName}`);
     await fs.writeFile(tempInput, file.buffer);
 
@@ -307,7 +303,7 @@ export class FileService {
     }
 
     const projectRoot = process.cwd();
-    const outputPath = path.join(projectRoot, 'uploads', payload.projectName, payload.directory, fileName);
+    const outputPath = path.join(projectRoot, 'uploads', fileName);
     const tempInput = path.join(pathToUpload, `temp-${fileName}`);
     await fs.writeFile(tempInput, file.buffer);
 
