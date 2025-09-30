@@ -60,24 +60,24 @@ export default function MessageBubble({
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               components={{
-                h1: ({ node, ...props }) => (
+                h1: ({ ...props }) => (
                   <h1 className="text-xl font-bold my-2" {...props} />
                 ),
-                h2: ({ node, ...props }) => (
+                h2: ({ ...props }) => (
                   <h2 className="text-lg font-semibold my-2" {...props} />
                 ),
-                h3: ({ node, ...props }) => (
+                h3: ({ ...props }) => (
                   <h3 className="text-md font-semibold my-1" {...props} />
                 ),
-                p: ({ node, ...props }) => <p className="my-1" {...props} />,
-                ul: ({ node, ...props }) => (
+                p: ({ ...props }) => <p className="my-1" {...props} />,
+                ul: ({ ...props }) => (
                   <ul className="list-disc ml-5 my-1" {...props} />
                 ),
-                ol: ({ node, ...props }) => (
+                ol: ({ ...props }) => (
                   <ol className="list-decimal ml-5 my-1" {...props} />
                 ),
-                li: ({ node, ...props }) => <li className="my-1" {...props} />,
-                code: ({ node, ...props }) => (
+                li: ({ ...props }) => <li className="my-1" {...props} />,
+                code: ({ ...props }) => (
                   <code
                     className="bg-gray-200 dark:bg-white/10 px-1 py-0.5 rounded"
                     {...props}

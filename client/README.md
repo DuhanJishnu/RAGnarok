@@ -4,6 +4,74 @@
 
 This document provides a detailed overview of the client-side application for RAGnarok, a powerful assistant for multi-format data interpretation and analysis. The client is a modern, responsive web application built with Next.js and React, designed to provide a seamless and intuitive user experience.
 
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v18 or later)
+- npm
+
+### Installation
+
+1.  Clone the repository.
+2.  Navigate to the `client` directory:
+    ```bash
+    cd client
+    ```
+3.  Install the dependencies:
+    ```bash
+    npm install
+    ```
+
+### Running the Application
+
+To start the development server, run:
+
+```bash
+npm run dev
+```
+
+The application will be available at `http://localhost:3000`.
+
+## Folder Structure
+
+```
+client/
+├── public/                 # Static assets
+├── src/
+│   ├── app/                # Next.js app directory
+│   │   ├── (auth)/         # Authentication pages (login, signup)
+│   │   ├── (main)/         # Main application pages
+│   │   ├── globals.css     # Global styles
+│   │   ├── layout.tsx      # Root layout
+│   │   └── page.tsx        # Home page
+│   ├── components/         # Reusable UI components
+│   │   ├── ui/             # shadcn/ui components
+│   │   ├── ChatInput.tsx
+│   │   ├── ChatWindow.tsx
+│   │   ├── Header.tsx
+│   │   ├── MessageBubble.tsx
+│   │   ├── Sidebar.tsx
+│   │   └── withAuth.tsx
+│   ├── context/            # React context providers
+│   │   ├── AuthContext.tsx
+│   │   └── ChatContext.tsx
+│   ├── lib/                # Library functions and utilities
+│   │   ├── db.ts
+│   │   └── utils.ts
+│   ├── models/             # Data models
+│   │   └── User.ts
+│   └── service/            # API service layer
+│       ├── api.ts
+│       ├── auth.ts
+│       ├── conv.ts
+│       ├── exch.ts
+│       └── file.ts
+├── .env.local              # Environment variables
+├── next.config.js          # Next.js configuration
+└── package.json            # Project dependencies and scripts
+```
+
 ## Core Technologies
 
 - **Framework:** [Next.js](https://nextjs.org/) (React)
@@ -76,3 +144,5 @@ The UI is built with a modular and reusable component architecture.
 - **`ChatInput.tsx`:** A controlled component for typing and sending messages, including support for image uploads.
 - **`MessageBubble.tsx`:** Renders individual chat messages for both the user and the assistant.
 - **`Header.tsx`:** The main application header, which includes a button to toggle the sidebar.
+- **`withAuth.tsx`:** A Higher-Order Component that protects routes by ensuring the user is authenticated before rendering the component.
+- **`ui/`:** This directory contains the `shadcn/ui` components, which are used throughout the application for building the user interface.
