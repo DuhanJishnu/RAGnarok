@@ -35,13 +35,6 @@ export default function MessageBubble({
             : "bg-gray-100 dark:bg-white/5 text-gray-900 dark:text-gray-100"
         }`}
       >
-        {/* {image && (
-          <img
-            src={typeof image === "string" ? image : URL.createObjectURL(image)}
-            alt="message"
-            className="max-w-full max-h-64 rounded-md object-cover"
-          />
-        )} */}
         {image && (
           <div className="relative w-full max-w-sm h-64">
             <Image

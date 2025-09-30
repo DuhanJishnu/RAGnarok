@@ -70,7 +70,10 @@ const Sidebar = ({ isOpen }: { isOpen: boolean }) => {
       </button>
       <div className="flex-1 overflow-y-auto">
         {conversations.map(conv => (
-          <div key={conv.id} onClick={() => handleConversationClick(conv)} className="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer rounded-lg">
+          <div 
+            key={conv.id} 
+            onClick={() => handleConversationClick(conv)} 
+            className="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer rounded-lg">
             {conv.title}
           </div>
         ))}
