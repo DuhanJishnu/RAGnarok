@@ -21,53 +21,82 @@ from models.vector_store import VectorDB
 
 class IngestionProcessor:
     """Processes a single document for ingestion."""
-    def __init__(self, ingestor: DocumentIngestor, vector_db: VectorDB):
+
+    def __init__(self, ingestor: "DocumentIngestor", vector_db: "VectorDB"):
         self.ingestor = ingestor
         self.vector_db = vector_db
 
-    def process(self, file_path: str) -> None:
+    def process(self, file_path: str) -> bool:
         """Process a single file and add it to the vector DB."""
         if not os.path.exists(file_path):
+            logging.error("File not found: %s", file_path)
             raise FileNotFoundError(f"File not found: {file_path}")
 
         file_metadata = {
             "file_id": os.path.basename(file_path),
             "original_filename": os.path.basename(file_path),
             "saved_path": file_path,
-            "upload_timestamp": os.path.getmtime(file_path)
+            "upload_timestamp": os.path.getmtime(file_path),
         }
 
-        chunks = self.ingestor.ingest_file(file_path, file_metadata)
-        embedded_chunks = self.ingestor.embed_chunks(chunks)
+        try:
+            chunks = self.ingestor.ingest_file(file_path, file_metadata)
+            if not chunks:
+                logging.warning("No chunks generated for file: %s", file_path)
+                return False
 
-        if embedded_chunks:
+            embedded_chunks = self.ingestor.embed_chunks(chunks)
+            if not embedded_chunks:
+                logging.warning("Embedding failed or returned no data for file: %s", file_path)
+                return False
+
             self.vector_db.add_documents(embedded_chunks)
 
-def process_batch_parallel(file_paths: List[str], ingestor: DocumentIngestor, vector_db: VectorDB, max_workers: int = 4):
+            logging.info("Successfully processed file: %s", file_path)
+            return True
+
+        except Exception as e:
+            logging.exception("Error while processing file %s: %s", file_path, e)
+            return False
+
+def process_batch_parallel(
+        file_paths: List[str],
+        ingestor: DocumentIngestor,
+        vector_db: VectorDB,
+        max_workers: int = 4
+        )->tuple[list[str], Dict[str,str]]:
     """Process a batch of files in parallel."""
     processor = IngestionProcessor(ingestor, vector_db)
     successful_files = []
     failed_files = {}
 
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
-        future_to_file = {executor.submit(processor.process, file_path): file_path for file_path in file_paths}
+        future_to_file = {
+            executor.submit(processor.process, file_path): file_path
+            for file_path in file_paths
+        }
 
         for future in as_completed(future_to_file):
             file_path = future_to_file[future]
             try:
-                future.result()
-                successful_files.append(file_path)
+                success = future.result()
+                if success:
+                    successful_files.append(file_path)
+                else:
+                    failed_files[file_path] = "Processing failed (check logs)"
             except Exception as e:
                 logging.error(f"Error processing {file_path}: {e}")
                 failed_files[file_path] = str(e)
-    
+
     return successful_files, failed_files
 
 def start_worker_service(batch_size: int = 10, poll_interval: int = 10, max_workers: int = 4):
+
     """Main continuous loop for the processing worker service."""
+
     logging.info("Ingestion worker service starting.")
 
-    ingestor = DocumentIngestor(upload_folder="./uploads")
+    ingestor = DocumentIngestor(upload_folder="./uploads") # taking files from 'uploads' folder
     vector_db = VectorDB()
     vector_db.load()
 
@@ -99,5 +128,6 @@ def start_worker_service(batch_size: int = 10, poll_interval: int = 10, max_work
             time.sleep(poll_interval)
 
 if __name__ == "__main__":
+    # logging in terminal
     logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
     start_worker_service()
