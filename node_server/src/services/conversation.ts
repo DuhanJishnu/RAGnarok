@@ -1,4 +1,6 @@
-import { prismaClient } from '..';
+import { prisma } from "../config/prisma";
+
+const prismaClient = prisma;
 
 export const createConversation =async(userId:string, title:string)=>{
 

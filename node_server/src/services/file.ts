@@ -3,9 +3,10 @@ import path from 'path';
 import fs from 'fs/promises';
 import mime from 'mime-types';
 import { redisConnection } from '../config/redis';
-import { generateRandom128CharString } from '../lib/crypto';
+import { generateHash } from '../lib/crypto';
 import { insertInitialDocumentData, getFilePath, getThumbFilePath, getUnprocessedFilesFromDB, updateFileStatusInDB } from '../lib/dbOperations';
 import { IMAGE_MAX_SIZE } from '../config/envExports';
+import { getFolderHashAndFileCount } from '../lib/fileStructure';
 
 // Queue configuration
 const queueConfig = {
@@ -59,14 +60,10 @@ export class FileService {
    */
   static async processUploadedFiles(files: Express.Multer.File[], payload: any, query: any): Promise<any[]> {
     const fileType: number = parseInt(query.fileType as string) || 1;
-    
-    if (!payload?.projectName || !payload?.directory) {
-      throw new Error('Project name and directory are required');
-    }
 
     // Use project root directory for uploads
     const projectRoot = process.cwd();
-    const pathToUpload = path.join(projectRoot, 'uploads', payload.projectName, payload.directory, 'temp');
+    const pathToUpload = path.join(projectRoot, 'uploads', 'temp');
     
     // Ensure upload directory exists
     try {
@@ -98,7 +95,10 @@ export class FileService {
   ) {
     const sizeInBytes = file.size;
     const sizeInMB = parseFloat((sizeInBytes / (1024 * 1024)).toFixed(2));
-    const encryptedId = generateRandom128CharString();
+
+    const { folderHash, fileCount, hashes } = await getFolderHashAndFileCount(); 
+
+    const encryptedId = folderHash + generateHash(70); 
 
     // Insert initial document data
     const documentId = await insertInitialDocumentData({
@@ -123,16 +123,16 @@ export class FileService {
     try {
       switch (fileType) {
         case 1: // Image
-          job = await this.processImageFile(file, fileName, pathToUpload, payload, query, documentId, finalLink, finalThumbLink);
+          job = await this.processImageFile(file, fileName, pathToUpload, payload, query, documentId, finalLink, finalThumbLink, hashes);
           break;
         case 2: // Audio
-          job = await this.processAudioFile(file, fileName, pathToUpload, payload, documentId, finalLink, finalThumbLink);
+          job = await this.processAudioFile(file, fileName, pathToUpload, payload, documentId, finalLink, finalThumbLink, hashes);
           break;
         case 3: // PDF
-          job = await this.processPdfFile(file, fileName, pathToUpload, payload, documentId, finalLink, finalThumbLink);
+          job = await this.processPdfFile(file, fileName, pathToUpload, payload, documentId, finalLink, finalThumbLink, hashes);
           break;
         case 4: // MS Word/Document files
-          job = await this.processDocumentFile(file, fileName, pathToUpload, payload, documentId, finalLink, finalThumbLink);
+          job = await this.processDocumentFile(file, fileName, pathToUpload, payload, documentId, finalLink, finalThumbLink, hashes);
           break;
         default:
           throw new Error('Unsupported file type');
@@ -167,7 +167,8 @@ export class FileService {
     query: any,
     documentId: number,
     finalLink: string,
-    finalThumbLink: string
+    finalThumbLink: string,
+    hashes: string[]
   ) {
     const sizeInMB = parseFloat((file.size / (1024 * 1024)).toFixed(2));
     
@@ -183,7 +184,7 @@ export class FileService {
     await fs.writeFile(tempInput, file.buffer);
     
     const projectRoot = process.cwd();
-    const finalFilePath = path.join(projectRoot, 'uploads', payload.projectName, payload.directory, path.parse(fileName).name + '.webp');
+    const finalFilePath = path.join(projectRoot, 'uploads', ...hashes, path.parse(fileName).name + '.webp');
 
     return await imageProcessingQueue.add('image-processing', {
       documentId,
@@ -216,7 +217,8 @@ export class FileService {
     payload: any,
     documentId: number,
     finalLink: string,
-    finalThumbLink: string
+    finalThumbLink: string,
+    hashes: string[]
   ) {
     const sizeInMB = parseFloat((file.size / (1024 * 1024)).toFixed(2));
     const maxSize = parseFloat(process.env.AUDIO_MAX_SIZE || '50');
@@ -226,7 +228,7 @@ export class FileService {
     }
 
     const projectRoot = process.cwd();
-    const outputPath = path.join(projectRoot, 'uploads', payload.projectName, payload.directory, fileName);
+    const outputPath = path.join(projectRoot, 'uploads', ...hashes, fileName);
     const tempInput = path.join(pathToUpload, `temp-${fileName}`);
     await fs.writeFile(tempInput, file.buffer);
 
@@ -258,7 +260,8 @@ export class FileService {
     payload: any,
     documentId: number,
     finalLink: string,
-    finalThumbLink: string
+    finalThumbLink: string,
+    hashes: string[]
   ) {
     const sizeInMB = parseFloat((file.size / (1024 * 1024)).toFixed(2));
     const maxSize = parseFloat(process.env.PDF_MAX_SIZE || '50');
@@ -268,7 +271,7 @@ export class FileService {
     }
 
     const projectRoot = process.cwd();
-    const outputPath = path.join(projectRoot, 'uploads', payload.projectName, payload.directory, fileName);
+    const outputPath = path.join(projectRoot, 'uploads', ...hashes, fileName);
     const tempInput = path.join(pathToUpload, `temp-${fileName}`);
     await fs.writeFile(tempInput, file.buffer);
 
@@ -297,7 +300,8 @@ export class FileService {
     payload: any,
     documentId: number,
     finalLink: string,
-    finalThumbLink: string
+    finalThumbLink: string,
+    hashes: string[]
   ) {
     const sizeInMB = parseFloat((file.size / (1024 * 1024)).toFixed(2));
     const maxSize = parseFloat(process.env.DOCUMENT_MAX_SIZE || '25');
@@ -307,7 +311,7 @@ export class FileService {
     }
 
     const projectRoot = process.cwd();
-    const outputPath = path.join(projectRoot, 'uploads', payload.projectName, payload.directory, fileName);
+    const outputPath = path.join(projectRoot, 'uploads', ...hashes, fileName);
     const tempInput = path.join(pathToUpload, `temp-${fileName}`);
     await fs.writeFile(tempInput, file.buffer);
 

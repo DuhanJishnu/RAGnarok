@@ -84,4 +84,16 @@ model Document {
   thumbPath           String?
 }
 
+model FileContainer {
+  id                  Int         @id @default(autoincrement())
+  Layer1_Hash         String      @unique
+  Layer2_Hash         String      @unique
+  Layer3_Hash         String      @unique
+  Layer4_Hash         String      @unique
+  Layer5_Hash         String      @unique
+  FileCount           Int         @default(0)
+  isFullyPopulated    Boolean     @default(false)
+  lastUpdated         DateTime    @updatedAt
+}
+
 

@@ -1,14 +1,16 @@
 "use client";
 
 import React from "react";
-import { useRouter } from "next/navigation";
+
 import { z } from "zod";
 import toast, { Toaster } from "react-hot-toast";
 import {Button} from "@/components/ui/button";
+import { login } from "@/service/auth";
+import { useAuth } from "@/context/AuthContext";
 
 
 const loginSchema = z.object({
-  email: z.string().email({ message: "Invalid email address" }),
+  email: z.email({ message: "Invalid email address" }),
   password: z.string().min(6, { message: "Password must be at least 6 characters" }),
 });
 
@@ -32,7 +34,8 @@ const predefinedParticles = [
 ];
 
 export default function LoginPage() {
-  const router = useRouter();
+  
+  const { login: authLogin } = useAuth();
   const [formData, setFormData] = React.useState({ email: "", password: "" });
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [mousePosition, setMousePosition] = React.useState({ x: 0, y: 0 });
@@ -93,18 +96,9 @@ export default function LoginPage() {
     setIsSubmitting(true);
 
     try {
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) throw new Error(data.error || "Invalid credentials");
-
+      await login(formData.email, formData.password);
+      authLogin();
       toast.success("Login successful!");
-      setTimeout(() => router.push("/dashboard"), 1500);
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "An unknown error occurred");
     } finally {
@@ -243,7 +237,7 @@ export default function LoginPage() {
         <path
           className="opacity-75"
           fill="currentColor"
-          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 
+          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373  
              0 12h4zm2 5.291A7.962 7.962 0 014 
              12H0c0 3.042 1.135 5.824 3 
              7.938l3-2.647z"
@@ -259,7 +253,7 @@ export default function LoginPage() {
           </form>
 
           <p className="text-center text-sm text-gray-400 pt-4">
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <a href="/signup" className="font-semibold text-blue-400 hover:text-blue-300 transition-colors duration-200">
               Sign up
             </a>

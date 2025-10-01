@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Header from "@/components/Header";
-import Sidebar from "@/components/Sidebar";
+import { AuthProvider } from "@/context/AuthContext";
 
 export const metadata: Metadata = {
   title: "RAGnarok Assistant",
@@ -16,13 +15,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-gray-50 text-gray-900 dark:bg-[#0f1724] dark:text-gray-100">
-        <div className="min-h-screen flex">
-          {/* <Sidebar /> */}
-          <div className="flex-1 flex flex-col">
-            {/* <Header /> */}
-            <main className="flex-1 ">{children}</main>
+        <AuthProvider>
+          <div className="min-h-screen flex">
+            {/* <Sidebar /> */}
+            <div className="flex-1 flex flex-col">
+              {/* <Header /> */}
+              <main className="flex-1 ">{children}</main>
+            </div>
           </div>
-        </div>
+        </AuthProvider>
       </body>
     </html>
   );

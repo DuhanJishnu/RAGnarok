@@ -1,10 +1,11 @@
 import jwt from "jsonwebtoken";
-import { prismaClient } from "../";
 import { JWT_ACCESS_SECRET, JWT_REFRESH_SECRET } from "../config/envExports";
-import { hashSync } from "bcrypt";
 import {User, SafeUser} from '../types/auth'
+import { prisma } from "../config/prisma";
 const ACCESS_TOKEN_EXPIRY = "15m";
 const REFRESH_TOKEN_EXPIRY_DAYS = 7;
+
+const prismaClient = prisma; 
 
 export const generateAccessToken = (userId: string) => {
   return jwt.sign({ userId: userId }, JWT_ACCESS_SECRET, {

@@ -19,18 +19,17 @@
     "password": "string (min 6 chars)"
   }
   ```
-- **Usage**: Registers a new user, hashing the password and returning both access and refresh tokens.
-- **Example**:
-  ```http
-  POST /auth/v1/signup
-  Content-Type: application/json
-
+- **Response Body (JSON)**:
+  ```json
   {
-    "username": "alice",
-    "email": "alice@example.com",
-    "password": "secretPass1"
+    "id": "string",
+    "email": "string",
+    "username": "string",
+    "access_token": "string",
+    "refresh_token": "string"
   }
   ```
+- **Usage**: Registers a new user, hashing the password and returning both access and refresh tokens.
 
 ### POST `/auth/v1/login`
 - **Controller**: `login`
@@ -42,17 +41,17 @@
     "password": "string (min 6 chars)"
   }
   ```
-- **Usage**: Validates credentials and issues new access and refresh tokens for the user.
-- **Example**:
-  ```http
-  POST /auth/v1/login
-  Content-Type: application/json
-
+- **Response Body (JSON)**:
+  ```json
   {
-    "email": "alice@example.com",
-    "password": "secretPass1"
+    "id": "string",
+    "email": "string",
+    "username": "string",
+    "access_token": "string",
+    "refresh_token": "string"
   }
   ```
+- **Usage**: Validates credentials and issues new access and refresh tokens for the user.
 
 ### GET `/auth/v1/refresh`
 - **Controller**: `refresh`
@@ -63,27 +62,20 @@
     "refresh_token": "string"
   }
   ```
-- **Usage**: Verifies and rotates the refresh token, returning a fresh access/refresh token pair.
-- **Example**:
-  ```http
-  GET /auth/v1/refresh
-  Content-Type: application/json
-
+- **Response Body (JSON)**:
+  ```json
   {
-    "refresh_token": "<stored-refresh-token>"
+    "access_token": "string",
+    "refresh_token": "string"
   }
   ```
-  > **Tip**: Consider switching to `POST` when integrating to avoid rejecting bodies on GET requests.
+- **Usage**: Verifies and rotates the refresh token, returning a fresh access/refresh token pair.
+- **Note**: Consider switching to `POST` to avoid issues with clients that disallow bodies in GET requests.
 
 ### GET `/auth/v1/me`
 - **Controller**: `me`
 - **Auth**: Required (`Authorization: Bearer <access_token>`)
 - **Usage**: Returns the authenticated user's safe profile with sensitive fields removed.
-- **Example**:
-  ```http
-  GET /auth/v1/me
-  Authorization: Bearer <access_token>
-  ```
 
 ## /conv/v1 — Conversations
 ### GET `/conv/v1/getrecentconv`
@@ -95,18 +87,19 @@
     "page": 1
   }
   ```
-- **Usage**: Fetches the latest conversations for the authenticated user, returning pagination metadata.
-- **Example**:
-  ```http
-  GET /conv/v1/getrecentconv
-  Authorization: Bearer <access_token>
-  Content-Type: application/json
-
+- **Response Body (JSON)**:
+  ```json
   {
-    "page": 1
+    "conversations": [],
+    "pagination": {
+      "page": "number",
+      "totalCount": "number",
+      "totalPages": "number"
+    }
   }
   ```
-  > **Tip**: If integrating with a client that disallows bodies on GET requests, convert this call to `POST` or use query parameters.
+- **Usage**: Fetches the latest conversations for the authenticated user, returning pagination metadata.
+- **Note**: If integrating with a client that disallows bodies on GET requests, convert this call to `POST` or use query parameters.
 
 ## /exch/v1 — Exchanges
 ### GET `/exch/v1/getexch`
@@ -119,42 +112,37 @@
     "page": 1
   }
   ```
-- **Usage**: Retrieves exchange messages for a conversation, ordered newest-first with 15 results per page.
-- **Example**:
-  ```http
-  GET /exch/v1/getexch
-  Authorization: Bearer <access_token>
-  Content-Type: application/json
-
+- **Response Body (JSON)**:
+  ```json
   {
-    "conversationId": "c1b3d8...",
-    "page": 1
+    "exchanges": []
   }
   ```
+- **Usage**: Retrieves exchange messages for a conversation, ordered newest-first with 15 results per page.
+- **Note**: Consider using query parameters for `conversationId` and `page` for better adherence to REST principles.
 
 ### POST `/exch/v1/createexch`
 - **Controller**: `createExchange`
-- **Auth**: Required (`Authorization: Bearer <access_token>`)
-- **Request Body (JSON)**:
+- **Auth**: Required (`Authorization: <access_token>`)
+
+#### Request (Multipart Form Data)
+Send as `multipart/form-data` if uploading an image.
+
+| Field        | Type     | Required | Description |
+|--------------|----------|----------|-------------|
+| `user_query` | string   | ✅ Yes   | The text query/message |
+| `convId`     | string   | ❌ No    | Existing conversation ID (UUID) |
+| `convTitle`  | string   | ❌ No    | Custom title if starting a new conversation |
+| `image`      | file     | ❌ No    | Image file to attach |
+
+- **Response Body (JSON)**:
   ```json
   {
-    "user_query": "string",          // required
-    "convId": "uuid | null",         // optional, reuses an existing conversation
-    "convTitle": "string | null"     // optional, defaults to "A new Title" when creating a conversation
+    "exchange": {},
+    "conversation": {}
   }
   ```
 - **Usage**: Creates a message exchange. If `convId` is omitted, a new conversation is created and returned alongside the new exchange.
-- **Example**:
-  ```http
-  POST /exch/v1/createexch
-  Authorization: Bearer <access_token>
-  Content-Type: application/json
-
-  {
-    "user_query": "How do I reset my password?",
-    "convTitle": "Support Help"
-  }
-  ```
 
 ## /file/v1 — File Management
 ### POST `/file/v1/upload`
@@ -165,41 +153,16 @@
     - **files**: One or more file parts (`uploadMiddleware.array('files')`)
     - **projectName** (text field, required)
     - **directory** (text field, required)
-    - Additional optional metadata in the body or query string is passed to `FileService.processUploadedFiles`.
 - **Usage**: Accepts file uploads, queues processing jobs, and returns placeholder job metadata.
-- **Example**:
-  ```http
-  POST /file/v1/upload
-  Content-Type: multipart/form-data
-
-  --boundary
-  Content-Disposition: form-data; name="projectName"
-
-  Demo Project
-  --boundary
-  Content-Disposition: form-data; name="directory"
-
-  uploads/2024
-  --boundary
-  Content-Disposition: form-data; name="files"; filename="doc.pdf"
-  Content-Type: application/pdf
-
-  <binary pdf>
-  --boundary--
-  ```
 
 ### GET `/file/v1/job/:id`
 - **Controller**: `getJobStatus`
 - **Auth**: Not enforced in the router
 - **Path Params**:
   - **id**: Job identifier returned from the upload call.
-- **Query Params**:
+- **Query Params**:**
   - **fileType** (optional, defaults to `'1'`)
 - **Usage**: Polls the status of a background file-processing job.
-- **Example**:
-  ```http
-  GET /file/v1/job/abc123?fileType=video
-  ```
 
 ### GET `/file/v1/files/:encryptedId`
 - **Controller**: `serveFile`
@@ -207,10 +170,6 @@
 - **Path Params**:
   - **encryptedId**: Encrypted identifier for the stored file.
 - **Usage**: Streams the original file content back to the requester.
-- **Example**:
-  ```http
-  GET /file/v1/files/ENC%2Fabcd1234
-  ```
 
 ### GET `/file/v1/thumb/:encryptedId`
 - **Controller**: `serveThumbnail`
@@ -218,7 +177,3 @@
 - **Path Params**:
   - **encryptedId**: Encrypted identifier for the stored thumbnail.
 - **Usage**: Streams a thumbnail representation of the file.
-- **Example**:
-  ```http
-  GET /file/v1/thumb/ENC%2Fabcd1234
-  ```

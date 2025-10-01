@@ -13,11 +13,6 @@ export const upload = async (
   try {
     const query = req.query;
     const payload = req.body;
-    
-    // Validate request
-    if (!payload?.projectName || !payload?.directory) {
-      return res.status(400).json({ error: 'Project name and directory are required' });
-    }
 
     if (!req.files || (Array.isArray(req.files) && req.files.length === 0)) {
       return res.status(400).json({ error: 'No files uploaded' });

@@ -12,17 +12,21 @@ export const login = async (email: string, password: string) => {
   return res.data;
 };
 
-// Refresh Token (⚠️ GET but expects body → better use POST if backend allows)
-export const refreshToken = async (refresh_token: string) => {
-  const res = await api.get("/auth/v1/refresh", { data: { refresh_token } });
+// Logout
+export const logout = async () => {
+  const res = await api.post("/auth/v1/logout");
+  return res.data;
+};
+
+// Refresh Token
+export const refreshToken = async () => {
+  const res = await api.get("/auth/v1/refresh");
   return res.data;
 };
 
 // Me (Authenticated)
-export const getMe = async (accessToken: string) => {
-  const res = await api.get("/auth/v1/me", {
-    headers: { Authorization: accessToken },
-  });
+export const getMe = async () => {
+  const res = await api.get("/auth/v1/me");
   return res.data;
 };
 

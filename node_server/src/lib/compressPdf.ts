@@ -13,7 +13,7 @@ dotenv.config();
  * @param {string} quality - Ghostscript quality: screen | ebook | printer | prepress | default
  * @returns {Promise<{ thumbnailPath: string }>}
  */
-export async function compressPDF(inputPath, outputPath, quality = 'ebook') {
+export async function compressPDF(inputPath: string, outputPath: string, quality = 'printer') {
   // Step 1: Compress PDF using Ghostscript
   const compressCmd = `gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/${quality} -dNOPAUSE -dQUIET -dBATCH -sOutputFile="${outputPath}" "${inputPath}"`;
 
@@ -58,12 +58,12 @@ export async function compressPDF(inputPath, outputPath, quality = 'ebook') {
   //   .toFile(finalThumbPath);
 
 	await sharp(rawThumbPath)
-      .resize(parseInt(process.env.THUMB_SIZE), parseInt(process.env.THUMB_SIZE), {
+      .resize(parseInt(process.env.THUMB_SIZE as string), parseInt(process.env.THUMB_SIZE as string), {
         fit: 'inside',         // Keeps aspect ratio within the bounds
         withoutEnlargement: true, // Prevents upscaling
       })
       .webp({
-        quality: parseInt(process.env.THUMB_QUALITY),               // You can reduce this to 65–75 for web use
+        quality: parseInt(process.env.THUMB_QUALITY as string),
       })
       .toFile(finalThumbPath);
 
@@ -71,5 +71,5 @@ export async function compressPDF(inputPath, outputPath, quality = 'ebook') {
   await fs.unlink(rawThumbPath).catch(() => {});
   await fs.unlink(inputPath).catch(() => {});
 
-  return finalThumbPath;
+  return { compressedPdfPath: outputPath, thumbnailPath: finalThumbPath };
 }
