@@ -1,6 +1,7 @@
 import os
 import re
 import uuid
+import json
 import logging
 import mimetypes
 import requests
@@ -55,6 +56,32 @@ def convert_docs_to_paths(files):
         return file_paths
     return files
 
+def convert_paths_to_docs(file_paths):
+    """
+    Converts file URLs or local file paths back to documentEncryptedIds.
+    Args:
+        file_paths: A list of file URLs or a single file URL string.
+    Returns:
+        List of document IDs if input is list, or single document ID if input is string.
+    """
+    if isinstance(file_paths, list):
+        doc_ids = []
+        for path in file_paths:
+            if not isinstance(path, str):
+                continue
+            if "/files/" in path:
+                doc_ids.append(path.rstrip("/").split("/")[-1])
+            else:
+                # Assumes the filename without extension is the document ID
+                doc_ids.append(os.path.splitext(os.path.basename(path))[0])
+        return doc_ids
+    elif isinstance(file_paths, str):
+        if "/files/" in file_paths:
+            return file_paths.rstrip("/").split("/")[-1]
+        else:
+            # Assumes the filename without extension is the document ID
+            return os.path.splitext(os.path.basename(file_paths))[0]
+    return None
 
 def download_file(url: str, document_id: str, document_type: str) -> Optional[str]:
     """
@@ -98,26 +125,31 @@ def download_file(url: str, document_id: str, document_type: str) -> Optional[st
         logging.error("Filesystem error while saving file %s: %s", document_id, e)
         return None
 
-def update_status_via_api(doc_id: str, success: bool, error_msg: Optional[str] = None) -> bool:
+def update_status_via_api(file_path: str, success: bool) -> bool:
     """
     Reports the processing status of a file back to the main backend API.
 
     Args:
         doc_id: The ID of the file that was processed.
         success: True if processing was successful, False otherwise.
-        error_msg: The error message if processing failed.
 
     Returns:
         True if the status was reported successfully, False otherwise.
     """
+
+    doc_id = convert_paths_to_docs(file_path)
     try:
-        endpoint = f"{API_BASE_URL}/api/file/v1/update-status"
-        payload = {
-            "documentID": doc_id,
+        url = f"{API_BASE_URL}/api/file/v1/update-status"
+        payload = json.dumps({
+            "documentId": doc_id,
             "status": "COMPLETED" if success else "FAILED",
-            "error_message": error_msg,
+        })
+
+        headers = {
+            'Content-Type': 'application/json'
         }
-        response = requests.patch(endpoint, json=payload, timeout=15)
+        # response = requests.post(endpoint, json=payload, timeout=15)
+        response = requests.request("POST", url, headers=headers, data=payload)
         response.raise_for_status()
         return True
     except requests.exceptions.RequestException as e:
