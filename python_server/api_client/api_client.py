@@ -71,8 +71,12 @@ def download_file(url: str, document_id: str, document_type: str) -> Optional[st
         doc_type_upload_folder = os.path.join(uploads_folder, str(document_type) or "others")
         os.makedirs(doc_type_upload_folder, exist_ok=True)
 
-        content_type = resp.headers.get("content-type", "")
-        ext = mimetypes.guess_extension(content_type.split(";")[0].strip() or "") or ""
+        content_type = resp.headers.get("content-type", "").split(";")[0].strip()
+        fallback_map = {
+            "image/webp": ".webp",
+        }
+
+        ext = mimetypes.guess_extension(content_type) or fallback_map.get(content_type, "")
 
         # Build filename using document id
         filename = f"{document_id}{ext}"
