@@ -18,6 +18,13 @@ enum Role {
   ADMIN
 }
 
+enum DocumentStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
 model User {
   id            String         @id @default(cuid())
   username      String         @unique
@@ -67,11 +74,26 @@ model Document {
   originalFileSize    Float
   fileExtension       String
   uploadDateTime      DateTime @default(now())
+  isCompressed        Boolean  @default(false)
   isProcessed         Boolean  @default(false)
+  status              DocumentStatus @default(PENDING)
+  retriesCount        Int      @default(0)
   documentPath        String?
   currentFileSize     Float?
-  processedDateTime   DateTime?
+  compressedDateTime  DateTime?
   thumbPath           String?
+}
+
+model FileContainer {
+  id                  Int         @id @default(autoincrement())
+  Layer1_Hash         String      @unique
+  Layer2_Hash         String      @unique
+  Layer3_Hash         String      @unique
+  Layer4_Hash         String      @unique
+  Layer5_Hash         String      @unique
+  FileCount           Int         @default(0)
+  isFullyPopulated    Boolean     @default(false)
+  lastUpdated         DateTime    @updatedAt
 }
 
 

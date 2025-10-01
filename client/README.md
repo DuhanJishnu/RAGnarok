@@ -4,6 +4,74 @@
 
 This document provides a detailed overview of the client-side application for RAGnarok, a powerful assistant for multi-format data interpretation and analysis. The client is a modern, responsive web application built with Next.js and React, designed to provide a seamless and intuitive user experience.
 
+## Project Overview
+
+<<<<<<< HEAD
+This document provides a detailed overview of the client-side application for RAGnarok, a powerful assistant for multi-format data interpretation and analysis. The client is a modern, responsive web application built with Next.js and React, designed to provide a seamless and intuitive user experience.
+
+- npm
+
+### Installation
+
+1.  Clone the repository.
+2.  Navigate to the `client` directory:
+    ```bash
+    cd client
+    ```
+3.  Install the dependencies:
+    ```bash
+    npm install
+    ```
+
+### Running the Application
+
+To start the development server, run:
+
+```bash
+npm run dev
+```
+
+The application will be available at `http://localhost:3000`.
+
+## Folder Structure
+
+```
+client/
+├── public/                 # Static assets
+├── src/
+│   ├── app/                # Next.js app directory
+│   │   ├── (auth)/         # Authentication pages (login, signup)
+│   │   ├── (main)/         # Main application pages
+│   │   ├── globals.css     # Global styles
+│   │   ├── layout.tsx      # Root layout
+│   │   └── page.tsx        # Home page
+│   ├── components/         # Reusable UI components
+│   │   ├── ui/             # shadcn/ui components
+│   │   ├── ChatInput.tsx
+│   │   ├── ChatWindow.tsx
+│   │   ├── Header.tsx
+│   │   ├── MessageBubble.tsx
+│   │   ├── Sidebar.tsx
+│   │   └── withAuth.tsx
+│   ├── context/            # React context providers
+│   │   ├── AuthContext.tsx
+│   │   └── ChatContext.tsx
+│   ├── lib/                # Library functions and utilities
+│   │   ├── db.ts
+│   │   └── utils.ts
+│   ├── models/             # Data models
+│   │   └── User.ts
+│   └── service/            # API service layer
+│       ├── api.ts
+│       ├── auth.ts
+│       ├── conv.ts
+│       ├── exch.ts
+│       └── file.ts
+├── .env.local              # Environment variables
+├── next.config.js          # Next.js configuration
+└── package.json            # Project dependencies and scripts
+```
+
 ## Core Technologies
 
 - **Framework:** [Next.js](https://nextjs.org/) (React)
@@ -36,9 +104,9 @@ The authentication system is designed to be secure and robust, providing a seaml
 
 Route protection is implemented at two levels:
 
+>>>>>>> test_client
 - **Middleware (`middleware.ts`):** A Next.js middleware runs on the server side before any page is rendered. It checks for the presence of the `accessToken` cookie. If the cookie is not present, the user is immediately redirected to the `/login` page. This provides a strong, server-side guard for all protected routes.
 - **`withAuth` HOC:** The `withAuth` Higher-Order Component provides an additional layer of protection on the client side. It wraps protected pages and ensures that the user is authenticated before rendering the component. It also displays a loading state while the authentication status is being verified.
-
 ### 4. Automated Token Refresh
 
 To provide a seamless user experience, the application automatically refreshes the `access_token` without requiring the user to log in again.
@@ -76,3 +144,5 @@ The UI is built with a modular and reusable component architecture.
 - **`ChatInput.tsx`:** A controlled component for typing and sending messages, including support for image uploads.
 - **`MessageBubble.tsx`:** Renders individual chat messages for both the user and the assistant.
 - **`Header.tsx`:** The main application header, which includes a button to toggle the sidebar.
+- **`withAuth.tsx`:** A Higher-Order Component that protects routes by ensuring the user is authenticated before rendering the component.
+- **`ui/`:** This directory contains the `shadcn/ui` components, which are used throughout the application for building the user interface.

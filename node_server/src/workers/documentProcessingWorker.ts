@@ -88,12 +88,12 @@ export const documentProcessingWorker = async (job: Job<DocumentProcessingData>)
       await fs.writeFile(metaPath, documentInfo);
       
       // Set thumbPath to null since we're not generating an actual image thumbnail
-      actualThumbPath = null;
+      actualThumbPath = '';
       
       await job.updateProgress(80);
     } catch (error) {
       console.warn('Document metadata generation failed, continuing without thumbnail');
-      actualThumbPath = null;
+      actualThumbPath = '';
     }
 
     // Get file stats
@@ -101,14 +101,13 @@ export const documentProcessingWorker = async (job: Job<DocumentProcessingData>)
     const finalSizeInMB = parseFloat((stats.size / (1024 * 1024)).toFixed(2));
 
     // Update database
-    await updateDocumentStatus(
+    await updateDocumentStatus({
       documentId,
-      finalFilePath,
-      finalSizeInMB,
-      true,
-      new Date(),
-      actualThumbPath
-    );
+      documentPath: finalFilePath,
+      currentFileSize: finalSizeInMB,
+      isCompressed: true,
+      thumbFilePath: actualThumbPath
+  });
     
     await job.updateProgress(95);
 

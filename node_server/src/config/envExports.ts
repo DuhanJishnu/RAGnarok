@@ -10,3 +10,5 @@ export const DEFAULT_IMAGE_HEIGHT :number = parseInt(process.env.DEFAULT_IMAGE_H
 export const AUDIO_MAX_SIZE :number = parseInt(process.env.AUDIO_MAX_SIZE || '50');
 export const PDF_MAX_SIZE :number = parseInt(process.env.PDF_MAX_SIZE || '50');
 export const DOCUMENT_MAX_SIZE :number = parseInt(process.env.DOCUMENT_MAX_SIZE || '25');
+export const MAX_ITEMS_PER_LAYER: number = parseInt(process.env.MAX_ITEMS_PER_LAYER || '100'); 
+export const TTL: number = parseInt(process.env.TTL || '3600'); 

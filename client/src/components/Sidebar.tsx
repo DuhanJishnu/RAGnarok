@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { getRecentConversations } from '@/service/conv';
 import { useChat } from '@/context/ChatContext';
 import { getExchanges } from '@/service/exch';
@@ -31,20 +31,20 @@ const Sidebar = ({ isOpen }: { isOpen: boolean }) => {
     fetchConversations(page);
   }, [page]);
 
+  const handleObserver = useCallback((entities: IntersectionObserverEntry[]) => {
+    const target = entities[0];
+    if (target.isIntersecting && hasMore) {
+      setPage(prevPage => prevPage + 1);
+    }
+  }, [hasMore]);
+
   useEffect(() => {
     const observer = new IntersectionObserver(handleObserver, { root: null, rootMargin: "20px" });
     if (loader.current) {
       observer.observe(loader.current);
     }
     return () => observer.disconnect();
-  }, [hasMore]);
-
-  const handleObserver = (entities: IntersectionObserverEntry[]) => {
-    const target = entities[0];
-    if (target.isIntersecting && hasMore) {
-      setPage(prevPage => prevPage + 1);
-    }
-  };
+  }, [handleObserver]);
 
   const handleNewChat = () => {
     setExchanges([]);
@@ -70,7 +70,10 @@ const Sidebar = ({ isOpen }: { isOpen: boolean }) => {
       </button>
       <div className="flex-1 overflow-y-auto">
         {conversations.map(conv => (
-          <div key={conv.id} onClick={() => handleConversationClick(conv)} className="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer rounded-lg">
+          <div 
+            key={conv.id} 
+            onClick={() => handleConversationClick(conv)} 
+            className="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer rounded-lg">
             {conv.title}
           </div>
         ))}

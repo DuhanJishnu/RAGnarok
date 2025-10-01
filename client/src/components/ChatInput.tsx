@@ -1,5 +1,6 @@
 "use client";
 import { useState , useRef } from "react";
+import Image from "next/image";
 import { PaperAirplaneIcon , PhotoIcon, XMarkIcon} from "@heroicons/react/24/solid";
 
 export default function ChatInput({
@@ -36,12 +37,16 @@ export default function ChatInput({
   };
    return (
     <div className="flex flex-col gap-2">
+      
+
       {/* Image preview */}
       {image && (
         <div className="relative w-24 h-24">
-          <img
+          <Image
             src={URL.createObjectURL(image)}
             alt="preview"
+            width={96}
+            height={96}
             className="object-cover w-full h-full rounded-md border border-gray-300 dark:border-gray-700"
           />
           

@@ -20,7 +20,7 @@ export const logout = async () => {
 
 // Refresh Token
 export const refreshToken = async () => {
-  const res = await api.post("/auth/v1/refresh");
+  const res = await api.get("/auth/v1/refresh");
   return res.data;
 };
 
