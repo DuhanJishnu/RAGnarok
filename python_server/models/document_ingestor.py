@@ -10,6 +10,12 @@ from sentence_transformers import SentenceTransformer
 from transformers import BlipProcessor, BlipForConditionalGeneration
 from langchain_community.document_loaders import PyPDFLoader, UnstructuredWordDocumentLoader, UnstructuredPowerPointLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
+from vosk import Model, KaldiRecognizer
+import wave 
+import json
+from pydub import AudioSegment
+import noisereduce as nr
+import numpy as np
 
 class DocumentIngestor:
     def __init__(
@@ -18,7 +24,8 @@ class DocumentIngestor:
         text_embedder_name: str = "all-MiniLM-L6-v2",
         image_embedder_name: str = "clip-ViT-B-32",
         caption_model_name: str = "Salesforce/blip-image-captioning-large",
-        device: str = "cpu"
+        device: str = "cpu",
+        audio_model_path: str = "vosk-model-small-en-us-0.15"  
     ):
         self.upload_folder = upload_folder
         os.makedirs(upload_folder, exist_ok=True)
@@ -34,6 +41,7 @@ class DocumentIngestor:
 
         # text splitter for chunking extracted text
         self.splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
+        self.vosk_model = Model(audio_model_path)
 
     # ---------- file saving ----------
     def save_uploaded_file(self, file) -> Dict[str, str]:
@@ -89,7 +97,10 @@ class DocumentIngestor:
         if ext == "docx":
             structured_chunks.extend(self._extract_docx_text(file_path, file_metadata))
             return structured_chunks
-
+        # Audio (WAV)
+        if ext in ("wav", "mp3", "flac", "m4a"):
+            structured_chunks.extend(self._process_audio_file(file_path, file_metadata))
+            return structured_chunks
         # PPTX / other unstructured via LangChain loaders
         if ext in ("pptx",):
             # use LangChain loader which will return Document objects with .page_content
@@ -318,7 +329,61 @@ class DocumentIngestor:
             processed.append(c)
 
         return processed
+    
+    def _process_audio_file(self, file_path: str, file_metadata: Dict[str, Any]) -> List[Dict[str, Any]]:
+        transcript = self._transcribe_audio_vosk(file_path)
+        if not transcript.strip():
+            return []
 
+        chunks = self.splitter.split_text(transcript)
+        structured_chunks: List[Dict[str, Any]] = []
+        for i, chunk_text in enumerate(chunks):
+            structured_chunks.append({
+                "type": "audio_transcript",
+                "content": chunk_text,
+                "metadata": {
+                    "file_id": file_metadata["file_id"],
+                    "original_filename": file_metadata["original_filename"],
+                    "chunk_type": "audio_transcript",
+                    "chunk_id": i,
+                    "upload_timestamp": file_metadata["upload_timestamp"],
+                    "source_url": f"/documents/{file_metadata['file_id']}"
+                }
+            })
+        return structured_chunks
+
+    def _transcribe_audio_vosk(self, file_path: str) -> str:
+        """Offline STT using Vosk"""
+        # Ensure WAV format (16kHz mono)
+        ext = file_path.split('.')[-1].lower()
+        if ext != "wav":
+            wav_path = os.path.splitext(file_path)[0] + ".wav"
+            AudioSegment.from_file(file_path).set_frame_rate(16000).set_channels(1).export(wav_path, format="wav")
+            file_path = wav_path
+        else:
+            # normalize
+            AudioSegment.from_file(file_path).set_frame_rate(16000).set_channels(1).export(file_path, format="wav")
+
+        wf = wave.open(file_path, "rb")
+        rec = KaldiRecognizer(self.vosk_model, wf.getframerate())
+        rec.SetWords(True)
+
+        results = []
+        while True:
+            data = wf.readframes(4000)
+            if len(data) == 0:
+                break
+            if rec.AcceptWaveform(data):
+                result = json.loads(rec.Result())
+                if "text" in result:
+                    results.append(result["text"])
+        final = json.loads(rec.FinalResult())
+        if "text" in final:
+            results.append(final["text"])
+
+        wf.close()
+        return " ".join(results).strip()
+    
 # -------------------------
 # Example usage
 # -------------------------
@@ -354,3 +419,4 @@ if __name__ == "__main__":
     #   "vector":[...],
     #   "vector_dim":384
     # }
+    
