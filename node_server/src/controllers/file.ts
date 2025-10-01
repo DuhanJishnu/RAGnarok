@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { FileService } from "../services/file";
+import { CATEGORY_IDS } from "../lib/magicNumberDetection";
 
 /**
  * Upload controller - handles file uploads
@@ -24,12 +25,21 @@ export const upload = async (
 
     const files = Array.isArray(req.files) ? req.files : Object.values(req.files).flat();
     
-    // Process files using service
-    const results = await FileService.processUploadedFiles(files, payload, query);
+    // Get file validation results from middleware
+    const validationSummary = (req as any).fileValidation;
+    
+    // Process files using service - now with securely validated file types
+    const results = await FileService.processSecureUploadedFiles(files, payload, query);
 
     res.status(200).json({
       message: 'Files are being processed in background',
       files: results,
+      securityInfo: validationSummary ? {
+        totalFiles: validationSummary.totalFiles,
+        validatedFiles: validationSummary.validatedFiles,
+        rejectedFiles: validationSummary.rejectedFiles,
+        securityRisksDetected: validationSummary.hasSecurityRisks
+      } : undefined
     });
   } catch (error) {
     console.error('Upload error:', error);

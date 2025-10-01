@@ -103,12 +103,29 @@ export const useFileUpload = () => {
   try {
     setLoading(true);
     setError("");
-    const res = await api.post<{ files: UploadedFile[] }>(
+    const res = await api.post<{ 
+      files: UploadedFile[];
+      securityInfo?: {
+        totalFiles: number;
+        validatedFiles: number;
+        rejectedFiles: number;
+        securityRisksDetected: boolean;
+      }
+    }>(
       `/api/file/v1/upload`,
       formData,
       { headers: { "Content-Type": "multipart/form-data" }, timeout: 300000 }
     );
+    
     setUploadedFiles(res.data.files);
+    
+    // Log security information if available
+    if (res.data.securityInfo) {
+      console.log('🔒 File Security Validation Results:', res.data.securityInfo);
+      if (res.data.securityInfo.securityRisksDetected) {
+        console.warn('⚠️ Security risks detected during file upload validation');
+      }
+    }
     setFiles([]);
     setSelectedFile(null);
   } catch (err: any) {

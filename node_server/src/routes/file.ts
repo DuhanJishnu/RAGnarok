@@ -2,6 +2,7 @@ import { Router } from 'express';
 import multer from 'multer';
 import { errorHandler } from '../error-handler';
 import { upload, getJobStatus, serveFile, serveThumbnail } from '../controllers/file';
+import { uploadFileValidation, demonstrateScenario } from '../middlewares/secureFileValidation';
 
 const fileRoutes: Router = Router();
 
@@ -12,9 +13,16 @@ const uploadMiddleware = multer({
 });
 
 // Routes
-fileRoutes.post('/upload', uploadMiddleware.array('files'), errorHandler(upload));
+fileRoutes.post('/upload', 
+  uploadMiddleware.array('files'), 
+  uploadFileValidation, // Add secure file validation with magic number detection
+  errorHandler(upload)
+);
 fileRoutes.get('/job/:id', errorHandler(getJobStatus));
 fileRoutes.get('/files/:encryptedId', errorHandler(serveFile));
 fileRoutes.get('/thumb/:encryptedId', errorHandler(serveThumbnail));
+
+// Demo route to show the security scenario from the prompt
+fileRoutes.get('/demo/security-scenario', demonstrateScenario);
 
 export default fileRoutes;
