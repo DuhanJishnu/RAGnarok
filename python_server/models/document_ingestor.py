@@ -41,7 +41,11 @@ class DocumentIngestor:
 
         # text splitter for chunking extracted text
         self.splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
+        print(f"🔄 Loading Vosk model from: {vosk_model_path}")
         self.vosk_model = Model(audio_model_path)
+        
+        print("✅ Vosk model loaded successfully.")
+        
 
     # ---------- file saving ----------
     def save_uploaded_file(self, file) -> Dict[str, str]:
@@ -330,13 +334,14 @@ class DocumentIngestor:
 
         return processed
     
+    # ---------- audio processing ----------
     def _process_audio_file(self, file_path: str, file_metadata: Dict[str, Any]) -> List[Dict[str, Any]]:
         transcript = self._transcribe_audio_vosk(file_path)
         if not transcript.strip():
             return []
 
         chunks = self.splitter.split_text(transcript)
-        structured_chunks: List[Dict[str, Any]] = []
+        structured_chunks = []
         for i, chunk_text in enumerate(chunks):
             structured_chunks.append({
                 "type": "audio_transcript",
@@ -353,19 +358,29 @@ class DocumentIngestor:
         return structured_chunks
 
     def _transcribe_audio_vosk(self, file_path: str) -> str:
-        """Offline STT using Vosk"""
-        # Ensure WAV format (16kHz mono)
-        ext = file_path.split('.')[-1].lower()
-        if ext != "wav":
-            wav_path = os.path.splitext(file_path)[0] + ".wav"
-            AudioSegment.from_file(file_path).set_frame_rate(16000).set_channels(1).export(wav_path, format="wav")
-            file_path = wav_path
-        else:
-            # normalize
-            AudioSegment.from_file(file_path).set_frame_rate(16000).set_channels(1).export(file_path, format="wav")
+        base = os.path.splitext(file_path)[0]
+        normalized_path = base + "_16k.wav"
+        AudioSegment.from_file(file_path).set_frame_rate(16000).set_channels(1).export(normalized_path, format="wav")
+        file_path = normalized_path
+
+        try:
+            rate, data = wavfile.read(file_path)
+            if len(data.shape) > 1:
+                data = data[:, 0]
+
+            noise_level = np.mean(np.abs(data[:rate]))
+            if noise_level > 500:
+                reduced = nr.reduce_noise(y=data, sr=rate)
+                denoised_path = base + "_denoised.wav"
+                wavfile.write(denoised_path, rate, reduced.astype(np.int16))
+                file_path = denoised_path
+
+        except Exception:
+            pass
 
         wf = wave.open(file_path, "rb")
-        rec = KaldiRecognizer(self.vosk_model, wf.getframerate())
+        rate = wf.getframerate()
+        rec = KaldiRecognizer(self.vosk_model, rate)
         rec.SetWords(True)
 
         results = []
@@ -375,15 +390,16 @@ class DocumentIngestor:
                 break
             if rec.AcceptWaveform(data):
                 result = json.loads(rec.Result())
-                if "text" in result:
+                if "text" in result and result["text"].strip():
                     results.append(result["text"])
+
         final = json.loads(rec.FinalResult())
-        if "text" in final:
+        if "text" in final and final["text"].strip():
             results.append(final["text"])
 
         wf.close()
         return " ".join(results).strip()
-    
+
 # -------------------------
 # Example usage
 # -------------------------
@@ -397,6 +413,7 @@ if __name__ == "__main__":
     # 2) If you have a local sample image/pdf:
     sample_image_path = "sample.png"   # replace with real path
     sample_pdf_path = "sample.pdf"     # replace with real path
+    sample_audio_path = "sample.wav" #replace with real path
 
     # create minimal metadata
     meta_image = {
@@ -408,7 +425,14 @@ if __name__ == "__main__":
 
     # process image
     chunks = ingestor.ingest_file(sample_image_path, meta_image)
+    chunks = ingestor._process_audio_file(file_path, file_metadata)
     chunks_with_vectors = ingestor.embed_chunks(chunks)
+    
+    chunks = ingestor._process_audio_file(file_path, file_metadata)
+
+    for c in chunks:
+        print(f"Chunk {c['metadata']['chunk_id']}: {c['content'][:50]}... Vector dim: {c['vector_dim']}")
+
 
     # Now chunks_with_vectors contains vector-ready entries you can upsert to any vector DB.
     # Example item:
