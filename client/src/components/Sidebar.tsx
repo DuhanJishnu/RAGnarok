@@ -1,95 +1,87 @@
 "use client";
-import { useState } from "react";
-import { PlusIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
-export default function Sidebar() {
-  const [chats, setChats] = useState(() => [
-    { id: "1", title: "Welcome chat" },
-    { id: "2", title: "Project plan" },
-  ]);
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { getRecentConversations } from '@/service/conv';
+import { useChat } from '@/context/ChatContext';
+import { getExchanges } from '@/service/exch';
 
-  const [open, setOpen] = useState(false); // sidebar open on small screens
+interface Conversation {
+  id: string;
+  title: string;
+}
 
-  const addNew = () =>
-    setChats((s) => [{ id: String(Date.now()), title: "New chat" }, ...s]);
+const Sidebar = ({ isOpen }: { isOpen: boolean }) => {
+  const [conversations, setConversations] = useState<Conversation[]>([]);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const { setExchanges, setConvId, setConvTitle } = useChat();
+  const loader = useRef(null);
+
+  const fetchConversations = async (page: number) => {
+    try {
+      const res = await getRecentConversations(page);
+      setConversations(prev => [...prev, ...res.conversations]);
+      setHasMore(res.pagination.totalPages > page);
+    } catch (error) {
+      console.error("Failed to fetch conversations", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchConversations(page);
+  }, [page]);
+
+  const handleObserver = useCallback((entities: IntersectionObserverEntry[]) => {
+    const target = entities[0];
+    if (target.isIntersecting && hasMore) {
+      setPage(prevPage => prevPage + 1);
+    }
+  }, [hasMore]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(handleObserver, { root: null, rootMargin: "20px" });
+    if (loader.current) {
+      observer.observe(loader.current);
+    }
+    return () => observer.disconnect();
+  }, [handleObserver]);
+
+  const handleNewChat = () => {
+    setExchanges([]);
+    setConvId('');
+    setConvTitle('');
+  };
+
+  const handleConversationClick = async (conv: Conversation) => {
+    setConvId(conv.id);
+    setConvTitle(conv.title);
+    try {
+      const res = await getExchanges(conv.id, 1);
+      setExchanges(res.exchanges);
+    } catch (error) {
+      console.error("Failed to fetch exchanges", error);
+    }
+  };
 
   return (
-    <>
-      {/* Small screen menu button */}
-      <button
-        className="sm:hidden fixed top-4 left-4 z-50 p-2 bg-vsyellow text-black rounded-md shadow-md"
-        onClick={() => setOpen(true)}
-        aria-label="Open sidebar"
-      >
-        <Bars3Icon className="w-5 h-5" />
+    <div className={`bg-gray-100 dark:bg-gray-800 p-4 flex flex-col transition-all duration-300 ${isOpen ? 'w-64' : 'w-0'} overflow-hidden`}>
+      <button onClick={handleNewChat} className="bg-blue-500 text-white rounded-lg p-2 mb-4">
+        New Chat
       </button>
-
-      {/* Sidebar overlay for small screens */}
-      <div
-        className={`fixed inset-0 bg-black/30 z-40 transition-opacity duration-300 ${
-          open
-            ? "opacity-100 pointer-events-auto"
-            : "opacity-0 pointer-events-none"
-        }`}
-        onClick={() => setOpen(false)}
-      ></div>
-
-      <aside
-        className={`fixed sm:relative top-0 left-0 min-h-screen z-50 w-64 bg-white dark:bg-[#071027] border-r border-gray-200 dark:border-gray-800 p-3 flex flex-col gap-4 transition-transform duration-300
-          ${open ? "translate-x-0" : "-translate-x-full"} sm:translate-x-0`}
-      >
-        {/* Close button for small screens */}
-        <div className="sm:hidden flex justify-end mb-2">
-          <button
-            onClick={() => setOpen(false)}
-            aria-label="Close sidebar"
-            className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-white/6 transition"
-          >
-            <XMarkIcon className="w-5 h-5" />
-          </button>
-        </div>
-
-        <div className="flex items-center justify-between px-1">
-          <h2 className="hidden sm:block font-semibold">Chats</h2>
-          <button
-            onClick={addNew}
-            aria-label="New chat"
-            className="p-2 rounded-md hover:bg-violet-950 transition hidden sm:flex"
-          >
-            <PlusIcon className="w-5 h-5" />
-          </button>
-        </div>
-
-        <div className="flex-1 overflow-y-auto py-2">
-          <ul className="flex flex-col gap-2">
-            {/* Always-visible New Chat tab */}
-            <li>
-              <button
-                onClick={addNew}
-                className="w-full text-left px-3 py-2 rounded-md hover:bg-violet-950 transition flex items-center gap-3 font-semibold text-vsyellow"
-              >
-                <div className=" p-2 bg-gray-200 dark:bg-white/6 rounded flex items-center justify-center">
-                  <PlusIcon className="w-4 h-4" />
-                </div>
-                New Chat
-              </button>
-            </li>
-
-            {chats.map((chat) => (
-              <li key={chat.id} className="group">
-                <button className="w-full text-left px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-white/6 transition flex items-center gap-3">
-                  <div className="w-8 h-8 bg-gray-200 dark:bg-white/6 rounded flex items-center justify-center text-xs">
-                    {chat.title.charAt(0).toUpperCase()}
-                  </div>
-                  <div className="truncate">{chat.title}</div>
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        
-      </aside>
-    </>
+      <div className="flex-1 overflow-y-auto">
+        {conversations.map(conv => (
+          <div 
+            key={conv.id} 
+            onClick={() => handleConversationClick(conv)} 
+            className="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer rounded-lg">
+            {conv.title}
+          </div>
+        ))}
+        {hasMore && <div ref={loader}>Loading...</div>}
+      </div>
+    </div>
   );
-}
+};
+
+export default Sidebar;
+

@@ -6,6 +6,19 @@
 --vsred: #E55934;
 }
 
+@utility no-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
 
 /* map custom tailwind tokens (also used as utility fallback) */
 .bg-vsred\/90 { background-color: rgba(229,89,52,0.9); }

@@ -43,13 +43,25 @@ export const signup = async (
     const refresh_token = await generateHashRefreshToken(user.id);
 
 
+    res.cookie("access_token", access_token, {
+      httpOnly: true,       // not accessible via JS
+      //secure: true,         // only over HTTPS (set false in dev)
+      sameSite: "strict",   // CSRF protection
+      maxAge: 15 * 60 * 1000,
+    });
+
+    res.cookie("refresh_token", refresh_token, {
+      httpOnly: true,
+      //secure: true,
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
     res.json({
       id: user.id,
       email: user.email,
-      username: user.username,
-      access_token,
-      refresh_token,
+      username: user.username
     });
+    
 };
 
 export const login = async (req: Request, res: Response, next: NextFunction) => {
@@ -67,13 +79,23 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
 
     const access_token = generateAccessToken(user.id);
     const refresh_token = await generateHashRefreshToken(user.id);
+    res.cookie("access_token", access_token, {
+      httpOnly: true,       // not accessible via JS
+      secure: true,         // only over HTTPS (set false in dev)
+      sameSite: "strict",   // CSRF protection
+      maxAge: 15 * 60 * 1000,
+    });
 
+    res.cookie("refresh_token", refresh_token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
     res.json({
-       id: user.id,
+      id: user.id,
       email: user.email,
-      username: user.username,
-      access_token,
-      refresh_token,
+      username: user.username
     });
 };
 
@@ -112,10 +134,22 @@ export const refresh = async (req: Request, res: Response, next: NextFunction) =
       where: { tokenHash:refresh_token },
     });
 
-    return res.json({
-      access_token,
-      refresh_token: new_refresh_token,
+    res.cookie("access_token", access_token, {
+      httpOnly: true,    
+      //secure: true,         
+      sameSite: "strict",   
+      maxAge: 15 * 60 * 1000,
     });
+
+    res.cookie("refresh_token", new_refresh_token, {
+      httpOnly: true,
+      //secure: true,
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+    res.json({
+      message:"Updated token"
+    })
   } catch (err: any) {
     next(
       new UnprocessableEntity(
@@ -126,13 +160,6 @@ export const refresh = async (req: Request, res: Response, next: NextFunction) =
     );
   }
 };
-
-function toSafeUser(user: User): SafeUser {
-  return {
-    ...user,
-    password: null,
-  };
-}
 
 export const me = async (req: Request, res: Response) => {
   const safeUser = getSafeUser(req.user);

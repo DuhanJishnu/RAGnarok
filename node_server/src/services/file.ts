@@ -7,6 +7,7 @@ import { generateHash } from '../lib/crypto';
 import { insertInitialDocumentData, getFilePath, getThumbFilePath, getUnprocessedFilesFromDB, updateFileStatusInDB } from '../lib/dbOperations';
 import { IMAGE_MAX_SIZE } from '../config/envExports';
 import { getFolderHashAndFileCount } from '../lib/fileStructure';
+import { CATEGORY_IDS, FileTypeDetectionResult } from '../lib/magicNumberDetection';
 
 // Queue configuration
 const queueConfig = {
@@ -56,7 +57,41 @@ export class FileService {
   }
   
   /**
-   * Process uploaded files and queue them for processing
+   * Process securely validated files and queue them for processing
+   */
+  static async processSecureUploadedFiles(files: any[], payload: any, query: any): Promise<any[]> {
+    const fileType: number = parseInt(query.fileType as string) || 1;
+    
+    if (!payload?.projectName || !payload?.directory) {
+      throw new Error('Project name and directory are required');
+    }
+
+    // Use project root directory for uploads
+    const projectRoot = process.cwd();
+    const pathToUpload = path.join(projectRoot, 'uploads', payload.projectName, payload.directory, 'temp');
+    
+    // Ensure upload directory exists
+    try {
+      await fs.access(pathToUpload);
+    } catch (err: any) {
+      if (err.code === 'ENOENT') {
+        await fs.mkdir(pathToUpload, { recursive: true });
+      } else {
+        throw err;
+      }
+    }
+
+    const tasks = files.map(async (file) => {
+      // Use the securely detected file type instead of user-provided or default
+      const secureFileType = this.getSecureFileType(file);
+      return await this.processIndividualSecureFile(file, secureFileType, payload, query, pathToUpload);
+    });
+
+    return await Promise.all(tasks);
+  }
+
+  /**
+   * Original method for backward compatibility (legacy - less secure)
    */
   static async processUploadedFiles(files: Express.Multer.File[], payload: any, query: any): Promise<any[]> {
     const fileType: number = parseInt(query.fileType as string) || 1;
@@ -152,6 +187,119 @@ export class FileService {
         name: sanitizedFileName,
         status: 'error',
         error: error instanceof Error ? error.message : 'Processing failed',
+      };
+    }
+  }
+
+  /**
+   * Get secure file type from validated file with detection results
+   */
+  private static getSecureFileType(file: any): number {
+    // Check if file has detection results from middleware
+    if (file.detectionResult && file.detectionResult.categoryId) {
+      // Convert negative category IDs to positive for processing
+      return Math.abs(file.detectionResult.categoryId);
+    }
+    
+    // Fallback to MIME type detection if no detection results
+    if (file.mimetype) {
+      if (file.mimetype.startsWith('image/')) return 1;
+      if (file.mimetype.startsWith('audio/')) return 2;
+      if (file.mimetype === 'application/pdf') return 3;
+      if (file.mimetype.includes('word') || 
+          file.mimetype === 'application/msword' ||
+          file.mimetype === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+        return 4;
+      }
+    }
+    
+    return 1; // Default to image
+  }
+
+  /**
+   * Process individual securely validated file
+   */
+  private static async processIndividualSecureFile(
+    file: any,
+    fileType: number,
+    payload: any,
+    query: any,
+    pathToUpload: string
+  ) {
+    const sizeInBytes = file.size;
+    const sizeInMB = parseFloat((sizeInBytes / (1024 * 1024)).toFixed(2));
+
+    const { folderHash, fileCount, hashes } = await getFolderHashAndFileCount(); 
+
+    const encryptedId = folderHash + generateHash(70);
+
+    // Use the secure detected extension instead of original filename extension
+    const detectedExtension = file.detectionResult?.detectedExtension || path.extname(file.originalname);
+    const secureOriginalName = file.originalname;
+
+    // Insert initial document data with secure type information
+    const documentId = await insertInitialDocumentData({
+      docType: fileType,
+      displayName: secureOriginalName,
+      encryptedId,
+      originalSize: sizeInMB,
+      fileExt: detectedExtension
+    });
+
+    // Generate sanitized filename using detected extension for security
+    const baseName = path.basename(secureOriginalName, path.extname(secureOriginalName))
+      .replace(/\s+/g, '_').slice(0, 50);
+    const sanitizedFileName = `${baseName}.${detectedExtension.replace('.', '')}`;
+    const fileName = `${Date.now()}-${sanitizedFileName}`;
+
+    const finalLink = `${process.env.DOMAIN_NAME}/api/file/v1/files/${encryptedId}`;
+    const finalThumbLink = `${process.env.DOMAIN_NAME}/api/file/v1/thumb/${encryptedId}`;
+
+    let job: Job | null = null;
+
+    try {
+      switch (fileType) {
+        case 1: // Image
+          job = await this.processImageFile(file, fileName, pathToUpload, payload, query, documentId, finalLink, finalThumbLink, hashes);
+          break;
+        case 2: // Audio
+          job = await this.processAudioFile(file, fileName, pathToUpload, payload, documentId, finalLink, finalThumbLink, hashes);
+          break;
+        case 3: // PDF
+          job = await this.processPdfFile(file, fileName, pathToUpload, payload, documentId, finalLink, finalThumbLink, hashes);
+          break;
+        case 4: // MS Word/Document files
+          job = await this.processDocumentFile(file, fileName, pathToUpload, payload, documentId, finalLink, finalThumbLink, hashes);
+          break;
+        default:
+          throw new Error('Unsupported file type');
+      }
+
+      return {
+        name: sanitizedFileName,
+        jobId: job?.id,
+        link: finalLink,
+        thumb: finalThumbLink,
+        fileType,
+        status: 'queued',
+        securityInfo: file.detectionResult ? {
+          originalClaimedType: file.originalname.split('.').pop(),
+          detectedType: file.detectionResult.detectedCategory,
+          mimeType: file.detectionResult.detectedMimeType,
+          wasSecure: !file.detectionResult.securityRisk,
+          magicNumberMatch: true
+        } : undefined
+      };
+    } catch (error) {
+      console.error('Error processing secure file:', error);
+      return {
+        name: sanitizedFileName,
+        status: 'error',
+        error: error instanceof Error ? error.message : 'Processing failed',
+        securityInfo: file.detectionResult ? {
+          detectedType: file.detectionResult.detectedCategory,
+          wasSecure: !file.detectionResult.securityRisk
+        } : undefined
       };
     }
   }
