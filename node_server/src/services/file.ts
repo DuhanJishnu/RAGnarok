@@ -61,14 +61,10 @@ export class FileService {
    */
   static async processSecureUploadedFiles(files: any[], payload: any, query: any): Promise<any[]> {
     const fileType: number = parseInt(query.fileType as string) || 1;
-    
-    if (!payload?.projectName || !payload?.directory) {
-      throw new Error('Project name and directory are required');
-    }
 
     // Use project root directory for uploads
     const projectRoot = process.cwd();
-    const pathToUpload = path.join(projectRoot, 'uploads', payload.projectName, payload.directory, 'temp');
+    const pathToUpload = path.join(projectRoot, 'uploads', 'temp');
     
     // Ensure upload directory exists
     try {

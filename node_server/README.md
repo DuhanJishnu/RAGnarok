@@ -302,8 +302,6 @@ Uploads one or more files. The files are processed in the background.
 **Form Data:**
 
 - `files`: The file(s) to upload.
-- `projectName` (string, required): The name of the project.
-- `directory` (string, required): The directory to upload the files to.
 
 **Response:**
 
@@ -320,7 +318,6 @@ Uploads one or more files. The files are processed in the background.
     ]
   }
   ```
-- **400 Bad Request:** If `projectName`, `directory`, or `files` are missing.
 
 #### `GET /job/:id`
 

@@ -13,7 +13,10 @@ const port = PORT
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors({
+  credentials: true, 
+  origin: process.env.CLIENT_URL || 'http://localhost:3000',
+}));
 app.use(cookieParser());
 
 app.get("/", (req: Request, res: Response) => {

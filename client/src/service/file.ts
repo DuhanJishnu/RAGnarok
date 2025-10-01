@@ -4,13 +4,9 @@ import { api } from "./api";
 
 // Upload File
 export const uploadFile = async (
-  projectName: string,
-  directory: string,
   files: File[]
 ) => {
   const formData = new FormData();
-  formData.append("projectName", projectName);
-  formData.append("directory", directory);
   files.forEach((file) => formData.append("files", file));
 
   const res = await api.post("/file/v1/upload", formData, {

@@ -163,21 +163,12 @@
 - **Request Type**: `multipart/form-data`
   - **Fields**:
     - **files**: One or more file parts (`uploadMiddleware.array('files')`)
-    - **projectName** (text field, required)
-    - **directory** (text field, required)
     - Additional optional metadata in the body or query string is passed to `FileService.processUploadedFiles`.
 - **Usage**: Accepts file uploads, queues processing jobs, and returns placeholder job metadata.
 - **Example**:
   ```http
   POST /file/v1/upload
   Content-Type: multipart/form-data
-
-  --boundary
-  Content-Disposition: form-data; name="projectName"
-
-  Demo Project
-  --boundary
-  Content-Disposition: form-data; name="directory"
 
   uploads/2024
   --boundary

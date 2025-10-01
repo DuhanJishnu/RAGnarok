@@ -8,9 +8,15 @@ export type UploadedFile = {
   fileType?: number;
 };
 
+export type FileWithThumbState = UploadedFile & {
+  thumbLoading?: boolean;
+  thumbError?: boolean;
+  retryCount?: number;
+};
+
 export const useFileUpload = () => {
   const [files, setFiles] = useState<File[]>([]);
-  const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
+  const [uploadedFiles, setUploadedFiles] = useState<FileWithThumbState[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   // selected file to show them before sending
@@ -27,6 +33,109 @@ export const useFileUpload = () => {
     "text/plain", "application/pdf", 
     "application/msword","application/vnd.openxmlformats-officedocument.wordprocessingml.document"
   ];
+
+  // Function to check if thumbnail is available
+  const checkThumbnailAvailability = async (thumbUrl: string): Promise<boolean> => {
+    try {
+      const response = await fetch(thumbUrl, { method: 'HEAD' });
+      return response.status === 200;
+    } catch (error) {
+      return false;
+    }
+  };
+
+  // Function to get fallback icon based on file type
+  const getFallbackIcon = (fileType?: number, fileName?: string): string => {
+    // Determine file type if not provided
+    if (!fileType && fileName) {
+      const extension = fileName.toLowerCase().split('.').pop();
+      switch (extension) {
+        case 'png':
+        case 'jpg':
+        case 'jpeg':
+        case 'gif':
+        case 'webp':
+        case 'bmp':
+        case 'svg':
+          fileType = 1;
+          break;
+        case 'mp3':
+        case 'wav':
+        case 'ogg':
+        case 'm4a':
+        case 'flac':
+        case 'aac':
+          fileType = 2;
+          break;
+        case 'pdf':
+          fileType = 3;
+          break;
+        case 'doc':
+        case 'docx':
+          fileType = 4;
+          break;
+        default:
+          fileType = 1;
+      }
+    }
+
+    // Return appropriate icon based on file type
+    switch (fileType) {
+      case 1: // Image
+        return '🖼️';
+      case 2: // Audio
+        return '🎵';
+      case 3: // PDF
+        return '📄';
+      case 4: // Word Document
+        return '📝';
+      default:
+        return '📄';
+    }
+  };
+
+  // Function to retry thumbnail loading with intervals
+  const retryThumbnailLoading = async (fileIndex: number, thumbUrl: string, maxRetries: number = 5) => {
+    let retryCount = 0;
+    
+    const tryLoadThumbnail = async (): Promise<void> => {
+      const isAvailable = await checkThumbnailAvailability(thumbUrl);
+      
+      if (isAvailable) {
+        // Thumbnail is available, update the file state
+        setUploadedFiles(prev => prev.map((file, index) => 
+          index === fileIndex 
+            ? { ...file, thumbLoading: false, thumbError: false }
+            : file
+        ));
+        return;
+      }
+      
+      retryCount++;
+      
+      if (retryCount >= maxRetries) {
+        // Max retries reached, show error state
+        setUploadedFiles(prev => prev.map((file, index) => 
+          index === fileIndex 
+            ? { ...file, thumbLoading: false, thumbError: true, retryCount }
+            : file
+        ));
+        return;
+      }
+      
+      // Update retry count and continue
+      setUploadedFiles(prev => prev.map((file, index) => 
+        index === fileIndex 
+          ? { ...file, retryCount }
+          : file
+      ));
+      
+      // Wait 500ms before next retry
+      setTimeout(tryLoadThumbnail, 500);
+    };
+    
+    tryLoadThumbnail();
+  };
 //function to validate file on allowed type and return valid(file) and reject(file,reason) file array
   const validateFiles = (fileList: FileList) => {
     const validFiles: File[] = [];
@@ -117,11 +226,25 @@ export const useFileUpload = () => {
       { headers: { "Content-Type": "multipart/form-data" }, timeout: 300000 }
     );
     
-    setUploadedFiles(res.data.files);
+    // Initialize uploaded files with loading state for thumbnails
+    const filesWithThumbState: FileWithThumbState[] = res.data.files.map(file => ({
+      ...file,
+      thumbLoading: file.thumb ? true : false,
+      thumbError: false,
+      retryCount: 0
+    }));
+    
+    setUploadedFiles(filesWithThumbState);
+    
+    // Start thumbnail loading process for files that have thumb URLs
+    filesWithThumbState.forEach((file, index) => {
+      if (file.thumb) {
+        retryThumbnailLoading(index, file.thumb);
+      }
+    });
     
     // Log security information if available
     if (res.data.securityInfo) {
-      console.log('🔒 File Security Validation Results:', res.data.securityInfo);
       if (res.data.securityInfo.securityRisksDetected) {
         console.warn('⚠️ Security risks detected during file upload validation');
       }
@@ -154,5 +277,6 @@ export const useFileUpload = () => {
     removeFile,
     clearAllFiles,
     handleUpload,
+    getFallbackIcon,
   };
 };
