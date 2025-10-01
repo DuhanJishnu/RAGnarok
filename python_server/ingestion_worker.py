@@ -97,7 +97,7 @@ def process_batch_parallel(
 
     return successful_files, failed_files
 
-def start_worker_service(batch_size: int = 10, poll_interval: int = 10, max_workers: int = 4):
+def start_worker_service(batch_size: int = 4, poll_interval: int = 10, max_workers: int = 4):
 
     """Main continuous loop for the processing worker service."""
 
