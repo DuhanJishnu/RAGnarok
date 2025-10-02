@@ -1,12 +1,9 @@
 import os
-import re
-import uuid
 import json
 import logging
 import mimetypes
 import requests
-import urllib.parse
-from typing import List, Dict, Any, Optional
+from typing import List, Optional
 
 API_BASE_URL = os.environ.get("API_URL")
 
@@ -149,7 +146,7 @@ def update_status_via_api(file_path: str, success: bool) -> bool:
             'Content-Type': 'application/json'
         }
         # response = requests.post(endpoint, json=payload, timeout=15)
-        response = requests.request("POST", url, headers=headers, data=payload)
+        response = requests.request("PATCH", url, headers=headers, data=payload)
         response.raise_for_status()
         return True
     except requests.exceptions.RequestException as e:

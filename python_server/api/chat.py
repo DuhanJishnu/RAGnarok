@@ -38,7 +38,7 @@ def chat():
             # Use the secure pipeline
             retrieval_result = enhanced_retriever.retrieve_with_confidence(question)
             response = safe_llm.generate_safe_response(
-                question, 
+                question,
                 retrieval_result["documents"],
                 retrieval_result["confidence_metrics"]
             )
