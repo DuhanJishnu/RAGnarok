@@ -11,11 +11,12 @@ from transformers import BlipProcessor, BlipForConditionalGeneration
 from langchain_community.document_loaders import PyPDFLoader, UnstructuredWordDocumentLoader, UnstructuredPowerPointLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from vosk import Model, KaldiRecognizer
-import wave 
+import wave
 import json
 from pydub import AudioSegment
 import noisereduce as nr
 import numpy as np
+from scipy.io import wavfile
 
 class DocumentIngestor:
     def __init__(
@@ -25,7 +26,7 @@ class DocumentIngestor:
         image_embedder_name: str = "clip-ViT-B-32",
         caption_model_name: str = "Salesforce/blip-image-captioning-large",
         device: str = "cpu",
-        audio_model_path: str = "vosk-model-small-en-us-0.15"  
+        audio_model_path: str = "vosk-model-small-en-us-0.15"
     ):
         self.upload_folder = upload_folder
         os.makedirs(upload_folder, exist_ok=True)
@@ -41,34 +42,33 @@ class DocumentIngestor:
 
         # text splitter for chunking extracted text
         self.splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
-        print(f"🔄 Loading Vosk model from: {vosk_model_path}")
+        print(f"🔄 Loading Vosk model from: {audio_model_path}")
         self.vosk_model = Model(audio_model_path)
-        
+
         print("✅ Vosk model loaded successfully.")
-        
 
-    # ---------- file saving ----------
-    def save_uploaded_file(self, file) -> Dict[str, str]:
-        """Save uploaded file with metadata (file is expected to have .save and .filename)"""
-        file_id = str(uuid.uuid4())
-        original_filename = file.filename
-        file_extension = original_filename.split('.')[-1].lower()
+    # # ---------- file saving ----------
+    # def save_uploaded_file(self, file) -> Dict[str, str]:
+    #     """Save uploaded file with metadata (file is expected to have .save and .filename)"""
+    #     file_id = str(uuid.uuid4())
+    #     original_filename = file.filename
+    #     file_extension = original_filename.split('.')[-1].lower()
 
-        # Create filename with timestamp
-        timestamp = datetime.now().strftime(self.ts_format)
-        saved_filename = f"{file_id}_{timestamp}.{file_extension}"
-        file_path = os.path.join(self.upload_folder, saved_filename)
+    #     # Create filename with timestamp
+    #     timestamp = datetime.now().strftime(self.ts_format)
+    #     saved_filename = f"{file_id}_{timestamp}.{file_extension}"
+    #     file_path = os.path.join(self.upload_folder, saved_filename)
 
-        # Save file
-        file.save(file_path)
+    #     # Save file
+    #     file.save(file_path)
 
-        return {
-            "file_id": file_id,
-            "original_filename": original_filename,
-            "saved_path": file_path,
-            "file_extension": file_extension,
-            "upload_timestamp": timestamp
-        }
+    #     return {
+    #         "file_id": file_id,
+    #         "original_filename": original_filename,
+    #         "saved_path": file_path,
+    #         "file_extension": file_extension,
+    #         "upload_timestamp": timestamp
+    #     }
 
     # ---------- high-level ingest ----------
     def ingest_file(self, file_path: str, file_metadata: Dict[str, Any]) -> List[Dict[str, Any]]:
@@ -310,12 +310,12 @@ class DocumentIngestor:
                         c["vector_dim"] = int(vec.shape[0])
                     else:
                         # fallback: embed caption/text field for image
-                        vec = self.text_embedder.encode(c.get("content",""), convert_to_numpy=True)
+                        vec = self.text_embedder.encode(c.get("content","", convert_to_numpy=True))
                         c["vector"] = vec.tolist()
                         c["vector_dim"] = int(vec.shape[0])
                 else:
                     # unknown type: embed content as text
-                    vec = self.text_embedder.encode(c.get("content",""), convert_to_numpy=True)
+                    vec = self.text_embedder.encode(c.get("content","", convert_to_numpy=True))
                     c["vector"] = vec.tolist()
                     c["vector_dim"] = int(vec.shape[0])
             except Exception as e:
@@ -333,7 +333,7 @@ class DocumentIngestor:
             processed.append(c)
 
         return processed
-    
+
     # ---------- audio processing ----------
     def _process_audio_file(self, file_path: str, file_metadata: Dict[str, Any]) -> List[Dict[str, Any]]:
         transcript = self._transcribe_audio_vosk(file_path)
@@ -425,13 +425,14 @@ if __name__ == "__main__":
 
     # process image
     chunks = ingestor.ingest_file(sample_image_path, meta_image)
-    chunks = ingestor._process_audio_file(file_path, file_metadata)
+    # NOTE: The following lines were causing errors and have been commented out.
+    # chunks = ingestor._process_audio_file(file_path, file_metadata)
     chunks_with_vectors = ingestor.embed_chunks(chunks)
     
-    chunks = ingestor._process_audio_file(file_path, file_metadata)
+    # chunks = ingestor._process_audio_file(file_path, file_metadata)
 
-    for c in chunks:
-        print(f"Chunk {c['metadata']['chunk_id']}: {c['content'][:50]}... Vector dim: {c['vector_dim']}")
+    for c in chunks_with_vectors:
+        print(f"Chunk {c['metadata'].get('chunk_id', 'N/A')}: {c['content'][:50]}... Vector dim: {c.get('vector_dim', 'N/A')}")
 
 
     # Now chunks_with_vectors contains vector-ready entries you can upsert to any vector DB.
@@ -443,4 +444,3 @@ if __name__ == "__main__":
     #   "vector":[...],
     #   "vector_dim":384
     # }
-    
