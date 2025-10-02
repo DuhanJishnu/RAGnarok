@@ -37,6 +37,8 @@ export const MAGIC_SIGNATURES: MagicNumberSignature[] = [
   { signature: [0x52, 0x49, 0x46, 0x46], mimeType: 'audio/wav', category: 'audio', extension: 'wav', offset: 0 },
   { signature: [0x4F, 0x67, 0x67, 0x53], mimeType: 'audio/ogg', category: 'audio', extension: 'ogg' },
   { signature: [0x66, 0x74, 0x79, 0x70, 0x4D, 0x34, 0x41], mimeType: 'audio/m4a', category: 'audio', extension: 'm4a', offset: 4 },
+  { signature: [0x66, 0x74, 0x79, 0x70, 0x69, 0x73, 0x6F, 0x6D], mimeType: 'audio/mp4', category: 'audio', extension: 'm4a', offset: 4 },
+  { signature: [0x66, 0x74, 0x79, 0x70, 0x33, 0x67, 0x70, 0x34], mimeType: 'audio/m4a', category: 'audio', extension: 'm4a', offset: 4 },
   { signature: [0x66, 0x4C, 0x61, 0x43], mimeType: 'audio/flac', category: 'audio', extension: 'flac' },
   { signature: [0xFF, 0xF1], mimeType: 'audio/aac', category: 'audio', extension: 'aac' },
   { signature: [0xFF, 0xF9], mimeType: 'audio/aac', category: 'audio', extension: 'aac' },
@@ -56,7 +58,7 @@ export const MAGIC_SIGNATURES: MagicNumberSignature[] = [
  */
 export const MIME_TYPE_MAP = {
   image: ["image/png", "image/jpeg", "image/gif", "image/webp", "image/bmp", "image/svg+xml"],
-  audio: ["audio/mpeg", "audio/wav", "audio/ogg", "audio/m4a", "audio/flac", "audio/aac"],
+  audio: ["audio/mpeg", "audio/wav", "audio/ogg", "audio/m4a", "audio/flac", "audio/aac", "audio/mp4", "audio/x-m4a"],
   pdf: ["application/pdf"],
   document: ["application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"]
 };

@@ -38,14 +38,15 @@ export const audioProcessingWorker = async (job: Job<AudioProcessingData>) => {
 
     // Compress audio file using ffmpeg
     const compressedAudioPath = path.join(path.dirname(finalFilePath), 
-      path.basename(finalFilePath, path.extname(finalFilePath)) + '_compressed' + path.extname(finalFilePath));
+      path.basename(finalFilePath, path.extname(finalFilePath)) + '.wav');
     
     await new Promise<void>((resolve, reject) => {
       const ffmpegCommand = ffmpeg(filePath)
         .output(compressedAudioPath)
-        .audioCodec('libmp3lame') // Use MP3 for compression
-        .audioBitrate(128) // 128 kbps for good quality compression
-        .format('mp3')
+        .audioChannels(1)         // 1 for mono
+        .audioFrequency(16000)    // 16kHz sample rate
+        .audioCodec('pcm_s16le')  // 16-bit PCM (signed, little-endian)
+        .format('wav')
         .on('progress', (progress: any) => {
           const percent = Math.round(progress.percent || 0);
           job.updateProgress(20 + (percent * 0.5)); // 20% to 70%
