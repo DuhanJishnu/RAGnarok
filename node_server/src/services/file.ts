@@ -95,7 +95,7 @@ export class FileService {
        // No need to check if pageNo exists, it will be 1 by default
        const skip = (pageNo - 1) * pageSize;
        // build where condition dynamically (this part was already correct)
-        const whereClause = docType ? { documentType: docType } : {};
+        const whereClause = docType==0 ? {} : { documentType: docType };
     
         const documents = await prisma.document.findMany({
           where: whereClause,

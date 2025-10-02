@@ -32,17 +32,20 @@ export const updateFileStatusSchema = z.object({
 
 
 export const fetchDocumentsSchema = z.object({
-  pageNo: z.coerce // Coerce (convert) the input to a number
+  pageNo: z.coerce
     .number()
     .int()
     .min(1, "Page number must be at least 1")
-    .default(1), // If pageNo is not provided, default to 1
-  
-  docType: z.coerce // Coerce the input to a number
+    .default(1),
+
+  docType: z.coerce
     .number()
     .int()
-    .optional(), // It remains optional, if not provided it will be `undefined`
+    .min(0, "Document type must be at least 0")
+    .max(4, "Document type must be at most 4")
+    .default(0),
 });
+
 
 export const fetchDocumentsByNameSchema = z.object({
   pageNo: z.preprocess((val) => parseInt(String(val)), z.number().int().min(1)),
