@@ -1,227 +1,168 @@
 import os
 import uuid
-import torch
+import json
+import wave
 from datetime import datetime
 from typing import List, Dict, Any, Optional
+
+import torch
+import numpy as np
+from scipy.io import wavfile
+import pytesseract
+import noisereduce as nr
+from PIL import Image
 from PyPDF2 import PdfReader
 import docx
-from PIL import Image
-import pytesseract
+from pydub import AudioSegment
+from vosk import Model, KaldiRecognizer
 from sentence_transformers import SentenceTransformer
 from transformers import BlipProcessor, BlipForConditionalGeneration
-from langchain_community.document_loaders import PyPDFLoader, UnstructuredWordDocumentLoader, UnstructuredPowerPointLoader
+from langchain_community.document_loaders import (
+    PyPDFLoader, 
+    UnstructuredWordDocumentLoader, 
+    UnstructuredPowerPointLoader
+)
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_ollama import OllamaEmbeddings
+
 from config import Config
 
+
 class DocumentIngestor:
+    """Handles ingestion and processing of various document types including text, images, and audio."""
+    
     def __init__(
         self,
         upload_folder: str,
         image_embedder_name: str = "clip-ViT-B-32",
         caption_model_name: str = "Salesforce/blip-image-captioning-large",
-        device: str = None
+        device: Optional[str] = None,
+        audio_model_path: str = "vosk-model-small-en-us-0.15"
     ):
-        if device is None:
-            self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        else:
-            self.device = device
-
+        self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
         self.upload_folder = upload_folder
-        os.makedirs(upload_folder, exist_ok=True)
-
-        # timestamp format for saved files
         self.ts_format = "%Y%m%d_%H%M%S"
+        
+        os.makedirs(upload_folder, exist_ok=True)
+        self._initialize_models(image_embedder_name, caption_model_name, audio_model_path)
+        self._initialize_text_processor()
 
-        # initialize models
+    def _initialize_models(self, image_embedder_name: str, caption_model_name: str, audio_model_path: str):
+        """Initialize all required models and processors."""
+        # Text embedding model
         self.text_embedder = OllamaEmbeddings(model=Config.EMBEDDING_MODEL)
+        
+        # Image models
         self.image_embedder = SentenceTransformer(image_embedder_name)
-        self.caption_processor = BlipProcessor.from_pretrained(caption_model_name)
-        self.caption_model = BlipForConditionalGeneration.from_pretrained(caption_model_name).to(device)
+        self.caption_processor = BlipProcessor.from_pretrained(caption_model_name, use_fast=True)
+        self.caption_model = BlipForConditionalGeneration.from_pretrained(caption_model_name).to(self.device)
+        
+        # Audio model
+        print(f"🔄 Loading Vosk model from: {audio_model_path}")
+        self.vosk_model = Model(audio_model_path)
+        print("✅ Vosk model loaded successfully.")
 
-        # text splitter for chunking extracted text
+    def _initialize_text_processor(self):
+        """Initialize text splitting and processing components."""
         self.splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
 
-    # ---------- file saving ----------
-    def save_uploaded_file(self, file) -> Dict[str, str]:
-        """Save uploaded file with metadata (file is expected to have .save and .filename)"""
-        file_id = str(uuid.uuid4())
-        original_filename = file.filename
-        file_extension = original_filename.split('.')[-1].lower()
-
-        # Create filename with timestamp
-        timestamp = datetime.now().strftime(self.ts_format)
-        saved_filename = f"{file_id}_{timestamp}.{file_extension}"
-        file_path = os.path.join(self.upload_folder, saved_filename)
-
-        # Save file
-        file.save(file_path)
-
-        return {
-            "file_id": file_id,
-            "original_filename": original_filename,
-            "saved_path": file_path,
-            "file_extension": file_extension,
-            "upload_timestamp": timestamp
-        }
-
-    # ---------- high-level ingest ----------
     def ingest_file(self, file_path: str, file_metadata: Dict[str, Any]) -> List[Dict[str, Any]]:
         """
-        Extract and process file into structured chunks. Returns list of chunks (metadata + content).
-        Each chunk is a dict:
-          {
-            "type": "text" | "image_caption" | "image_ocr" | "image",
-            "content": "...",          # string (for images 'content' may be caption or ocr)
-            "metadata": { ... },       # file_id, page/paragraph etc
-            # after embed_chunks() is called we add "vector" field
-          }
+        Extract and process file into structured chunks.
+        
+        Args:
+            file_path: Path to the file to process
+            file_metadata: Metadata about the file
+            
+        Returns:
+            List of processed chunks with metadata and content
         """
-        ext = file_path.lower().split('.')[-1]
+        file_ext = file_path.lower().split('.')[-1]
         structured_chunks: List[Dict[str, Any]] = []
 
-        # images
-        if ext in ("png", "jpg", "jpeg", "bmp", "gif", "tiff", "webp"):
-            img_chunks = self._process_image_file(file_path, file_metadata)
-            structured_chunks.extend(img_chunks)
-            return structured_chunks
+        processors = {
+            'image': self._process_image_file,
+            'pdf': self._extract_pdf_text,
+            'docx': self._extract_docx_text,
+            'audio': self._process_audio_file,
+            'pptx': self._process_pptx_file,
+            'txt': self._extract_txt_text
+        }
 
-        # PDF
-        if ext == "pdf":
-            structured_chunks.extend(self._extract_pdf_text(file_path, file_metadata))
-            # Optionally: attempt to extract images from PDF pages (omitted for brevity)
-            return structured_chunks
-
-        # DOCX
-        if ext == "docx":
-            structured_chunks.extend(self._extract_docx_text(file_path, file_metadata))
-            return structured_chunks
-
-        # PPTX / other unstructured via LangChain loaders
-        if ext in ("pptx",):
-            # use LangChain loader which will return Document objects with .page_content
-            try:
-                docs = UnstructuredPowerPointLoader(file_path).load()
-                structured_chunks.extend(self._chunks_from_langchain_docs(docs, file_metadata))
-            except Exception:
-                # fallback: no content
-                pass
-            return structured_chunks
-
-        # TXT
-        if ext == "txt":
-            structured_chunks.extend(self._extract_txt_text(file_path, file_metadata))
-            return structured_chunks
-
-        # fallback: try LangChain PDF/DOC loader
-        try:
-            docs = []
-            if ext == "pdf":
-                docs = PyPDFLoader(file_path).load()
-            elif ext == "docx":
-                docs = UnstructuredWordDocumentLoader(file_path).load()
-            if docs:
-                structured_chunks.extend(self._chunks_from_langchain_docs(docs, file_metadata))
-        except Exception:
-            pass
+        # Determine file type and process accordingly
+        if file_ext in ("png", "jpg", "jpeg", "bmp", "gif", "tiff", "webp"):
+            structured_chunks.extend(processors['image'](file_path, file_metadata))
+        elif file_ext == "pdf":
+            structured_chunks.extend(processors['pdf'](file_path, file_metadata))
+        elif file_ext == "docx":
+            structured_chunks.extend(processors['docx'](file_path, file_metadata))
+        elif file_ext in ("wav", "mp3", "flac", "m4a"):
+            structured_chunks.extend(processors['audio'](file_path, file_metadata))
+        elif file_ext == "pptx":
+            structured_chunks.extend(processors['pptx'](file_path, file_metadata))
+        elif file_ext == "txt":
+            structured_chunks.extend(processors['txt'](file_path, file_metadata))
+        else:
+            # Fallback processing for unsupported types
+            structured_chunks.extend(self._fallback_processing(file_path, file_metadata, file_ext))
 
         return structured_chunks
 
-    # ---------- low-level extractors ----------
-    def _extract_pdf_text(self, file_path: str, file_metadata: Dict) -> List[Dict]:
-        """Extract PDF text with page-level metadata and chunk pages."""
-        text_blocks: List[Dict] = []
-        pdf_reader = PdfReader(file_path)
-        total_pages = len(pdf_reader.pages)
-
-        for page_num, page in enumerate(pdf_reader.pages, start=1):
-            text = page.extract_text() or ""
-            if text.strip():
-                # split page content into chunks
-                docs = [{"page_content": text}]
-                chunks = self._chunks_from_langchain_docs(docs, file_metadata, page_number=page_num, total_pages=total_pages)
-                text_blocks.extend(chunks)
-
-        return text_blocks
-
-    def _extract_docx_text(self, file_path: str, file_metadata: Dict) -> List[Dict]:
-        """Extract DOCX text with paragraph-level metadata and chunk paragraphs."""
-        blocks: List[Dict] = []
-        doc = docx.Document(file_path)
-        paragraphs = [p.text.strip() for p in doc.paragraphs if p.text.strip()]
-        # combine paragraphs into pseudo-documents for splitter
-        combined = "\n\n".join(paragraphs)
-        docs = [{"page_content": combined}]
-        blocks.extend(self._chunks_from_langchain_docs(docs, file_metadata, total_paragraphs=len(paragraphs)))
-        return blocks
-
-    def _extract_txt_text(self, file_path: str, file_metadata: Dict) -> List[Dict]:
-        """Return one chunk containing entire text file (you can split further if desired)."""
-        with open(file_path, 'r', encoding='utf-8') as f:
-            content = f.read()
-        return [{
-            "type": "text",
-            "content": content,
-            "metadata": {
-                "file_id": file_metadata["file_id"],
-                "original_filename": file_metadata["original_filename"],
-                "chunk_type": "full_text",
-                "upload_timestamp": file_metadata["upload_timestamp"],
-                "source_url": f"/documents/{file_metadata['file_id']}"
-            }
-        }]
-
     def _process_image_file(self, image_path: str, file_metadata: Dict) -> List[Dict]:
-        """Run OCR + caption on an image and return structured chunks."""
+        """Process image file to extract caption and OCR text."""
         img = Image.open(image_path).convert("RGB")
+        
+        # Extract OCR text
+        ocr_text = self._extract_ocr_text(img)
+        
+        # Generate image caption
+        caption = self._generate_image_caption(img)
+        
+        return self._create_image_chunks(file_metadata, image_path, img, caption, ocr_text)
 
-        # OCR
+    def _extract_ocr_text(self, img: Image.Image) -> str:
+        """Extract text from image using OCR."""
         try:
-            ocr_text = pytesseract.image_to_string(img)
+            return pytesseract.image_to_string(img).strip()
         except Exception:
-            ocr_text = ""
+            return ""
 
-        # Caption (BLIP)
-        caption = ""
+    def _generate_image_caption(self, img: Image.Image) -> str:
+        """Generate caption for image using BLIP model."""
         try:
             inputs = self.caption_processor(images=img, return_tensors="pt")
             out = self.caption_model.generate(**inputs)
-            caption = self.caption_processor.decode(out[0], skip_special_tokens=True)
+            return self.caption_processor.decode(out[0], skip_special_tokens=True)
         except Exception:
-            caption = ""
+            return ""
 
-        # Build chunks: caption, ocr, and image "object"
-        chunks: List[Dict[str, Any]] = []
+    def _create_image_chunks(self, file_metadata: Dict, image_path: str, img: Image.Image, 
+                           caption: str, ocr_text: str) -> List[Dict]:
+        """Create structured chunks for image data."""
+        chunks = []
+        
         if caption:
-            chunks.append({
-                "type": "image_caption",
-                "content": caption,
-                "metadata": {
-                    "file_id": file_metadata["file_id"],
-                    "original_filename": file_metadata["original_filename"],
-                    "chunk_type": "image_caption",
-                    "upload_timestamp": file_metadata["upload_timestamp"],
-                    "source_url": f"/documents/{file_metadata['file_id']}"
-                }
-            })
-        if ocr_text and ocr_text.strip():
-            chunks.append({
-                "type": "image_ocr",
-                "content": ocr_text,
-                "metadata": {
-                    "file_id": file_metadata["file_id"],
-                    "original_filename": file_metadata["original_filename"],
-                    "chunk_type": "image_ocr",
-                    "upload_timestamp": file_metadata["upload_timestamp"],
-                    "source_url": f"/documents/{file_metadata['file_id']}"
-                }
-            })
-
-        # image-level chunk (we store minimal textual metadata so it can be re-ranked using image embeddings)
+            chunks.append(self._create_chunk(
+                chunk_type="image_caption",
+                content=caption,
+                file_metadata=file_metadata,
+                additional_metadata={"chunk_type": "image_caption"}
+            ))
+        
+        if ocr_text:
+            chunks.append(self._create_chunk(
+                chunk_type="image_ocr",
+                content=ocr_text,
+                file_metadata=file_metadata,
+                additional_metadata={"chunk_type": "image_ocr"}
+            ))
+        
+        # Image object chunk
         chunks.append({
             "type": "image",
-            "content": caption or "",  # keep caption as lightweight text content
+            "content": caption or "",
             "metadata": {
+                "chunk_id": str(uuid.uuid4()),
                 "file_id": file_metadata["file_id"],
                 "original_filename": file_metadata["original_filename"],
                 "chunk_type": "image_raw",
@@ -229,126 +170,302 @@ class DocumentIngestor:
                 "local_path": image_path,
                 "source_url": f"/documents/{file_metadata['file_id']}"
             },
-            # store the PIL image object for later embedding (not serializable) — remove before storing to DB
             "_image_obj": img
         })
-
+        
         return chunks
 
-    def _chunks_from_langchain_docs(self, docs: List[Dict[str, Any]], file_metadata: Dict[str, Any], page_number: Optional[int] = None, total_pages: Optional[int] = None, total_paragraphs: Optional[int]=None) -> List[Dict]:
-        """
-        Given a list of langchain-like docs (each with 'page_content'), split into smaller chunks
-        and return our chunk schema.
-        """
-        combined_docs = []
-        for d in docs:
-            combined_docs.append(d["page_content"])
+    def _extract_pdf_text(self, file_path: str, file_metadata: Dict) -> List[Dict]:
+        """Extract text from PDF with page-level metadata."""
+        text_blocks = []
+        pdf_reader = PdfReader(file_path)
+        total_pages = len(pdf_reader.pages)
 
-        # use text splitter on combined docs
-        split_docs = self.splitter.split_text("\n\n".join(combined_docs))
-        chunks: List[Dict] = []
+        for page_num, page in enumerate(pdf_reader.pages, start=1):
+            text = page.extract_text() or ""
+            if text.strip():
+                docs = [{"page_content": text}]
+                chunks = self._chunks_from_langchain_docs(
+                    docs, file_metadata, 
+                    page_number=page_num, 
+                    total_pages=total_pages
+                )
+                text_blocks.extend(chunks)
+
+        return text_blocks
+
+    def _extract_docx_text(self, file_path: str, file_metadata: Dict) -> List[Dict]:
+        """Extract text from DOCX file with paragraph-level metadata."""
+        doc = docx.Document(file_path)
+        paragraphs = [p.text.strip() for p in doc.paragraphs if p.text.strip()]
+        combined = "\n\n".join(paragraphs)
+        docs = [{"page_content": combined}]
+        
+        return self._chunks_from_langchain_docs(
+            docs, file_metadata, 
+            total_paragraphs=len(paragraphs)
+        )
+
+    def _extract_txt_text(self, file_path: str, file_metadata: Dict) -> List[Dict]:
+        """Extract text from TXT file."""
+        with open(file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        return [self._create_chunk(
+            chunk_type="text",
+            content=content,
+            file_metadata=file_metadata,
+            additional_metadata={"chunk_type": "full_text"}
+        )]
+
+    def _process_audio_file(self, file_path: str, file_metadata: Dict[str, Any]) -> List[Dict[str, Any]]:
+        """Process audio file and extract transcript."""
+        transcript = self._transcribe_audio_vosk(file_path)
+        if not transcript.strip():
+            return []
+
+        chunks = self.splitter.split_text(transcript)
+        structured_chunks = []
+        
+        for i, chunk_text in enumerate(chunks):
+            structured_chunks.append(self._create_chunk(
+                chunk_type="audio_transcript",
+                content=chunk_text,
+                file_metadata=file_metadata,
+                additional_metadata={
+                    "chunk_type": "audio_transcript",
+                    "chunk_id": i
+                }
+            ))
+            
+        return structured_chunks
+
+    def _process_pptx_file(self, file_path: str, file_metadata: Dict) -> List[Dict]:
+        """Process PowerPoint files using LangChain loader."""
+        try:
+            docs = UnstructuredPowerPointLoader(file_path).load()
+            return self._chunks_from_langchain_docs(docs, file_metadata)
+        except Exception as e:
+            print(f"Error processing PPTX file: {e}")
+            return []
+
+    def _fallback_processing(self, file_path: str, file_metadata: Dict, file_ext: str) -> List[Dict]:
+        """Fallback processing for unsupported file types using LangChain loaders."""
+        try:
+            docs = []
+            if file_ext == "pdf":
+                docs = PyPDFLoader(file_path).load()
+            elif file_ext == "docx":
+                docs = UnstructuredWordDocumentLoader(file_path).load()
+            
+            if docs:
+                return self._chunks_from_langchain_docs(docs, file_metadata)
+        except Exception as e:
+            print(f"Fallback processing failed for {file_path}: {e}")
+        
+        return []
+
+    def _chunks_from_langchain_docs(self, docs: List[Dict[str, Any]], 
+                                  file_metadata: Dict[str, Any], 
+                                  **additional_metadata) -> List[Dict]:
+        """Convert LangChain documents to structured chunks."""
+        combined_content = "\n\n".join([doc["page_content"] for doc in docs])
+        split_docs = self.splitter.split_text(combined_content)
+        chunks = []
+        
         for i, chunk_text in enumerate(split_docs):
             meta = {
                 "file_id": file_metadata["file_id"],
                 "original_filename": file_metadata["original_filename"],
                 "chunk_type": "text",
-                "chunk_id": i,
+                "chunk_id": str(uuid.uuid4()),
                 "upload_timestamp": file_metadata["upload_timestamp"],
+                **additional_metadata
             }
-            if page_number:
-                meta["page_number"] = page_number
-                meta["total_pages"] = total_pages
-            if total_paragraphs:
-                meta["total_paragraphs"] = total_paragraphs
-
+            
             chunks.append({
                 "type": "text",
                 "content": chunk_text,
                 "metadata": meta
             })
+            
         return chunks
 
-    # ---------- embedding helpers ----------
+    def _create_chunk(self, chunk_type: str, content: str, 
+                     file_metadata: Dict, additional_metadata: Dict) -> Dict:
+        """Create a standardized chunk structure."""
+        return {
+            "type": chunk_type,
+            "content": content,
+            "metadata": {
+                "chunk_id": str(uuid.uuid4()),
+                "file_id": file_metadata["file_id"],
+                "original_filename": file_metadata["original_filename"],
+                "upload_timestamp": file_metadata["upload_timestamp"],
+                "source_url": f"/documents/{file_metadata['file_id']}",
+                **additional_metadata
+            }
+        }
+
+    def _transcribe_audio_vosk(self, file_path: str) -> str:
+        """Transcribe audio file using Vosk speech recognition."""
+        # Only convert non-WAV files or WAV files that need processing
+        if not file_path.lower().endswith('.wav'):
+            base = os.path.splitext(file_path)[0]
+            normalized_path = base + "_16k.wav"
+            AudioSegment.from_file(file_path).set_frame_rate(16000).set_channels(1).export(
+                normalized_path, format="wav"
+            )
+            file_path = normalized_path
+        else:
+            # Check if WAV file needs processing
+            try:
+                with wave.open(file_path, 'rb') as wf:
+                    if wf.getframerate() != 16000 or wf.getnchannels() != 1:
+                        base = os.path.splitext(file_path)[0]
+                        normalized_path = base + "_16k.wav"
+                        AudioSegment.from_wav(file_path).set_frame_rate(16000).set_channels(1).export(
+                            normalized_path, format="wav"
+                        )
+                        file_path = normalized_path
+            except Exception as e:
+                print(f"Error checking WAV file: {e}")
+
+        # Apply noise reduction if needed
+        file_path = self._apply_noise_reduction(file_path)
+
+        # Perform speech recognition
+        return self._recognize_speech(file_path)
+
+    def _apply_noise_reduction(self, file_path: str) -> str:
+        """Apply noise reduction to audio file if needed."""
+        try:
+            rate, data = wavfile.read(file_path)
+            if len(data.shape) > 1:
+                data = data[:, 0]
+
+            noise_level = np.mean(np.abs(data[:rate]))
+            if noise_level > 500:
+                reduced = nr.reduce_noise(y=data, sr=rate)
+                base = os.path.splitext(file_path)[0]
+                denoised_path = base + "_denoised.wav"
+                wavfile.write(denoised_path, rate, reduced.astype(np.int16))
+                return denoised_path
+        except Exception as e:
+            print(f"Noise reduction failed: {e}")
+            
+        return file_path
+
+    def _recognize_speech(self, file_path: str) -> str:
+        """Perform speech recognition on audio file."""
+        wf = wave.open(file_path, "rb")
+        rate = wf.getframerate()
+        rec = KaldiRecognizer(self.vosk_model, rate)
+        rec.SetWords(True)
+
+        results = []
+        while True:
+            data = wf.readframes(4000)
+            if len(data) == 0:
+                break
+            if rec.AcceptWaveform(data):
+                result = json.loads(rec.Result())
+                if "text" in result and result["text"].strip():
+                    results.append(result["text"])
+
+        final = json.loads(rec.FinalResult())
+        if "text" in final and final["text"].strip():
+            results.append(final["text"])
+
+        wf.close()
+        return " ".join(results).strip()
+
     def embed_chunks(self, chunks: List[Dict[str, Any]], remove_image_obj: bool = True) -> List[Dict[str, Any]]:
         """
-        Add 'vector' field to each chunk. For 'text' / 'image_caption' / 'image_ocr'
-        we use text_embedder. For 'image' chunk we use image_embedder on the stored PIL
-        object (in _image_obj).
-        Returns new list with vectors attached.
+        Add embeddings to chunks based on their type.
+        
+        Args:
+            chunks: List of chunks to embed
+            remove_image_obj: Whether to remove PIL image objects after embedding
+            
+        Returns:
+            List of chunks with embedded vectors
         """
+        embedded_chunks = []
         
-        text_contents = []
-        text_indices = []
+        for chunk in chunks:
+            embedded_chunk = self._embed_single_chunk(chunk)
+            if remove_image_obj:
+                embedded_chunk.pop("_image_obj", None)
+            embedded_chunks.append(embedded_chunk)
+            
+        return embedded_chunks
+
+    def _embed_single_chunk(self, chunk: Dict[str, Any]) -> Dict[str, Any]:
+        """Embed a single chunk based on its type."""
+        chunk = dict(chunk)  # Shallow copy
+        chunk.pop("vector", None)  # Remove existing vector
         
-        # Separate text and image chunks
-        for i, chunk in enumerate(chunks):
+        try:
             if chunk["type"] in ("text", "image_caption", "image_ocr"):
-                text_contents.append(chunk["content"])
-                text_indices.append(i)
-
-        # Batch embed text chunks
-        if text_contents:
-            text_embeddings = self.text_embedder.embed_documents(text_contents)
-            for i, embedding in enumerate(text_embeddings):
-                chunk_index = text_indices[i]
-                chunks[chunk_index]["vector"] = embedding
-                chunks[chunk_index]["vector_dim"] = len(embedding)
-
-        # Process image chunks and handle fallbacks
-        for i, chunk in enumerate(chunks):
-            if chunk["type"] == "image":
-                img_obj = chunk.get("_image_obj")
-                if img_obj is None and "local_path" in chunk["metadata"]:
-                    try:
-                        img_obj = Image.open(chunk["metadata"]["local_path"]).convert("RGB")
-                    except Exception:
-                        img_obj = None
+                # Text-based embedding
+                vec = self.text_embedder.embed_query(chunk["content"])
+                chunk["embedding"] = vec
+                chunk["embedding_dim"] = len(vec)
                 
+            elif chunk["type"] == "image":
+                # Image embedding
+                img_obj = chunk.get("_image_obj")
                 if img_obj is not None:
                     vec = self.image_embedder.encode(img_obj, convert_to_numpy=True)
-                    chunk["vector"] = vec.tolist()
-                    chunk["vector_dim"] = int(vec.shape[0])
+                    chunk["embedding"] = vec.tolist()
+                    chunk["embedding_dim"] = int(vec.shape[0])
                 else:
-                    # Fallback for image: embed caption/text field
+                    # Fallback to text embedding
                     fallback_embedding = self.text_embedder.embed_query(chunk.get("content", ""))
-                    chunk["vector"] = fallback_embedding
-                    chunk["vector_dim"] = len(fallback_embedding)
+                    chunk["embedding"] = fallback_embedding
+                    chunk["embedding_dim"] = len(fallback_embedding)
+                    
+            else:
+                # Default fallback
+                fallback_embedding = self.text_embedder.embed_query(chunk.get("content", ""))
+                chunk["embedding"] = fallback_embedding
+                chunk["embedding_dim"] = len(fallback_embedding)
+                
+        except Exception as e:
+            # Final error handling
+            chunk = self._handle_embedding_error(chunk, e)
+            
+        return chunk
 
-            # Final check for any unprocessed chunks
-            if "vector" not in chunk:
-                try:
-                    fallback_embedding = self.text_embedder.embed_query(chunk.get("content", ""))
-                    chunk["vector"] = fallback_embedding
-                    chunk["vector_dim"] = len(fallback_embedding)
-                except Exception as e:
-                    import numpy as _np
-                    dim = 768 # default for nomic
-                    chunk["vector"] = _np.zeros(dim).tolist()
-                    chunk["vector_dim"] = dim
-                    chunk["embed_error"] = str(e)
+    def _handle_embedding_error(self, chunk: Dict[str, Any], error: Exception) -> Dict[str, Any]:
+        """Handle embedding errors by providing fallback embeddings."""
+        import numpy as np
+        
+        try:
+            fallback_embedding = self.text_embedder.embed_query(chunk.get("content", ""))
+            chunk["embedding"] = fallback_embedding
+            chunk["embedding_dim"] = len(fallback_embedding)
+        except Exception:
+            # Ultimate fallback - zero vector
+            dim = 768  # Default dimension for nomic
+            chunk["embedding"] = np.zeros(dim).tolist()
+            chunk["embedding_dim"] = dim
+            
+        chunk["embed_error"] = str(error)
+        return chunk
 
-            if remove_image_obj and "_image_obj" in chunk:
-                chunk.pop("_image_obj", None)
 
-        return chunks
-
-# -------------------------
 # Example usage
-# -------------------------
 if __name__ == "__main__":
     ingestor = DocumentIngestor(upload_folder="./uploads")
 
-    # 1) If you have a file-like object from a web framework:
-    # saved = ingestor.save_uploaded_file(request.files["file"])
-    # file_path = saved["saved_path"]
+    # Test with sample files
+    sample_image_path = "sample.jpg"
+    sample_pdf_path = "sample.pdf"
+    sample_audio_path = "sample.wav"
 
-    # 2) If you have a local sample image/pdf:
-    sample_image_path = "../uploads/sample/sample.png"
-    sample_pdf_path = "../uploads/sample/sample.pdf"
-    sample_audio_path = "../uploads/sample/smaple.mp3"
-    sample_doc_path = "../uploads/sample/sample.doc"
-
-    # create minimal metadata
+    # Create minimal metadata
     meta_image = {
         "file_id": str(uuid.uuid4()),
         "original_filename": os.path.basename(sample_image_path),
@@ -356,16 +473,11 @@ if __name__ == "__main__":
         "file_extension": sample_image_path.split(".")[-1].lower()
     }
 
-    # process image
-    chunks = ingestor.ingest_file(sample_image_path, meta_image)
-    chunks_with_vectors = ingestor.embed_chunks(chunks)
-
-    # Now chunks_with_vectors contains vector-ready entries you can upsert to any vector DB.
-    # Example item:
-    # {
-    #   "type":"image_caption",
-    #   "content":"a cat on a sofa",
-    #   "metadata":{...},
-    #   "vector":[...],
-    #   "vector_dim":384
-    # }
+    # Process file
+    if os.path.exists(sample_image_path):
+        chunks = ingestor.ingest_file(sample_image_path, meta_image)
+        chunks_with_vectors = ingestor.embed_chunks(chunks)
+        
+        for c in chunks_with_vectors:
+            print(f"Chunk {c['metadata'].get('chunk_id', 'N/A')}: {c['content'][:50]}... "
+                  f"Embedding dim: {c.get('embedding_dim', 'N/A')}")

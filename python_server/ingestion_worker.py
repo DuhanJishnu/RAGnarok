@@ -88,6 +88,7 @@ def process_batch_parallel(
             try:
                 success = future.result()
                 if success:
+                    
                     successful_files.append(file_path)
                 else:
                     failed_files[file_path] = "Processing failed (check logs)"
@@ -97,7 +98,7 @@ def process_batch_parallel(
 
     return successful_files, failed_files
 
-def start_worker_service(batch_size: int = 10, poll_interval: int = 10, max_workers: int = 4):
+def start_worker_service(batch_size: int = 4, poll_interval: int = 10, max_workers: int = 4):
 
     """Main continuous loop for the processing worker service."""
 
@@ -123,8 +124,8 @@ def start_worker_service(batch_size: int = 10, poll_interval: int = 10, max_work
             # Report status back to the API
             for file_path in successful_files:
                 update_status_via_api(file_path, success=True)
-            for file_path, error_msg in failed_files.items():
-                update_status_via_api(file_path, success=False, error_msg=error_msg)
+            for file_path in failed_files:
+                update_status_via_api(file_path, success=False)
 
             # Save the updated vector database to disk
             if successful_files:
