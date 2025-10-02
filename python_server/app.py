@@ -5,13 +5,12 @@ from flask_limiter.util import get_remote_address
 from config import Config
 
 # Import blueprints
-from api.documents import documents_bp
 from api.chat import chat_bp
 
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
-    
+
     # Initialize extensions
     CORS(app)
     limiter = Limiter(
@@ -21,7 +20,6 @@ def create_app():
     )
     
     # Register blueprints
-    app.register_blueprint(documents_bp)
     app.register_blueprint(chat_bp)
     
     # Health check endpoint

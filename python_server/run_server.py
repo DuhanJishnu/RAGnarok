@@ -10,7 +10,6 @@ from app import create_app
 if __name__ == '__main__':
     # Create necessary directories
     os.makedirs("./uploads", exist_ok=True)
-    os.makedirs("./vector_store", exist_ok=True)
     
     app = create_app()
     
