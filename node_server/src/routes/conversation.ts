@@ -5,6 +5,6 @@ import { getRecentConversations } from '../controllers/conversation';
 
 const convRoutes:Router = Router();
 
-convRoutes.get('/getrecentconv',[authMiddleware],errorHandler(getRecentConversations));
+convRoutes.get('/getrecentconv',authMiddleware,errorHandler(getRecentConversations));
 
 export default convRoutes;

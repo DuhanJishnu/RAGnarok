@@ -8,6 +8,7 @@ export const insertInitialDocumentSchema = z.object({
   fileExt: z.string(),
 });
 
+
 export const updateDocumentStatusSchema = z.object({
   documentId: z.number().int(),
   documentPath: z.string(),
@@ -28,3 +29,30 @@ export const updateFileStatusSchema = z.object({
   status: z.enum(['PENDING', 'PROCESSING', 'COMPLETED', 'FAILED']),
   retriesCount: z.number().int().optional(),
 });
+
+
+export const fetchDocumentsSchema = z.object({
+  pageNo: z.coerce
+    .number()
+    .int()
+    .min(1, "Page number must be at least 1")
+    .default(1),
+
+  docType: z.coerce
+    .number()
+    .int()
+    .min(0, "Document type must be at least 0")
+    .max(4, "Document type must be at most 4")
+    .default(0),
+});
+
+
+export const fetchDocumentsByNameSchema = z.object({
+  pageNo: z.preprocess((val) => parseInt(String(val)), z.number().int().min(1)),
+  name: z.string().min(1, "Search term cannot be empty"),
+});
+
+export const fetchDocumentsByIdSchema = z.object({
+  id: z.string().min(1, "Encrypted document ID is required"),
+});
+

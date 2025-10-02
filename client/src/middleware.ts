@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(req: NextRequest) {
-  const accessToken = req.cookies.get('accessToken');
+  const accessToken = req.cookies.get('access_token');
   const { pathname } = req.nextUrl;
 
   // Allow requests for auth pages, static files, and public assets

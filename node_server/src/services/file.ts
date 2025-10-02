@@ -8,6 +8,8 @@ import { insertInitialDocumentData, getFilePath, getThumbFilePath, getUnprocesse
 import { IMAGE_MAX_SIZE } from '../config/envExports';
 import { getFolderHashAndFileCount } from '../lib/fileStructure';
 import { CATEGORY_IDS, FileTypeDetectionResult } from '../lib/magicNumberDetection';
+import { prisma } from "../config/prisma";
+
 
 // Queue configuration
 const queueConfig = {
@@ -84,6 +86,115 @@ export class FileService {
     });
 
     return await Promise.all(tasks);
+  }
+
+
+  static async getDocumentbyPage(pageNo: number, docType?: number) {
+       
+        const pageSize = 20;
+       // No need to check if pageNo exists, it will be 1 by default
+       const skip = (pageNo - 1) * pageSize;
+       // build where condition dynamically (this part was already correct)
+        const whereClause = docType==0 ? {} : { documentType: docType };
+    
+        const documents = await prisma.document.findMany({
+          where: whereClause,
+          orderBy: {  id: "desc" },
+          skip,
+          take: pageSize,
+        });
+    
+        const totalCount = await prisma.document.count({
+          where: whereClause,
+        });
+
+        return {
+          pageNo,
+          pageSize,
+          totalPages: Math.ceil(totalCount / pageSize),
+          totalCount,
+          documents,
+        }
+  
+  }
+
+  static async getDocumentsByName(name: string, pageNo: number) {
+  
+    const pageSize = 20;
+        const skip = (pageNo - 1) * pageSize;
+    
+        // fetch documents by partial name match
+        const documents = await prisma.document.findMany({
+          where: {
+            displayName: {
+              contains: name, // partial match
+              mode: "insensitive", // case insensitive search
+            },
+          },
+          orderBy: { id: "desc" },
+          skip,
+          take: pageSize,
+        });
+    
+        // total count for pagination metadata
+        const totalCount = await prisma.document.count({
+          where: {
+            displayName: {
+              contains: name,
+              mode: "insensitive",
+            },
+          },
+        });
+
+        return {
+          documents,
+          totalCount
+        }
+  }
+
+  static async getDocumentsByEncrypterID(id: string){
+
+    const document = await prisma.document.findUnique({
+      where: { documentEncryptedId: id },
+    });
+
+    if (!document) {
+      return { status: 404, message:"Document not Found"};
+    }
+    return document;
+
+  }
+
+  static async deleteDocumentByEncryptedId(id: string) {
+
+    // find document
+    const document = await prisma.document.findUnique({
+      where: { documentEncryptedId: id },
+    });
+
+    if (!document) {
+      return "Document not found";
+    }
+
+    const pathsToDelete = [document.documentPath, document.thumbPath].filter(Boolean);
+
+    for (const filePath of pathsToDelete) {
+      try {
+        const absPath = path.resolve(filePath); // ensure absolute path
+        await fs.unlink(absPath);
+        console.log(`Deleted file: ${absPath}`);
+      } catch (err) {
+        console.warn(`Could not delete file at ${filePath}:`, (err as Error).message);
+      }
+    }
+
+    // delete record from DB (optional, remove if you just want file delete)
+    await prisma.document.delete({
+      where: { documentEncryptedId: id },
+    });
+    return "Deleted Succefully"
+       
+    
   }
 
   /**
@@ -372,7 +483,10 @@ export class FileService {
     }
 
     const projectRoot = process.cwd();
-    const outputPath = path.join(projectRoot, 'uploads', ...hashes, fileName);
+    // Change extension to .wav for audio output
+    const baseFileName = path.parse(fileName).name;
+    const wavFileName = baseFileName + '.wav';
+    const outputPath = path.join(projectRoot, 'uploads', ...hashes, wavFileName);
     const tempInput = path.join(pathToUpload, `temp-${fileName}`);
     await fs.writeFile(tempInput, file.buffer);
 
