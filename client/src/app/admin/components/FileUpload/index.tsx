@@ -8,10 +8,15 @@ import FileViewer from "./FileViewer";
 import UploadButton from "./UploadButton";
 import UploadSuccess from "./UploadSuccess";
 import  { useFileUpload } from "../../hooks/useFileUpload";
-
+import FileList from "./FileList";
+import Pagination from "./Pagination";
+import FilterDropdown from "./FilterDropdown";
 const FileUpload: React.FC = () => {
   const upload = useFileUpload();
-
+const handlePageChange = (page: number) => {
+    upload.fetchFiles(page);
+  };
+ 
   return (
     <div className="rounded-2xl bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 shadow-2xl overflow-hidden">
       {/* Header */}
@@ -62,6 +67,40 @@ const FileUpload: React.FC = () => {
         <UploadButton files={upload.files} loading={upload.loading} onUpload={upload.handleUpload} />
 
         <UploadSuccess uploadedFiles={upload.uploadedFiles} />
+
+
+        {/* last */}
+        <div className="mt-8 pt-8 border-t border-gray-700">
+
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="text-xl font-bold text-white flex items-center">
+              <span className="w-3 h-3 bg-blue-500 rounded-full mr-3"></span>
+              File Library
+            </h3>
+            <div className="group relative">
+              <FilterDropdown 
+                currentFilter={upload.fileFilterType}
+                onFilterChange={upload.setFileFilterType}
+              />
+            </div>
+          </div>
+          <FileList 
+            files={upload.paginatedFiles.files}
+            loading={upload.filesLoading}
+            error={upload.filesError}
+            fileTypeFilter={upload.fileFilterType}
+            filteredCount={upload.paginatedFiles.files.length} 
+          />
+          
+          <Pagination
+            currentPage={upload.paginatedFiles.currentPage}
+            totalPages={upload.paginatedFiles.totalPages}
+            hasNext={upload.paginatedFiles.hasNext}
+            hasPrev={upload.paginatedFiles.hasPrev}
+            onPageChange={handlePageChange}
+            loading={upload.filesLoading}
+          />
+        </div>
       </div>
     </div>
   );
