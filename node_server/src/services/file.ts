@@ -372,7 +372,10 @@ export class FileService {
     }
 
     const projectRoot = process.cwd();
-    const outputPath = path.join(projectRoot, 'uploads', ...hashes, fileName);
+    // Change extension to .wav for audio output
+    const baseFileName = path.parse(fileName).name;
+    const wavFileName = baseFileName + '.wav';
+    const outputPath = path.join(projectRoot, 'uploads', ...hashes, wavFileName);
     const tempInput = path.join(pathToUpload, `temp-${fileName}`);
     await fs.writeFile(tempInput, file.buffer);
 

@@ -2,7 +2,7 @@ import { Router } from 'express';
 import multer from 'multer';
 import { errorHandler } from '../error-handler';
 import { upload, getJobStatus, serveFile, serveThumbnail, getUnprocessedFiles, updateFileStatus } from '../controllers/file';
-import { uploadFileValidation, demonstrateScenario } from '../middlewares/secureFileValidation';
+import { uploadFileValidation } from '../middlewares/secureFileValidation';
 
 const fileRoutes: Router = Router();
 

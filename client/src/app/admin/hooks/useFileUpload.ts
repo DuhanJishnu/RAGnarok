@@ -29,7 +29,7 @@ export const useFileUpload = () => {
   const MAX_FILE_SIZE = 100 * 1024 * 1024; // 100MB
   const ALLOWED_TYPES: string[] = [
     "image/png", "image/jpeg", "image/jpg", "image/gif", "image/webp", "image/bmp", "image/svg+xml",
-    "audio/mpeg", "audio/wav", "audio/ogg", "audio/m4a", "audio/flac", "audio/aac",
+    "audio/mpeg", "audio/wav", "audio/ogg", "audio/m4a", "audio/flac", "audio/aac", "audio/mp4",
     "text/plain", "application/pdf", 
     "application/msword","application/vnd.openxmlformats-officedocument.wordprocessingml.document"
   ];
@@ -142,7 +142,11 @@ export const useFileUpload = () => {
     const rejectedFiles: { file: File; reason: string }[] = [];
 
     Array.from(fileList).forEach((file) => {
-      if (!ALLOWED_TYPES.includes(file.type)) {
+      const isAllowed = ALLOWED_TYPES.includes(file.type) || 
+                        (file.type.includes('/x-') && ALLOWED_TYPES.includes(file.type.replace('/x-', '/')));
+
+      if (!isAllowed) {
+        console.log(`Rejected file: ${file.name}, MIME type: ${file.type}`);
         rejectedFiles.push({ file, reason: "Unsupported file type" });
       } else if (file.size > MAX_FILE_SIZE) {
         rejectedFiles.push({ file, reason: "File too large (max 100MB)" });
