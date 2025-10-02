@@ -8,7 +8,7 @@ import { LoginSchema, SignupSchema } from "../schemas/user";
 import { generateAccessToken, generateHashRefreshToken, getSafeUser } from "../services/auth";
 import jwt from "jsonwebtoken";
 import { JWT_REFRESH_SECRET } from "../config/envExports";
-import { User, SafeUser } from "../types/auth";
+import { User } from "../types/auth";
 import { NotFoundException } from "../exceptions/not-found";
 
 const prismaClient = prisma; 
@@ -19,18 +19,22 @@ export const signup = async (
   next: NextFunction
 ) => {
    const parsedBody = SignupSchema.parse(req.body);
+   console.log(1);
     const { email, password, username } = parsedBody;
+    console.log(2);
     let user = await prismaClient.user.findFirst({
       where: {
         email,
       },
     });
+    console.log(3);
     if (user) {
        throw new BadRequestException(
           "User already exists",
           ErrorCode.USER_ALREADY_EXISTS
         );
     }
+    console.log(4);
     user = await prismaClient.user.create({
       data: {
         email,
@@ -38,11 +42,12 @@ export const signup = async (
         username,
       },
     });
+    console.log(5)
     const access_token = generateAccessToken(user.id);
 
     const refresh_token = await generateHashRefreshToken(user.id);
 
-
+console.log(6);
     res.cookie("access_token", access_token, {
       httpOnly: true,       // not accessible via JS
       //secure: true,         // only over HTTPS (set false in dev)
@@ -56,6 +61,7 @@ export const signup = async (
       sameSite: "strict",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
+    console.log(7);
     res.json({
       id: user.id,
       email: user.email,
@@ -66,32 +72,34 @@ export const signup = async (
 
 export const login = async (req: Request, res: Response, next: NextFunction) => {
   LoginSchema.parse(req.body);
+  console.log(1);
     const { email, password } = req.body;
     let user:User = await prismaClient.user.findUnique({ where: { email } });
 
+    console.log(2);
     if (!user) {throw new NotFoundException("User not found",ErrorCode.USER_NOT_FOUND)}
-
     if (!compareSync(password, user.password)) {
           throw new BadRequestException(
           "Incorrect Credentials",
           ErrorCode.INCORRECT_CREDENTIALS);
     }
-
+    console.log(3);
     const access_token = generateAccessToken(user.id);
     const refresh_token = await generateHashRefreshToken(user.id);
     res.cookie("access_token", access_token, {
       httpOnly: true,       // not accessible via JS
-      secure: true,         // only over HTTPS (set false in dev)
+         // only over HTTPS (set false in dev)
       sameSite: "strict",   // CSRF protection
       maxAge: 15 * 60 * 1000,
     });
-
+console.log(4);
     res.cookie("refresh_token", refresh_token, {
       httpOnly: true,
-      secure: true,
+
       sameSite: "strict",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
+    console.log(5);
     res.json({
       id: user.id,
       email: user.email,
@@ -136,14 +144,13 @@ export const refresh = async (req: Request, res: Response, next: NextFunction) =
 
     res.cookie("access_token", access_token, {
       httpOnly: true,    
-      //secure: true,         
+           
       sameSite: "strict",   
       maxAge: 15 * 60 * 1000,
     });
 
     res.cookie("refresh_token", new_refresh_token, {
       httpOnly: true,
-      //secure: true,
       sameSite: "strict",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
@@ -162,6 +169,8 @@ export const refresh = async (req: Request, res: Response, next: NextFunction) =
 };
 
 export const me = async (req: Request, res: Response) => {
+  console.log(1);
   const safeUser = getSafeUser(req.user);
+  console.log(2);
   res.json(safeUser);
 };
