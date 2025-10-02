@@ -13,6 +13,13 @@ from langchain_community.document_loaders import PyPDFLoader, UnstructuredWordDo
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_ollama import OllamaEmbeddings
 from config import Config
+from vosk import Model, KaldiRecognizer
+import wave
+import json
+from pydub import AudioSegment
+import noisereduce as nr
+import numpy as np
+from scipy.io import wavfile
 
 class DocumentIngestor:
     def __init__(
@@ -20,7 +27,8 @@ class DocumentIngestor:
         upload_folder: str,
         image_embedder_name: str = "clip-ViT-B-32",
         caption_model_name: str = "Salesforce/blip-image-captioning-large",
-        device: str = None
+        device: str = "cpu",
+        audio_model_path: str = "vosk-model-small-en-us-0.15"
     ):
         if device is None:
             self.device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -40,8 +48,34 @@ class DocumentIngestor:
         self.caption_model = BlipForConditionalGeneration.from_pretrained(caption_model_name).to(device)
 
         # text splitter for chunking extracted text
-        self.splitter = RecursiveCharacterTextSplitter(chunk_size=Config.CHUNK_SIZE, chunk_overlap=Config.CHUNK_OVERLAP)
+        self.splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
+        print(f"🔄 Loading Vosk model from: {audio_model_path}")
+        self.vosk_model = Model(audio_model_path)
 
+        print("✅ Vosk model loaded successfully.")
+
+    # # ---------- file saving ----------
+    # def save_uploaded_file(self, file) -> Dict[str, str]:
+    #     """Save uploaded file with metadata (file is expected to have .save and .filename)"""
+    #     file_id = str(uuid.uuid4())
+    #     original_filename = file.filename
+    #     file_extension = original_filename.split('.')[-1].lower()
+
+    #     # Create filename with timestamp
+    #     timestamp = datetime.now().strftime(self.ts_format)
+    #     saved_filename = f"{file_id}_{timestamp}.{file_extension}"
+    #     file_path = os.path.join(self.upload_folder, saved_filename)
+
+    #     # Save file
+    #     file.save(file_path)
+
+    #     return {
+    #         "file_id": file_id,
+    #         "original_filename": original_filename,
+    #         "saved_path": file_path,
+    #         "file_extension": file_extension,
+    #         "upload_timestamp": timestamp
+    #     }
 
     # ---------- high-level ingest ----------
     def ingest_file(self, file_path: str, file_metadata: Dict[str, Any]) -> List[Dict[str, Any]]:
@@ -74,7 +108,10 @@ class DocumentIngestor:
         if ext == "docx":
             structured_chunks.extend(self._extract_docx_text(file_path, file_metadata))
             return structured_chunks
-
+        # Audio (WAV)
+        if ext in ("wav", "mp3", "flac", "m4a"):
+            structured_chunks.extend(self._process_audio_file(file_path, file_metadata))
+            return structured_chunks
         # PPTX / other unstructured via LangChain loaders
         if ext in ("pptx",):
             # use LangChain loader which will return Document objects with .page_content
@@ -263,32 +300,33 @@ class DocumentIngestor:
         
         # Separate text and image chunks
         for i, chunk in enumerate(chunks):
-            if chunk["type"] in ("text", "image_caption", "image_ocr"):
-                text_contents.append(chunk["content"])
-                text_indices.append(i)
+            c = dict(chunk)  # shallow copy
+            c.pop("vector", None)  # remove any existing vector
 
-        # Batch embed text chunks
-        if text_contents:
-            text_embeddings = self.text_embedder.embed_documents(text_contents)
-            for i, embedding in enumerate(text_embeddings):
-                chunk_index = text_indices[i]
-                chunks[chunk_index]["embedding"] = embedding
-                chunks[chunk_index]["embedding_dim"] = len(embedding)
-
-        # Process image chunks and handle fallbacks
-        for i, chunk in enumerate(chunks):
-            if chunk["type"] == "image":
-                img_obj = chunk.get("_image_obj")
-                if img_obj is None and "local_path" in chunk["metadata"]:
-                    try:
-                        img_obj = Image.open(chunk["metadata"]["local_path"]).convert("RGB")
-                    except Exception:
-                        img_obj = None
-
-                if img_obj is not None:
-                    vec = self.image_embedder.encode(img_obj, convert_to_numpy=True)
-                    chunk["embedding"] = vec.tolist()
-                    chunk["embedding_dim"] = int(vec.shape[0])
+            try:
+                if c["type"] in ("text", "image_caption", "image_ocr"):
+                    # encode text
+                    vec = self.text_embedder.encode(c["content"], convert_to_numpy=True)
+                    c["vector"] = vec.tolist()
+                    c["vector_dim"] = int(vec.shape[0])
+                elif c["type"] == "image":
+                    # image embedding (expects np array or PIL)
+                    img_obj = c.get("_image_obj")
+                    if img_obj is None and "local_path" in c["metadata"]:
+                        try:
+                            img_obj = Image.open(c["metadata"]["local_path"]).convert("RGB")
+                        except Exception:
+                            img_obj = None
+                    if img_obj is not None:
+                        # some SentenceTransformer image models accept PIL or np.array
+                        vec = self.image_embedder.encode(img_obj, convert_to_numpy=True)
+                        c["vector"] = vec.tolist()
+                        c["vector_dim"] = int(vec.shape[0])
+                    else:
+                        # fallback: embed caption/text field for image
+                        vec = self.text_embedder.encode(c.get("content","", convert_to_numpy=True))
+                        c["vector"] = vec.tolist()
+                        c["vector_dim"] = int(vec.shape[0])
                 else:
                     # Fallback for image: embed caption/text field
                     fallback_embedding = self.text_embedder.embed_query(chunk.get("content", ""))
@@ -308,10 +346,77 @@ class DocumentIngestor:
                     chunk["embedding_dim"] = dim
                     chunk["embed_error"] = str(e)
 
+            # drop the PIL image object before returning (not serializable)
             if remove_image_obj and "_image_obj" in chunk:
                 chunk.pop("_image_obj", None)
 
         return chunks
+
+    # ---------- audio processing ----------
+    def _process_audio_file(self, file_path: str, file_metadata: Dict[str, Any]) -> List[Dict[str, Any]]:
+        transcript = self._transcribe_audio_vosk(file_path)
+        if not transcript.strip():
+            return []
+
+        chunks = self.splitter.split_text(transcript)
+        structured_chunks = []
+        for i, chunk_text in enumerate(chunks):
+            structured_chunks.append({
+                "type": "audio_transcript",
+                "content": chunk_text,
+                "metadata": {
+                    "file_id": file_metadata["file_id"],
+                    "original_filename": file_metadata["original_filename"],
+                    "chunk_type": "audio_transcript",
+                    "chunk_id": i,
+                    "upload_timestamp": file_metadata["upload_timestamp"],
+                    "source_url": f"/documents/{file_metadata['file_id']}"
+                }
+            })
+        return structured_chunks
+
+    def _transcribe_audio_vosk(self, file_path: str) -> str:
+        base = os.path.splitext(file_path)[0]
+        normalized_path = base + "_16k.wav"
+        AudioSegment.from_file(file_path).set_frame_rate(16000).set_channels(1).export(normalized_path, format="wav")
+        file_path = normalized_path
+
+        try:
+            rate, data = wavfile.read(file_path)
+            if len(data.shape) > 1:
+                data = data[:, 0]
+
+            noise_level = np.mean(np.abs(data[:rate]))
+            if noise_level > 500:
+                reduced = nr.reduce_noise(y=data, sr=rate)
+                denoised_path = base + "_denoised.wav"
+                wavfile.write(denoised_path, rate, reduced.astype(np.int16))
+                file_path = denoised_path
+
+        except Exception:
+            pass
+
+        wf = wave.open(file_path, "rb")
+        rate = wf.getframerate()
+        rec = KaldiRecognizer(self.vosk_model, rate)
+        rec.SetWords(True)
+
+        results = []
+        while True:
+            data = wf.readframes(4000)
+            if len(data) == 0:
+                break
+            if rec.AcceptWaveform(data):
+                result = json.loads(rec.Result())
+                if "text" in result and result["text"].strip():
+                    results.append(result["text"])
+
+        final = json.loads(rec.FinalResult())
+        if "text" in final and final["text"].strip():
+            results.append(final["text"])
+
+        wf.close()
+        return " ".join(results).strip()
 
 # -------------------------
 # Example usage
@@ -328,6 +433,7 @@ if __name__ == "__main__":
     sample_pdf_path = "../uploads/sample/sample.pdf"
     sample_audio_path = "../uploads/sample/smaple.mp3"
     sample_doc_path = "../uploads/sample/sample.doc"
+    sample_audio_path = "sample.wav" #replace with real path
 
     # create minimal metadata
     meta_image = {
@@ -341,7 +447,13 @@ if __name__ == "__main__":
     chunks = ingestor.ingest_file(sample_image_path, meta_image)
     print(chunks)
     chunks_with_vectors = ingestor.embed_chunks(chunks)
-    print(chunks_with_vectors)
+    print(chunks_with_vectors)    
+    # chunks = ingestor._process_audio_file(file_path, file_metadata)
+
+    for c in chunks_with_vectors:
+        print(f"Chunk {c['metadata'].get('chunk_id', 'N/A')}: {c['content'][:50]}... Vector dim: {c.get('vector_dim', 'N/A')}")
+
+
     # Now chunks_with_vectors contains vector-ready entries you can upsert to any vector DB.
     # Example item:
     # {
