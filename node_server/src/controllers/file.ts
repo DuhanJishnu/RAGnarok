@@ -1,7 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 import { FileService } from "../services/file";
-import { updateFileStatusSchema } from "../schemas/document";
+import { updateFileStatusSchema,fetchDocumentsSchema,fetchDocumentsByNameSchema,fetchDocumentsByIdSchema} from "../schemas/document";
 import { CATEGORY_IDS } from "../lib/magicNumberDetection";
+
+
+
+
 
 /**
  * Upload controller - handles file uploads
@@ -119,5 +123,90 @@ export const updateFileStatus = async (req: Request, res: Response, next: NextFu
     }
   } catch (error) {
     next(error);
+  }
+};
+
+
+
+export const getDocumentsByPage = async (req: Request, res: Response) => {
+  try {
+    // Parsing is now safer and provides a default for pageNo
+    console.log(req.body);
+
+    const { pageNo, docType } = fetchDocumentsSchema.parse(req.body);
+
+    const result=await FileService.getDocumentbyPage(pageNo,docType);
+    
+    return res.json({
+      result
+    });
+  } catch (err) {
+  
+      return res.status(400).json({ error: (err as Error).message });
+    
+    
+  }
+};
+
+
+
+
+export const getDocumentsByName = async (req: Request, res: Response) => {
+
+
+  try {
+    // validate query params
+    const { pageNo, name } = fetchDocumentsByNameSchema.parse(req.body);
+    
+    const result=await FileService.getDocumentsByName(name,pageNo);
+    
+
+    return res.json({
+     result
+    });
+  } catch (err) {
+      return res.status(400).json({ error: (err as Error).message });
+    
+  
+  }
+};
+
+export const getDocumentsByEncrypterID = async (req: Request, res: Response) => {
+  try {
+    const { id } = fetchDocumentsByIdSchema.parse(req.body);
+
+    const document=await FileService.getDocumentsByEncrypterID(id);
+
+    if(document.status){
+      return res.status(404).json({ error: document.message });
+    }
+    
+    return res.json(document);
+  } catch (err) {
+      return res.status(400).json({ error: (err as Error).message });
+    
+  }
+};
+
+
+
+
+
+
+export const deleteDocumentByEncryptedId = async (req: Request, res: Response) => {
+  try {
+    // validate request
+    const { id } = fetchDocumentsByIdSchema.parse(req.body);
+
+    const message=await FileService.deleteDocumentByEncryptedId(id);
+    
+
+    return res.json({
+      message: message,
+      deletedDocumentId: id,
+    });
+  } catch (err) {
+      return res.status(400).json({ error: (err as Error).message });
+
   }
 };
