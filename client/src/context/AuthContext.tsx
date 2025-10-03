@@ -29,6 +29,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     getMe()
       .then(userData => {
+        console.log(userData);
         setUser(userData);
         setIsAuthenticated(true);
       })

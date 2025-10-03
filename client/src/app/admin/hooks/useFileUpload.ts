@@ -5,6 +5,8 @@ export type UploadedFile = {
   link: string;
   thumb?: string;
   fileType?: number;
+  id?: number;
+  documentEncryptedId?: string;
 };
 
 export type FileWithThumbState = UploadedFile & {
@@ -48,6 +50,8 @@ const [filesLoading, setFilesLoading] = useState(false);
   const [filesError, setFilesError] = useState("");
 
 const [fileFilterType, setFileFilterType] = useState<FileTypeFilter>('all');
+const [searchQuery, setSearchQuery] = useState("");
+const [deleteLoading, setDeleteLoading] = useState<number | null>(null);
 
   // filetype image -1, audio  -2 pdfs -3 , word doc -4 
   const MAX_FILE_SIZE = 100 * 1024 * 1024; // 100MB
@@ -302,45 +306,149 @@ const [fileFilterType, setFileFilterType] = useState<FileTypeFilter>('all');
     default: return 0;
   }
 };
-      const res = await api.post<PaginatedFiles>(
-        `/api/file/v1/fetchdocuments`,{
-        pageNo:page.toString(), 
-        docType:getFileTypeNumber(fileFilterType).toString()
-      }
       
-      );
-      setPaginatedFiles(res.data);
-    //    setFilesLoading(true);
-    // setFilesError("");
-    
-    // Simple mock data for quick testing
-    // const mockFiles: UploadedFile[] = Array.from({ length: 25 }, (_, i) => ({
-    //   filename: `file-${i + 1}.${['pdf', 'jpg', 'mp3', 'docx', 'png'][i % 5]}`,
-    //   path: `/uploads/file-${i + 1}`,
-    //   size: [102400, 204800, 512000, 1048576, 2097152][i % 5], // 100KB to 2MB
-    // }));
+ const res = await api.post<{
+      pageNo: number;
+      pageSize: number;
+      totalPages: number;
+      totalCount: number;
+      documents: {
+        id: number;
+        displayName: string;
+        documentEncryptedId: string;
+        documentType: number;
+        thumbPath: string | null;
+        documentPath: string | null;
+      }[];
+    }>(
+      `/api/file/v1/fetchdocuments`,
+      {
+        pageNo: page.toString(),
+        docType: getFileTypeNumber(fileFilterType).toString(),
+      }
+    );
 
-    // await new Promise(resolve => setTimeout(resolve, 300));
+       const { pageNo, pageSize, totalPages, totalCount, documents } = res.data;
+        const mappedFiles: UploadedFile[] = documents.map((doc) => ({
+      name: doc.displayName,
+      link: doc.documentPath || "",   // fallback to empty string
+      thumb: doc.thumbPath || undefined,
+      fileType: doc.documentType,
+      id: doc.id,
+      documentEncryptedId: doc.documentEncryptedId
+    }));
 
-    // const totalCount = mockFiles.length;
-    // const totalPages = Math.ceil(totalCount / limit);
-    // const startIndex = (page - 1) * limit;
-    // const endIndex = startIndex + limit;
+     setPaginatedFiles({
+      files: mappedFiles,
+      totalCount,
+      currentPage: pageNo,
+      totalPages,
+      hasNext: pageNo < totalPages,
+      hasPrev: pageNo > 1,
+    });
 
-    // setPaginatedFiles({
-    //   files: mockFiles.slice(startIndex, endIndex),
-    //   totalCount,
-    //   currentPage: page,
-    //   totalPages,
-    //   hasNext: page < totalPages,
-    //   hasPrev: page > 1
-    // });
+
+
     } catch (err: any) {
       setFilesError(err.response?.data?.error || "Failed to fetch files");
     } finally {
       setFilesLoading(false);
     }
   };
+
+
+  const searchFiles = async (query: string, page: number = 1) => {
+  try {
+    setFilesLoading(true);
+    setFilesError("");
+    setSearchQuery(query);
+
+    const getFileTypeNumber = (filter: FileTypeFilter): number => {
+      switch (filter) {
+        case 'all': return 0;
+        case 'image': return 1;
+        case 'audio': return 2;
+        case 'pdf': return 3;
+        case 'doc': return 4;
+        default: return 0;
+      }
+    };
+
+    const res = await api.post<{
+      pageNo: number;
+      pageSize: number;
+      totalPages: number;
+      totalCount: number;
+      documents: {
+        id: number;
+        displayName: string;
+        documentEncryptedId: string;
+        documentType: number;
+        thumbPath: string | null;
+        documentPath: string | null;
+      }[];
+    }>(
+      `/api/file/v1/fetchdocumentsbyName`,
+      {
+        pageNo: page.toString(),
+        docType: getFileTypeNumber(fileFilterType).toString(),
+        search: query // Add search parameter
+      }
+    );
+
+    const { pageNo, pageSize, totalPages, totalCount, documents } = res.data;
+    const mappedFiles: UploadedFile[] = documents.map((doc) => ({
+      name: doc.displayName,
+      link: doc.documentPath || "",
+      thumb: doc.thumbPath || undefined,
+      fileType: doc.documentType,
+       id: doc.id,
+      documentEncryptedId: doc.documentEncryptedId
+    }));
+
+    setPaginatedFiles({
+      files: mappedFiles,
+      totalCount,
+      currentPage: pageNo,
+      totalPages,
+      hasNext: pageNo < totalPages,
+      hasPrev: pageNo > 1,
+    });
+
+  } catch (err: any) {
+    setFilesError(err.response?.data?.error || "Failed to search files");
+  } finally {
+    setFilesLoading(false);
+  }
+};
+
+const deleteFile = async (fileId: number, documentEncryptedId: string) => {
+   if (!documentEncryptedId) {
+    setFilesError("Cannot delete file: Missing file identifier");
+    return;
+  }
+  try {
+    setDeleteLoading(fileId);
+    
+    await api.delete(`/api/file/v1/delete`, {
+      data: {
+        documentEncryptedId: documentEncryptedId
+      }
+    });
+
+    // Refresh the file list after successful deletion
+    if (searchQuery) {
+      await searchFiles(searchQuery, paginatedFiles.currentPage);
+    } else {
+      await fetchFiles(paginatedFiles.currentPage);
+    }
+
+  } catch (err: any) {
+    setFilesError(err.response?.data?.error || "Failed to delete file");
+  } finally {
+    setDeleteLoading(null);
+  }
+};
 
 useEffect(() => {
     fetchFiles(1);
@@ -372,6 +480,11 @@ useEffect(() => {
     filesError,
     fetchFiles,
     fileFilterType,
-    setFileFilterType
+    setFileFilterType,
+    searchFiles,
+  deleteFile,
+  searchQuery,
+  setSearchQuery,
+  deleteLoading,
   };
 };

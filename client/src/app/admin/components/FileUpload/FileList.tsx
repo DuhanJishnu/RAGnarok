@@ -7,8 +7,13 @@ interface FileListProps {
   loading: boolean;
   error: string;
   onFileSelect?: (file: UploadedFile) => void;
+  onFileDelete?: (fileId: number, documentEncryptedId: string) => void;
   fileTypeFilter?: string; 
   filteredCount?: number;
+   deleteLoading?: number | null;
+  fileIds?: number[];
+  documentEncryptedIds?: string[]; 
+   searchQuery?: string;
 }
 
 const formatFileSize = (bytes: number) => {
@@ -19,8 +24,8 @@ const formatFileSize = (bytes: number) => {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
 };
 
-const getFileIcon = (filename: string) => {
-  const ext = filename.split('.').pop()?.toLowerCase();
+const getFileIcon = (name: string) => {
+  const ext = name.split('.').pop()?.toLowerCase();
   if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp', 'svg'].includes(ext || '')) {
     return "🖼️";
   }
@@ -33,7 +38,16 @@ const getFileIcon = (filename: string) => {
   return "📄";
 };
 
-const FileList: React.FC<FileListProps> = ({ files, loading, error, onFileSelect,fileTypeFilter,filteredCount }) => {
+const FileList: React.FC<FileListProps> = ({  files, 
+  loading, 
+  error, 
+  onFileSelect, 
+  onFileDelete,
+  fileTypeFilter, 
+  filteredCount,
+  deleteLoading,
+  fileIds = [],
+  documentEncryptedIds = [], searchQuery = "" }) => {
   if (loading) {
     return (
       <div className="mt-6 p-6 rounded-2xl bg-gray-800/50 border border-gray-700">
@@ -56,11 +70,16 @@ const FileList: React.FC<FileListProps> = ({ files, loading, error, onFileSelect
 
   if (files.length === 0) {
     return (
-      <div className="mt-6 p-6 rounded-2xl bg-gray-800/50 border border-gray-700 text-center">
-        <div className="text-4xl mb-3">📁</div>
-        <p className="text-gray-300 text-lg">No files uploaded yet</p>
-        <p className="text-gray-500">Upload some files to see them here</p>
-      </div>
+       <div className="mt-6 p-6 rounded-2xl bg-gray-800/50 border border-gray-700 text-center">
+      <div className="text-4xl mb-3">📁</div>
+      <p className="text-gray-300 text-lg">
+        {/* IMPROVE EMPTY STATE MESSAGE */}
+        {searchQuery ? "No files found" : "No files uploaded yet"}
+      </p>
+      <p className="text-gray-500">
+        {searchQuery ? `No results for "${searchQuery}"` : "Upload some files to see them here"}
+      </p>
+    </div>
     );
   }
 
@@ -68,11 +87,14 @@ const FileList: React.FC<FileListProps> = ({ files, loading, error, onFileSelect
     <div className="mt-6">
       <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
         <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
-        Uploaded Files <span className="ml-2 text-gray-400">
+         {searchQuery ? "Search Results" : "Uploaded Files"} <span className="ml-2 text-gray-400">
             ({filteredCount !== undefined ? filteredCount : files.length})
             {fileTypeFilter && fileTypeFilter !== 'all' && (
               <span className="text-sm text-blue-400 ml-1">• {fileTypeFilter}</span>
             )}
+            {searchQuery && (
+      <span className="text-sm text-yellow-400 ml-1">• "{searchQuery}"</span>
+    )}
           </span>
       </h3>
       
@@ -85,33 +107,40 @@ const FileList: React.FC<FileListProps> = ({ files, loading, error, onFileSelect
           >
             <div className="flex items-center space-x-4 flex-1 min-w-0">
               <div className="w-12 h-12 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
-                <span className="text-2xl">{getFileIcon(file.filename)}</span>
+                <span className="text-2xl">{getFileIcon(file.name)}</span>
               </div>
               <div className="flex-1 min-w-0">
                 <p className="font-medium truncate text-white group-hover:text-green-300 transition-colors duration-200">
-                  {file.filename}
+                  {file.name}
                 </p>
                 <div className="flex items-center space-x-3 mt-1">
-                  <p className="text-xs text-gray-400">
-                    {file.size ? formatFileSize(file.size) : "Unknown size"}
-                  </p>
+                  {/* <p className="text-xs text-gray-400">
+                    {file.size ? formatFileSize(file.size) : "Unknown Psize"}
+                  </p> */}
                   <span className="text-gray-600">•</span>
                   <p className="text-xs text-gray-400">
-                    {file.path.split('/').pop()?.split('.').pop()?.toUpperCase() || "File"}
+                    {file.link.split('/').pop()?.split('.').pop()?.toUpperCase() || "File"}
                   </p>
                 </div>
               </div>
             </div>
-            <a
-              href={`${process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000"}${file.path}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className="ml-4 p-2 text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-lg transition-all duration-200 opacity-0 group-hover:opacity-100"
-              title="Download file"
-            >
-              <span className="text-lg">⬇️</span>
-            </a>
+             {onFileDelete && fileIds[index] !== undefined && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onFileDelete(fileIds[index], documentEncryptedIds[index]);
+                }}
+                disabled={deleteLoading === fileIds[index]}
+                className="ml-4 p-2 text-gray-400 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all duration-200 opacity-0 group-hover:opacity-100 disabled:opacity-50"
+                title="Delete file"
+              >
+                {deleteLoading === fileIds[index] ? (
+                  <div className="w-4 h-4 border-2 border-red-400 border-t-transparent rounded-full animate-spin"></div>
+                ) : (
+                  "🗑️"
+                )}
+              </button>
+            )}
           </div>
         ))}
       </div>
