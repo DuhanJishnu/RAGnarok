@@ -5,7 +5,7 @@ export default function Header({ toggleSidebar }: Readonly<{ toggleSidebar: () =
 
 
   return (
-    <header className="flex items-center justify-between px-4 py-3 border-b border-gray-200 dark:border-gray-800/60">
+    <header className="flex items-center justify-between px-4 py-3 border-b border-gray-200 dark:border-gray-800/60 flex-shrink-0">
       <div className="flex items-center gap-3">
         <button onClick={toggleSidebar} className="p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700">
           <Bars3Icon className="w-6 h-6" />

@@ -18,7 +18,7 @@ export const createExchange = async (req: Request, res: Response) => {
   if (!conversationId) {
     newConversation = await prismaClient.conversation.create({
       data: {
-        userId: req.user.id,
+        userId: req.user!.id,
         title: convTitle,
       },
     });

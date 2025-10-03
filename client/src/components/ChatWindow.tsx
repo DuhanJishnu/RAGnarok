@@ -15,6 +15,8 @@ export default function ChatWindow() {
     setConvId,
     convTitle,
     setConvTitle,
+    refreshConversations,
+    addNewConversation,
   } = useChat();
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [atBottom, setAtBottom] = useState(true);
@@ -60,10 +62,22 @@ export default function ChatWindow() {
     return () => observer.disconnect();
   }, [handleObserver]);
 
+  // Reset page when conversation changes
+  useEffect(() => {
+    setExchangePage(1);
+    setHasMoreExchanges(true);
+  }, [convId]);
+
   useEffect(() => {
     if (convId) {
       getExchanges(convId, exchangePage).then((res) => {
-        setExchanges((prev) => [...res.exchanges, ...prev]);
+        if (exchangePage === 1) {
+          // First page: reverse to show oldest first, newest last
+          setExchanges([...res.exchanges].reverse());
+        } else {
+          // Additional pages: prepend older messages (already in desc order from backend)
+          setExchanges((prev) => [[...res.exchanges].reverse(), ...prev].flat());
+        }
         setHasMoreExchanges(res.exchanges.length > 0);
       });
     }
@@ -87,9 +101,14 @@ export default function ChatWindow() {
     try {
       const reply = await createExchange(text, convId, convTitle, image);
 
-      if (!convId) {
+      if (!convId && reply.conversation) {
         setConvId(reply.conversation.id);
         setConvTitle(reply.conversation.title);
+        // Add the new conversation to the sidebar list
+        addNewConversation({
+          id: reply.conversation.id,
+          title: reply.conversation.title
+        });
       }
 
       // replace temporary exchange with real one
@@ -108,15 +127,15 @@ export default function ChatWindow() {
   };
 
   return (
-    <div className="relative flex flex-col w-full h-full  bg-gradient-to-b from-white/80 to-transparent dark:from-transparent rounded-lg shadow-md overflow-hidden">
-      <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between">
+    <div className="relative flex flex-col w-full h-full bg-gradient-to-b from-white/80 to-transparent dark:from-transparent rounded-lg shadow-md overflow-hidden">
+      <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between flex-shrink-0">
         <div className="font-medium">{convTitle || "New Chat"}</div>
       </div>
 
       <div
         ref={containerRef}
         onScroll={handleScroll}
-        className="flex-1 overflow-y-auto p-4 space-y-4"
+        className="flex-1 overflow-y-auto p-4 space-y-4 min-h-0"
       >
         {hasMoreExchanges && <div ref={loader}>Loading...</div>}
         <AnimatePresence initial={false} mode="popLayout">
@@ -154,7 +173,7 @@ export default function ChatWindow() {
         </button>
       )}
 
-      <div className="px-4 py-3 border-t border-gray-200 dark:border-gray-800">
+      <div className="px-4 py-3 border-t border-gray-200 dark:border-gray-800 flex-shrink-0">
         <ChatInput onSend={onSend} conv_id={convId} setConvId={setConvId} />
       </div>
     </div>
