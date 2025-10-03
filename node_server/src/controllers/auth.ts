@@ -133,6 +133,20 @@ export const refresh = async (req: Request, res: Response, next: NextFunction) =
       
       return res.status(403).json({ message: "Refresh token expired" });
     }
+
+    // Verify user still exists
+    const user = await prismaClient.user.findUnique({
+      where: { id: decoded.userId }
+    });
+
+    if (!user) {
+      // Clean up token for non-existent user
+      await prismaClient.refreshToken.delete({
+        where: { tokenHash: refresh_token },
+      });
+      return res.status(401).json({ message: "User not found" });
+    }
+    
     const access_token = generateAccessToken(decoded.userId);
  
     const new_refresh_token = await generateHashRefreshToken(decoded.userId);
@@ -158,9 +172,23 @@ export const refresh = async (req: Request, res: Response, next: NextFunction) =
       message:"Updated token"
     })
   } catch (err: any) {
+    console.error('Token refresh error:', err);
+    if (err.name === 'JsonWebTokenError' || err.name === 'TokenExpiredError') {
+      // Try to clean up invalid token if it exists in database
+      try {
+        await prismaClient.refreshToken.deleteMany({
+          where: { tokenHash: refresh_token }
+        });
+      } catch (cleanupError) {
+        console.error('Error cleaning up invalid token:', cleanupError);
+      }
+      
+      return res.status(401).json({ message: "Invalid refresh token" });
+    }
+    
     next(
       new UnprocessableEntity(
-        err?.issues || err,
+        err?.message || err,
         "Could not generate tokens",
         ErrorCode.TOKEN_ERROR
       )
