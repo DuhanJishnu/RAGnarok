@@ -23,9 +23,9 @@ fileRoutes.get('/files/:encryptedId', errorHandler(serveFile));
 fileRoutes.get('/thumb/:encryptedId', errorHandler(serveThumbnail));
 fileRoutes.get('/unprocessed', errorHandler(getUnprocessedFiles)); 
 fileRoutes.patch('/update-status', errorHandler(updateFileStatus)); 
-fileRoutes.get('/fetchdocuments', errorHandler(getDocumentsByPage));  
-fileRoutes.get('/fetchdocumentsbyName', errorHandler(getDocumentsByName )); 
-fileRoutes.get('/fetchdocumentsbyID', errorHandler(getDocumentsByEncrypterID));
+fileRoutes.post('/fetchdocuments', errorHandler(getDocumentsByPage));  
+fileRoutes.post('/fetchdocumentsbyName', errorHandler(getDocumentsByName )); 
+fileRoutes.post('/fetchdocumentsbyID', errorHandler(getDocumentsByEncrypterID));
 fileRoutes.delete('/delete', errorHandler(deleteDocumentByEncryptedId));
 
   export default fileRoutes;
