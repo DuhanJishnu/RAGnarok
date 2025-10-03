@@ -6,10 +6,11 @@ export const getExchanges = async (
   conversationId: string,
   page: number
 ) => {
-  const res = await api.get("/exch/v1/getexch", {
+  const res = await api.post("/exch/v1/getexch", {
     //headers: { Authorization: accessToken },
     data: { conversationId, page },
   });
+  console.log("res data : ", res.data);
   return res.data;
 };
 
