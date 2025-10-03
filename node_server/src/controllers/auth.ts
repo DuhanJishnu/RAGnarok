@@ -174,3 +174,20 @@ export const me = async (req: Request, res: Response) => {
   console.log(2);
   res.json(safeUser);
 };
+
+export const logout = async (req: Request, res: Response) =>{
+  await prismaClient.refreshToken.delete({
+    where:{tokenHash: req.cookies.refresh_token}
+  })
+   res.clearCookie("access_token", {
+    httpOnly: true,
+    //secure: true,
+    sameSite: "strict"
+  });
+   res.clearCookie("refresh_token", {
+    httpOnly: true,
+    //secure: true,
+    sameSite: "strict"
+  });
+  res.json({ message: "Logged out successfully" });
+}
