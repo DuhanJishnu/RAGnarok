@@ -1,19 +1,21 @@
 "use client";
 
+import { motion } from "framer-motion";
 import Image from "next/image";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import { Streamdown } from "streamdown";
 
 export default function MessageBubble({
   role,
   text,
   image,
   timestamp,
+  isStreaming  // NEW: whether this message is still streaming
 }: Readonly<{
   role: "user" | "assistant";
   text: string;
   image?: File | string;
   timestamp: string | Date;
+  isStreaming?: boolean;
 }>) {
   const isUser = role === "user";
   const time = typeof timestamp === "string" ? new Date(timestamp) : timestamp;
@@ -50,36 +52,18 @@ export default function MessageBubble({
 
         {text && (
           <div className="overflow-x-auto max-w-full">
-            <ReactMarkdown
-              remarkPlugins={[remarkGfm]}
-              components={{
-                h1: ({ ...props }) => (
-                  <h1 className="text-xl font-bold my-2" {...props} />
-                ),
-                h2: ({ ...props }) => (
-                  <h2 className="text-lg font-semibold my-2" {...props} />
-                ),
-                h3: ({ ...props }) => (
-                  <h3 className="text-md font-semibold my-1" {...props} />
-                ),
-                p: ({ ...props }) => <p className="my-1" {...props} />,
-                ul: ({ ...props }) => (
-                  <ul className="list-disc ml-5 my-1" {...props} />
-                ),
-                ol: ({ ...props }) => (
-                  <ol className="list-decimal ml-5 my-1" {...props} />
-                ),
-                li: ({ ...props }) => <li className="my-1" {...props} />,
-                code: ({ ...props }) => (
-                  <code
-                    className="bg-gray-200 dark:bg-white/10 px-1 py-0.5 rounded"
-                    {...props}
-                  />
-                ),
-              }}
-            >
-              {text}
-            </ReactMarkdown>
+            
+            {role === "assistant" ? (
+              // <Streamdown >{text}</Streamdown>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: isStreaming ? 1 : 0.7 }}
+              >
+                <Streamdown>{text}</Streamdown>
+              </motion.div>
+            ) : (
+              <p>{text}</p>
+            )}
           </div>
         )}
       </div>

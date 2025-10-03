@@ -20,16 +20,11 @@ export const createExchange = async (
   convTitle?: string,
   image?: File
 ) => {
-  const formData = new FormData();
-  formData.append("user_query", user_query);
-  if (convId) formData.append("convId", convId);
-  if (convTitle) formData.append("convTitle", convTitle);
-  if (image) formData.append("image", image);
-  const res = await api.post("/exch/v1/createexch", formData, {
-    headers: {
-      //Authorization: accessToken, 
-      "Content-Type": "multipart/form-data",
-    },
+  
+  const res = await api.post("/exch/v1/createexch", {
+    user_query,
+    convId,
+    convTitle,
   });
   return res.data;
 };

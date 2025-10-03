@@ -8,7 +8,14 @@ import { createExchange, getExchanges } from "@/service/exch";
 import { useChat } from "@/context/ChatContext";
 
 export default function ChatWindow() {
-  const { exchanges, setExchanges, convId, setConvId, convTitle, setConvTitle } = useChat();
+  const {
+    exchanges,
+    setExchanges,
+    convId,
+    setConvId,
+    convTitle,
+    setConvTitle,
+  } = useChat();
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [atBottom, setAtBottom] = useState(true);
   const [exchangePage, setExchangePage] = useState(1);
@@ -20,7 +27,7 @@ export default function ChatWindow() {
       top: containerRef.current.scrollHeight,
       behavior: "smooth",
     });
-  }; 
+  };
 
   useEffect(() => {
     if (atBottom) scrollToBottom();
@@ -32,15 +39,21 @@ export default function ChatWindow() {
     setAtBottom(scrollTop + clientHeight >= scrollHeight - 20);
   };
 
-  const handleObserver = useCallback((entities: IntersectionObserverEntry[]) => {
-    const target = entities[0];
-    if (target.isIntersecting && hasMoreExchanges) {
-      setExchangePage(prevPage => prevPage + 1);
-    }
-  }, [hasMoreExchanges]);
+  const handleObserver = useCallback(
+    (entities: IntersectionObserverEntry[]) => {
+      const target = entities[0];
+      if (target.isIntersecting && hasMoreExchanges) {
+        setExchangePage((prevPage) => prevPage + 1);
+      }
+    },
+    [hasMoreExchanges]
+  );
 
   useEffect(() => {
-    const observer = new IntersectionObserver(handleObserver, { root: null, rootMargin: "20px" });
+    const observer = new IntersectionObserver(handleObserver, {
+      root: null,
+      rootMargin: "20px",
+    });
     if (loader.current) {
       observer.observe(loader.current);
     }
@@ -49,24 +62,50 @@ export default function ChatWindow() {
 
   useEffect(() => {
     if (convId) {
-      getExchanges(convId, exchangePage).then(res => {
-        setExchanges(prev => [...res.exchanges, ...prev]);
+      getExchanges(convId, exchangePage).then((res) => {
+        setExchanges((prev) => [...res.exchanges, ...prev]);
         setHasMoreExchanges(res.exchanges.length > 0);
       });
     }
   }, [convId, exchangePage, setExchanges]);
 
-  const onSend = async(text: string, image?: File) => {
+  const onSend = async (text: string, image?: File) => {
     if (!text.trim() && !image) return;
+    // create a temporary "user message"
+    const tempId = Date.now().toString();
 
-    const reply = await createExchange(text, convId, convTitle, image)
-    if (!convId) {
-      setConvId(reply.conversation.id);
-      setConvTitle(reply.conversation.title);
+    const tempExchange = {
+      id: tempId,
+      userQuery: text,
+      systemResponse: "", // wait till response arrives
+      createdAt: new Date().toISOString(),
+      image: image ? URL.createObjectURL(image) : undefined,
+    };
+
+    // immediately show user’s message
+    setExchanges((prev) => [...prev, tempExchange]);
+    try {
+      const reply = await createExchange(text, convId, convTitle, image);
+
+      if (!convId) {
+        setConvId(reply.conversation.id);
+        setConvTitle(reply.conversation.title);
+      }
+
+      // replace temporary exchange with real one
+      setExchanges((prev) =>
+        prev.map((m) => (m.id === tempId ? reply.exchange : m))
+      );
+    } catch (err) {
+      console.error("Send failed", err);
+      // optionally mark failed state
+      setExchanges((prev) =>
+        prev.map((m) =>
+          m.id === tempId ? { ...m, systemResponse: " Failed to get response " } : m
+        )
+      );
     }
-    setExchanges(prev => [...prev, reply.exchange]);
   };
-
 
   return (
     <div className="relative flex flex-col w-full h-full  bg-gradient-to-b from-white/80 to-transparent dark:from-transparent rounded-lg shadow-md overflow-hidden">
@@ -106,11 +145,12 @@ export default function ChatWindow() {
 
       {!atBottom && (
         <button
+          type="button" 
           onClick={scrollToBottom}
+          aria-label="Scroll to bottom"
           className="absolute bottom-20 right-4 p-2 rounded-full bg-vsyellow text-black shadow-md hover:scale-105 transition"
         >
           <ChevronDownIcon className="w-5 h-5" />
-          
         </button>
       )}
 

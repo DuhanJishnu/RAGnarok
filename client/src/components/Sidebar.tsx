@@ -64,7 +64,7 @@ const Sidebar = ({ isOpen }: { isOpen: boolean }) => {
   };
 
   return (
-    <div className={`bg-gray-100 dark:bg-gray-800 p-4 flex flex-col transition-all duration-300 ${isOpen ? 'w-64' : 'w-0'} overflow-hidden`}>
+    <div className={`bg-gray-100 dark:bg-gray-800 p-4 flex flex-col transition-all duration-300 ${isOpen ? 'w-64' : '"hidden"'} overflow-hidden`}>
       <button onClick={handleNewChat} className="bg-blue-500 text-white rounded-lg p-2 mb-4">
         New Chat
       </button>
