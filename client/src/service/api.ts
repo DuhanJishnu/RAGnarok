@@ -1,41 +1,67 @@
-import axios from 'axios';
-import { refreshToken } from './auth';
+import axios from "axios";
+import { refreshToken } from "./auth";
 
-const BASEURL = process.env.NEXT_PUBLIC_BASEURL;
-
-// Create Axios instance
-export const api = axios.create({
-  baseURL: BASEURL,
-  headers: {
-    "Content-Type": "application/json",
-  },
-  withCredentials: true, // Send cookies with requests
+const api = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_BASEURL || "http://localhost:5000",
+  withCredentials: true,
 });
 
-// Response interceptor for handling token refresh
- api.interceptors.response.use(
-  (response) => response,
+let isRefreshing = false;
+let failedQueue: any[] = [];
+
+const processQueue = (error: any, token = null) => {
+  failedQueue.forEach((prom) => {
+    if (error) {
+      prom.reject(error);
+    } else {
+      prom.resolve(token);
+    }
+  });
+
+  failedQueue = [];
+};
+
+api.interceptors.response.use(
+  (response) => {
+    return response;
+  },
   async (error) => {
     const originalRequest = error.config;
-    console.log(error);
-    // If the error is 401 and we haven't already tried to refresh the token
-    if (error.code === 401 && !originalRequest._retry) {
+
+    if (error.response.status === 401 && !originalRequest._retry) {
+      if (isRefreshing) {
+        return new Promise(function (resolve, reject) {
+          failedQueue.push({ resolve, reject });
+        })
+          .then(() => {
+            return api(originalRequest);
+          })
+          .catch((err) => {
+            return Promise.reject(err);
+          });
+      }
+
       originalRequest._retry = true;
+      isRefreshing = true;
 
       try {
-        // Attempt to refresh the token
+        console.log("Refreshing token...");
         await refreshToken();
-
-        // Retry the original request
+        console.log("Token refreshed successfully");
+        processQueue(null, null);
         return api(originalRequest);
       } catch (refreshError) {
-        // If refresh fails, redirect to login
-        // You might want to dispatch a logout action here
-        window.location.href = '/login';
+        processQueue(refreshError, null);
+        // If refresh token fails, redirect to login
+        window.location.href = "/login";
         return Promise.reject(refreshError);
+      } finally {
+        isRefreshing = false;
       }
     }
 
     return Promise.reject(error);
   }
 );
+
+export default api;

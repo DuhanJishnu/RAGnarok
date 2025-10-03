@@ -1,6 +1,5 @@
-import { api } from "./api";
+import  api  from "./api";
 
-// Signup
 export const signup = async (username: string, email: string, password: string) => {
   const res = await api.post("/auth/v1/signup", { username, email, password });
   return res.data;

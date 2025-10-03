@@ -1,99 +1,141 @@
 "use client";
-import { useState , useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import { PaperAirplaneIcon , PhotoIcon, XMarkIcon} from "@heroicons/react/24/solid";
+import { PaperAirplaneIcon, PhotoIcon, XMarkIcon } from "@heroicons/react/24/solid";
+import { motion } from "framer-motion";
+
 
 export default function ChatInput({
   onSend,
+  conv_id,
+  setConvId,
 }: Readonly<{
-  onSend: (txt: string,  image?: File) => void;
+  onSend: (txt: string, image?: File) => void;
   conv_id: string;
-  setConvId: (conv_id : string)=>void
+  setConvId: (conv_id: string) => void;
 }>) {
   const [text, setText] = useState("");
   const [image, setImage] = useState<File | null>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [isComposing, setIsComposing] = useState(false);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.style.height = "auto";
+      inputRef.current.style.height = inputRef.current.scrollHeight + "px";
+    }
+  }, [text]);
 
   const send = () => {
-    if (!text.trim() ) return;
-    onSend( text.trim(), image || undefined );
+    if (!text.trim() && !image) return;
+    onSend(text.trim(), image || undefined);
     setText("");
     setImage(null);
-    // Reset file input so the same file can be selected again
-    //if (inputRef.current) inputRef.current.value = "";
   };
+
   const onKey = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === "Enter" && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey && !isComposing) {
       e.preventDefault();
       send();
     }
   };
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] ?? null;
-    if (file) setImage(file);
-
-    // Always reset input value immediately
+    if (file) {
+      // Validate file type and size
+      if (!file.type.startsWith('image/')) {
+        alert('Please select an image file');
+        return;
+      }
+      if (file.size > 5 * 1024 * 1024) { // 5MB limit
+        alert('Image size should be less than 5MB');
+        return;
+      }
+      setImage(file);
+    }
     e.target.value = "";
   };
-   return (
-    <div className="flex flex-col gap-2">
-      
 
+  const removeImage = () => {
+    setImage(null);
+  };
+
+  return (
+    <div className="flex flex-col gap-3">
       {/* Image preview */}
       {image && (
-        <div className="relative w-24 h-24">
-          <Image
-            src={URL.createObjectURL(image)}
-            alt="preview"
-            width={96}
-            height={96}
-            className="object-cover w-full h-full rounded-md border border-gray-300 dark:border-gray-700"
-          />
-          
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="relative inline-block w-fit"
+        >
+          <div className="relative w-32 h-32 rounded-lg overflow-hidden border-2 border-vsyellow/30 shadow-sm">
+            <Image
+              src={URL.createObjectURL(image)}
+              alt="Preview"
+              fill
+              className="object-cover"
+            />
+          </div>
           <button
-            onClick={() => setImage(null)}
-            className="absolute top-1 right-1 bg-gray-200 dark:bg-gray-700 p-1 rounded-full hover:bg-gray-300 dark:hover:bg-gray-600 transition"
+            onClick={removeImage}
+            className="absolute -top-2 -right-2 bg-red-500 text-white p-1 rounded-full hover:bg-red-600 transition-colors shadow-lg"
           >
-            <XMarkIcon className="w-4 h-4 text-gray-800 dark:text-gray-200" />
+            <XMarkIcon className="w-4 h-4" />
           </button>
-        </div>
+        </motion.div>
       )}
 
-      <div className="flex gap-2 items-center">
-        {/* File input (hidden, trigger by button) */}
+      <div className="flex gap-3 items-end">
+        {/* File input */}
         <input
           type="file"
           accept="image/*"
           id="chat-image"
           className="hidden"
-          ref={inputRef}
+          ref={fileInputRef}
           onChange={handleFileChange}
         />
-        <label
-          htmlFor="chat-image"
+        
+        <button
+          type="button"
+          onClick={() => fileInputRef.current?.click()}
           aria-label="Upload image"
           title="Upload image"
-          className="h-10 w-10 flex items-center justify-center rounded-full bg-gray-200 dark:bg-gray-700 cursor-pointer hover:scale-105 active:scale-95 transition"
+          className="flex-shrink-0 h-12 w-12 flex items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-800 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 border border-gray-200 dark:border-gray-700"
         >
-          <PhotoIcon className="w-5 h-5 text-gray-700 dark:text-gray-200" />
-        </label>
+          <PhotoIcon className="w-6 h-6 text-gray-600 dark:text-gray-400" />
+        </button>
 
-        <textarea
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          onKeyDown={onKey}
-          placeholder="Type your query..."
-          rows={1}
-          className="resize-none flex-1 min-h-[44px] max-h-40 rounded-md p-1.5 border border-gray-200 dark:border-gray-800 bg-white dark:bg-transparent shadow-sm focus:outline-none focus:ring-2 focus:ring-vsyellow/40 transition-all"
-        />
+        <div className="flex-1 relative">
+          <textarea
+            ref={inputRef}
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            onKeyDown={onKey}
+            onCompositionStart={() => setIsComposing(true)}
+            onCompositionEnd={() => setIsComposing(false)}
+            placeholder="Type your message..."
+            rows={1}
+            className="w-full resize-none min-h-[48px] max-h-32 rounded-xl px-4 py-3 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-vsyellow/50 focus:border-transparent transition-all duration-200 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400"
+          />
+        </div>
 
         <button
           onClick={send}
-          aria-label="Send"
-          className="h-10 w-10 flex items-center justify-center rounded-full bg-vsyellow text-black font-semibold hover:scale-105 active:scale-95 transition"
+          disabled={!text.trim() && !image}
+          aria-label="Send message"
+          className="flex-shrink-0 h-12 w-12 flex items-center justify-center rounded-xl bg-vsyellow text-black font-semibold hover:bg-yellow-500 disabled:bg-gray-300 disabled:cursor-not-allowed disabled:dark:bg-gray-700 transition-all duration-200 hover:scale-105 active:scale-95 shadow-sm"
         >
           <PaperAirplaneIcon className="w-5 h-5" />
         </button>
+      </div>
+      
+      {/* Helper text */}
+      <div className="text-xs text-gray-500 dark:text-gray-400 text-center">
+        Press Enter to send, Shift+Enter for new line
       </div>
     </div>
   );
