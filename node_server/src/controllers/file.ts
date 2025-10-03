@@ -141,7 +141,7 @@ export const getDocumentsByPage = async (req: Request, res: Response) => {
       result
     });
   } catch (err) {
-  
+    
       return res.status(400).json({ error: (err as Error).message });
     
     
@@ -156,10 +156,9 @@ export const getDocumentsByName = async (req: Request, res: Response) => {
 
   try {
     // validate query params
-    const { pageNo, name } = fetchDocumentsByNameSchema.parse(req.body);
-    
-    const result=await FileService.getDocumentsByName(name,pageNo);
-    
+    const { pageNo, name, docType } = fetchDocumentsByNameSchema.parse(req.body);
+
+    const result=await FileService.getDocumentsByName(name,pageNo,docType);
 
     return res.json({
      result
@@ -175,13 +174,13 @@ export const getDocumentsByEncrypterID = async (req: Request, res: Response) => 
   try {
     const { id } = fetchDocumentsByIdSchema.parse(req.body);
 
-    const document=await FileService.getDocumentsByEncrypterID(id);
+    const result=await FileService.getDocumentsByEncrypterID(id);
 
-    if(document.status){
-      return res.status(404).json({ error: document.message });
+    if(result.status){
+      return res.status(404).json({ error: result.message });
     }
-    
-    return res.json(document);
+
+    return res.json(result);
   } catch (err) {
       return res.status(400).json({ error: (err as Error).message });
     

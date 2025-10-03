@@ -113,16 +113,18 @@ export class FileService {
           pageSize,
           totalPages: Math.ceil(totalCount / pageSize),
           totalCount,
-          documents,
+          documents
         }
   
   }
 
-  static async getDocumentsByName(name: string, pageNo: number) {
+
+  static async getDocumentsByName(name: string, pageNo: number, docType: number) {
   
-    const pageSize = 20;
+        const pageSize = 20;
         const skip = (pageNo - 1) * pageSize;
     
+        const whereClause = docType==0 ? {} : { documentType: docType };
         // fetch documents by partial name match
         const documents = await prisma.document.findMany({
           where: {
@@ -130,6 +132,7 @@ export class FileService {
               contains: name, // partial match
               mode: "insensitive", // case insensitive search
             },
+            ...whereClause,
           },
           orderBy: { id: "desc" },
           skip,
@@ -148,7 +151,10 @@ export class FileService {
 
         return {
           documents,
-          totalCount
+          totalCount,
+          totalPages: Math.ceil(totalCount / pageSize),
+          pageNo,
+          pageSize,
         }
   }
 
@@ -161,8 +167,9 @@ export class FileService {
     if (!document) {
       return { status: 404, message:"Document not Found"};
     }
-    return document;
-
+    return {
+      document
+    };
   }
 
   static async deleteDocumentByEncryptedId(id: string) {

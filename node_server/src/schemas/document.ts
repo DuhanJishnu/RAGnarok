@@ -50,6 +50,13 @@ export const fetchDocumentsSchema = z.object({
 export const fetchDocumentsByNameSchema = z.object({
   pageNo: z.preprocess((val) => parseInt(String(val)), z.number().int().min(1)),
   name: z.string().min(1, "Search term cannot be empty"),
+  docType: z.coerce
+    .number()
+    .int()
+    .min(0, "Document type must be at least 0")
+    .max(4, "Document type must be at most 4")
+    .default(0),
+
 });
 
 export const fetchDocumentsByIdSchema = z.object({
