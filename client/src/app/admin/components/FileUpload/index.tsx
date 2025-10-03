@@ -11,12 +11,23 @@ import  { useFileUpload } from "../../hooks/useFileUpload";
 import FileList from "./FileList";
 import Pagination from "./Pagination";
 import FilterDropdown from "./FilterDropdown";
+import SearchBar from "./SearchBar";
 const FileUpload: React.FC = () => {
   const upload = useFileUpload();
 const handlePageChange = (page: number) => {
+    if (upload.searchQuery) {
+    upload.searchFiles(upload.searchQuery, page);
+  } else {
     upload.fetchFiles(page);
+  }
   };
- 
+ React.useEffect(() => {
+    if (upload.searchQuery) {
+      upload.searchFiles(upload.searchQuery, 1);
+    } else {
+      upload.fetchFiles(1);
+    }
+  }, [upload.fileFilterType]);
   return (
     <div className="rounded-2xl bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 shadow-2xl overflow-hidden">
       {/* Header */}
@@ -84,12 +95,23 @@ const handlePageChange = (page: number) => {
               />
             </div>
           </div>
+
+          <SearchBar 
+  onSearch={upload.searchFiles}
+  searchQuery={upload.searchQuery}
+  loading={upload.filesLoading}
+/>
           <FileList 
             files={upload.paginatedFiles.files}
             loading={upload.filesLoading}
             error={upload.filesError}
             fileTypeFilter={upload.fileFilterType}
             filteredCount={upload.paginatedFiles.files.length} 
+            onFileDelete={upload.deleteFile}
+  deleteLoading={upload.deleteLoading}
+   fileIds={upload.paginatedFiles.files.map(file => file.id || 0)}
+  documentEncryptedIds={upload.paginatedFiles.files.map(file => file.documentEncryptedId || '')}
+   searchQuery={upload.searchQuery}
           />
           
           <Pagination
