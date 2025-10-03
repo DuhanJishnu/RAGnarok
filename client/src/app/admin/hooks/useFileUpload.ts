@@ -308,18 +308,20 @@ const [deleteLoading, setDeleteLoading] = useState<number | null>(null);
 };
       
  const res = await api.post<{
-      pageNo: number;
-      pageSize: number;
-      totalPages: number;
-      totalCount: number;
-      documents: {
-        id: number;
-        displayName: string;
-        documentEncryptedId: string;
-        documentType: number;
-        thumbPath: string | null;
-        documentPath: string | null;
-      }[];
+      result: {
+        pageNo: number;
+        pageSize: number;
+        totalPages: number;
+        totalCount: number;
+        documents: {
+          id: number;
+          displayName: string;
+          documentEncryptedId: string;
+          documentType: number;
+          thumbPath: string | null;
+          documentPath: string | null;
+        }[]
+      };
     }>(
       `/api/file/v1/fetchdocuments`,
       {
@@ -328,7 +330,7 @@ const [deleteLoading, setDeleteLoading] = useState<number | null>(null);
       }
     );
 
-       const { pageNo, pageSize, totalPages, totalCount, documents } = res.data;
+       const { pageNo, pageSize, totalPages, totalCount, documents } = res.data?.result;
         const mappedFiles: UploadedFile[] = documents.map((doc) => ({
       name: doc.displayName,
       link: doc.documentPath || "",   // fallback to empty string
@@ -431,10 +433,11 @@ const deleteFile = async (fileId: number, documentEncryptedId: string) => {
     setDeleteLoading(fileId);
     
     await api.delete(`/api/file/v1/delete`, {
-      data: {
-        documentEncryptedId: documentEncryptedId
-      }
-    });
+  data: {
+    id: documentEncryptedId
+  }
+});
+
 
     // Refresh the file list after successful deletion
     if (searchQuery) {
