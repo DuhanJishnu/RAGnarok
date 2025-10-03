@@ -14,7 +14,7 @@ class VectorDB:
             vector_id = chunk["metadata"]["chunk_id"]
             
             # The vector embedding
-            embedding = chunk["embedding"]
+            embedding = chunk["embedding_image"] if "embedding_image" in chunk else chunk["embedding_text"]
             
             # The metadata to store with the vector
             metadata = {

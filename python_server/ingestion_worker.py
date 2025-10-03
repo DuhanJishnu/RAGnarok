@@ -54,8 +54,20 @@ class IngestionProcessor:
 
             # Remove file from server after ingestion
             try:
-                os.remove(file_path)
+                if os.path.exists(file_path):
+                    os.remove(file_path)
+                    print(f"Removed: {file_path}")
+
+                root, ext = os.path.splitext(file_path)
+                if ext == ".wav":
+                    denoised_file = root + "_denoised" + ext
+
+                if os.path.exists(denoised_file):
+                    os.remove(denoised_file)
+                    print(f"Removed: {denoised_file}")
+
                 logging.info("Successfully processed and removed file: %s", file_path)
+
             except Exception as e:
                 logging.error("Processed but failed to delete file %s: %s", file_path, e)
 
