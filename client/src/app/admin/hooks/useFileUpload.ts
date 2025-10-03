@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import api from '../services/api';
-
 export type UploadedFile = {
   name: string;
   link: string;
@@ -14,7 +13,20 @@ export type FileWithThumbState = UploadedFile & {
   retryCount?: number;
 };
 
+// 1
+export type PaginatedFiles = {
+  files: UploadedFile[];
+  totalCount: number;
+  currentPage: number;
+  totalPages: number;
+  hasNext: boolean;
+  hasPrev: boolean;
+};
+
+
+export type FileTypeFilter = 'all' | 'image' | 'audio' | 'pdf' | 'doc'; 
 export const useFileUpload = () => {
+
   const [files, setFiles] = useState<File[]>([]);
   const [uploadedFiles, setUploadedFiles] = useState<FileWithThumbState[]>([]);
   const [loading, setLoading] = useState(false);
@@ -23,7 +35,19 @@ export const useFileUpload = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [visibleCount, setVisibleCount] = useState(3);
   const [isDragging, setIsDragging] = useState(false);
+// 2
+ const [paginatedFiles, setPaginatedFiles] = useState<PaginatedFiles>({
+    files: [],
+    totalCount: 0,
+    currentPage: 1,
+    totalPages: 0,
+    hasNext: false,
+    hasPrev: false
+  });
+const [filesLoading, setFilesLoading] = useState(false);
+  const [filesError, setFilesError] = useState("");
 
+const [fileFilterType, setFileFilterType] = useState<FileTypeFilter>('all');
 
   // filetype image -1, audio  -2 pdfs -3 , word doc -4 
   const MAX_FILE_SIZE = 100 * 1024 * 1024; // 100MB
@@ -227,7 +251,7 @@ export const useFileUpload = () => {
     }>(
       `/api/file/v1/upload`,
       formData,
-      { headers: { "Content-Type": "multipart/form-data" }, timeout: 300000 }
+      { headers: { "Content-Type": "multipart/form-data" }, timeout: 300000 },
     );
     
     // Initialize uploaded files with loading state for thumbnails
@@ -262,6 +286,67 @@ export const useFileUpload = () => {
   }
 };
 
+
+// 3
+  const fetchFiles = async (page: number = 1, limit: number = 10) => {
+    try {
+      setFilesLoading(true);
+      setFilesError("");
+      const getFileTypeNumber = (filter: FileTypeFilter): number => {
+  switch (filter) {
+    case 'all': return 0;
+    case 'image': return 1;
+    case 'audio': return 2;
+    case 'pdf': return 3;
+    case 'doc': return 4;
+    default: return 0;
+  }
+};
+      const res = await api.post<PaginatedFiles>(
+        `/api/file/v1/fetchdocuments`,{
+        pageNo:page.toString(), 
+        docType:getFileTypeNumber(fileFilterType).toString()
+      }
+      
+      );
+      setPaginatedFiles(res.data);
+    //    setFilesLoading(true);
+    // setFilesError("");
+    
+    // Simple mock data for quick testing
+    // const mockFiles: UploadedFile[] = Array.from({ length: 25 }, (_, i) => ({
+    //   filename: `file-${i + 1}.${['pdf', 'jpg', 'mp3', 'docx', 'png'][i % 5]}`,
+    //   path: `/uploads/file-${i + 1}`,
+    //   size: [102400, 204800, 512000, 1048576, 2097152][i % 5], // 100KB to 2MB
+    // }));
+
+    // await new Promise(resolve => setTimeout(resolve, 300));
+
+    // const totalCount = mockFiles.length;
+    // const totalPages = Math.ceil(totalCount / limit);
+    // const startIndex = (page - 1) * limit;
+    // const endIndex = startIndex + limit;
+
+    // setPaginatedFiles({
+    //   files: mockFiles.slice(startIndex, endIndex),
+    //   totalCount,
+    //   currentPage: page,
+    //   totalPages,
+    //   hasNext: page < totalPages,
+    //   hasPrev: page > 1
+    // });
+    } catch (err: any) {
+      setFilesError(err.response?.data?.error || "Failed to fetch files");
+    } finally {
+      setFilesLoading(false);
+    }
+  };
+
+useEffect(() => {
+    fetchFiles(1);
+    
+  }, [fileFilterType]);
+
   useEffect(() => {
     return () => files.forEach((file) => URL.revokeObjectURL(file.name));
   }, [files]);
@@ -282,5 +367,11 @@ export const useFileUpload = () => {
     clearAllFiles,
     handleUpload,
     getFallbackIcon,
+    paginatedFiles,
+    filesLoading,
+    filesError,
+    fetchFiles,
+    fileFilterType,
+    setFileFilterType
   };
 };
