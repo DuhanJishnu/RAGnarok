@@ -8,6 +8,7 @@ export function middleware(req: NextRequest) {
   // Allow requests for auth pages, static files, and public assets
   if (
     pathname.startsWith('/login') ||
+    pathname.startsWith('/admin') ||
     pathname.startsWith('/signup') ||
     pathname.startsWith('/_next/') ||
     pathname.startsWith('/api/') || // Exclude API routes from redirection

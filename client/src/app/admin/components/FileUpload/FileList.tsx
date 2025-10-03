@@ -19,8 +19,8 @@ const formatFileSize = (bytes: number) => {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
 };
 
-const getFileIcon = (filename: string) => {
-  const ext = filename.split('.').pop()?.toLowerCase();
+const getFileIcon = (name: string) => {
+  const ext = name.split('.').pop()?.toLowerCase();
   if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp', 'svg'].includes(ext || '')) {
     return "🖼️";
   }
@@ -85,25 +85,25 @@ const FileList: React.FC<FileListProps> = ({ files, loading, error, onFileSelect
           >
             <div className="flex items-center space-x-4 flex-1 min-w-0">
               <div className="w-12 h-12 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-200">
-                <span className="text-2xl">{getFileIcon(file.filename)}</span>
+                <span className="text-2xl">{getFileIcon(file.name)}</span>
               </div>
               <div className="flex-1 min-w-0">
                 <p className="font-medium truncate text-white group-hover:text-green-300 transition-colors duration-200">
-                  {file.filename}
+                  {file.name}
                 </p>
                 <div className="flex items-center space-x-3 mt-1">
-                  <p className="text-xs text-gray-400">
-                    {file.size ? formatFileSize(file.size) : "Unknown size"}
-                  </p>
+                  {/* <p className="text-xs text-gray-400">
+                    {file.size ? formatFileSize(file.size) : "Unknown Psize"}
+                  </p> */}
                   <span className="text-gray-600">•</span>
                   <p className="text-xs text-gray-400">
-                    {file.path.split('/').pop()?.split('.').pop()?.toUpperCase() || "File"}
+                    {file.link.split('/').pop()?.split('.').pop()?.toUpperCase() || "File"}
                   </p>
                 </div>
               </div>
             </div>
-            <a
-              href={`${process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000"}${file.path}`}
+            {/* <a
+              href={`${process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000"}${file.link}`}
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
@@ -111,7 +111,7 @@ const FileList: React.FC<FileListProps> = ({ files, loading, error, onFileSelect
               title="Download file"
             >
               <span className="text-lg">⬇️</span>
-            </a>
+            </a> */}
           </div>
         ))}
       </div>

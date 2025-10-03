@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useRouter } from "next/navigation";
 
 import { z } from "zod";
 import toast, { Toaster } from "react-hot-toast";
@@ -42,11 +43,13 @@ export default function LoginPage() {
   const [cursorVariant, setCursorVariant] = React.useState("default");
   const [isMounted, setIsMounted] = React.useState(false);
 
+
   // Set mounted state to avoid hydration issues
   React.useEffect(() => {
     setIsMounted(true);
   }, []);
 
+  const router = useRouter();
   // Mouse movement tracker - only run on client
   React.useEffect(() => {
     if (!isMounted) return;
@@ -98,6 +101,8 @@ export default function LoginPage() {
     try {
       await login(formData.email, formData.password);
       authLogin();
+      router.push("/admin");
+
       toast.success("Login successful!");
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "An unknown error occurred");

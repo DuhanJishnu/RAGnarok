@@ -310,14 +310,14 @@ const [fileFilterType, setFileFilterType] = useState<FileTypeFilter>('all');
       
       );
       setPaginatedFiles(res.data);
-    //    setFilesLoading(true);
-    // setFilesError("");
+//        setFilesLoading(true);
+//     setFilesError("");
     
     // Simple mock data for quick testing
     // const mockFiles: UploadedFile[] = Array.from({ length: 25 }, (_, i) => ({
-    //   filename: `file-${i + 1}.${['pdf', 'jpg', 'mp3', 'docx', 'png'][i % 5]}`,
-    //   path: `/uploads/file-${i + 1}`,
-    //   size: [102400, 204800, 512000, 1048576, 2097152][i % 5], // 100KB to 2MB
+    //   name: `file-${i + 1}.${['pdf', 'jpg', 'mp3', 'docx', 'png'][i % 5]}`,
+    //   link: `/uploads/file-${i + 1}`,
+    //   // size: [102400, 204800, 512000, 1048576, 2097152][i % 5], // 100KB to 2MB
     // }));
 
     // await new Promise(resolve => setTimeout(resolve, 300));
