@@ -4,7 +4,7 @@ import authMiddleware from '../middlewares/auth';
 import { getExchanges, createExchange } from '../controllers/exchange';
 const exchRoutes:Router = Router();
 
-exchRoutes.get('/getexch',[authMiddleware],errorHandler(getExchanges));
+exchRoutes.post('/getexch',[authMiddleware],errorHandler(getExchanges));
 exchRoutes.post('/createexch',[authMiddleware],errorHandler(createExchange));
 
 

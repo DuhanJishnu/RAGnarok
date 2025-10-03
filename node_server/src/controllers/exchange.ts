@@ -46,7 +46,9 @@ export const createExchange = async (req: Request, res: Response) => {
 };
 
 export const getExchanges = async (req: Request, res: Response) => {
-  const { conversationId, page } = req.body;
+  console.log("getExchanges ", req.body);
+  const { conversationId, page } = req.body.data;
+  console.log("conversationId, page : ", conversationId, page);
   const exchanges = await prismaClient.exchange.findMany({
     where: { conversationId },
     orderBy: { createdAt: "desc" },
