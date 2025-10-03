@@ -4,7 +4,7 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { User, AddUserResponse } from '../types/User';
-import api from '../services/api';
+import { api } from '@/service/api';
 
 
 export const useUsers = () => {

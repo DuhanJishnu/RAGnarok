@@ -20,7 +20,7 @@ export const signup = async (
 ) => {
    const parsedBody = SignupSchema.parse(req.body);
    console.log(1);
-    const { email, password, username } = parsedBody;
+    const { email, password, fullname } = parsedBody;
     console.log(2);
     let user = await prismaClient.user.findFirst({
       where: {
@@ -39,7 +39,7 @@ export const signup = async (
       data: {
         email,
         password: hashSync(password, 10),
-        username,
+        username: fullname,
       },
     });
     console.log(5)
@@ -74,7 +74,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
   LoginSchema.parse(req.body);
   console.log(1);
     const { email, password } = req.body;
-    let user:User = await prismaClient.user.findUnique({ where: { email } });
+    let user = await prismaClient.user.findUnique({ where: { email } });
 
     console.log(2);
     if (!user) {throw new NotFoundException("User not found",ErrorCode.USER_NOT_FOUND)}
@@ -110,7 +110,7 @@ console.log(4);
 export const refresh = async (req: Request, res: Response, next: NextFunction) => {
 
 
-  const { refresh_token } = req.body;
+  const refresh_token = req.cookies.refresh_token;
 
   if (!refresh_token)
     return res.status(401).json({ message: "Missing token" });
@@ -170,7 +170,10 @@ export const refresh = async (req: Request, res: Response, next: NextFunction) =
 
 export const me = async (req: Request, res: Response) => {
   console.log(1);
-  const safeUser = getSafeUser(req.user);
+  if (!req.user) {
+    return res.status(401).json({ message: "User not found" });
+  }
+  const safeUser = getSafeUser(req.user as any);
   console.log(2);
   res.json(safeUser);
 };

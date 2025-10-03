@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { signup } from "@/service/auth";
 
 const signupSchema = z.object({
-  fullname: z.string().min(1, { message: "Full name is required" }),
+  username: z.string().min(3, { message: "Username must be at least 3 characters" }).max(20, { message: "Username must be at most 20 characters" }),
   email: z.email({ message: "Invalid email address" }),
   password: z.string().min(6, { message: "Password must be at least 6 characters" }),
 });
@@ -35,7 +35,7 @@ const predefinedParticles = [
 export default function SignupPage() {
   const router = useRouter();
   const [formData, setFormData] = React.useState({
-    fullname: "",
+    username: "",
     email: "",
     password: "",
   });

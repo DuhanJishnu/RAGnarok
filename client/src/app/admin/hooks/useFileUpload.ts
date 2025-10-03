@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import api from '../services/api';
+import { uploadFile, fetchDocuments, fetchDocumentsByName, deleteDocument } from '@/service/file';
 export type UploadedFile = {
   name: string;
   link: string;
@@ -215,51 +215,14 @@ const [deleteLoading, setDeleteLoading] = useState<number | null>(null);
 
   const handleUpload = async () => {
   if (files.length === 0) return setError("Please select files first");
-  const formData = new FormData();
-    // Create array to store file types in same order as files
-  const fileTypes: number[] = [];
-  // First, append all files and collect their types
-  files.forEach((file) => {
-    formData.append("files", file); // This stays the same
-    
-    // Determine file type integer
-    let fileType = 1; // default to image
-    
-    if (file.type.startsWith("image/")) {
-      fileType = 1;
-    } else if (file.type.startsWith("audio/")) {
-      fileType = 2;
-    } else if (file.type === "application/pdf") {
-      fileType = 3;
-    } else if (file.type.includes("word") || 
-               file.type === "application/msword" ||
-               file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
-      fileType = 4;
-    }
-    
-    fileTypes.push(fileType); // Store type in array
-  });
- // Append fileTypes as a JSON string array
-  formData.append("fileTypes", JSON.stringify(fileTypes));
+  
   try {
     setLoading(true);
     setError("");
-    const res = await api.post<{ 
-      files: UploadedFile[];
-      securityInfo?: {
-        totalFiles: number;
-        validatedFiles: number;
-        rejectedFiles: number;
-        securityRisksDetected: boolean;
-      }
-    }>(
-      `/api/file/v1/upload`,
-      formData,
-      { headers: { "Content-Type": "multipart/form-data" }, timeout: 300000 },
-    );
+    const res = await uploadFile(files);
     
     // Initialize uploaded files with loading state for thumbnails
-    const filesWithThumbState: FileWithThumbState[] = res.data.files.map(file => ({
+    const filesWithThumbState: FileWithThumbState[] = res.files.map((file: any) => ({
       ...file,
       thumbLoading: file.thumb ? true : false,
       thumbError: false,
@@ -276,8 +239,8 @@ const [deleteLoading, setDeleteLoading] = useState<number | null>(null);
     });
     
     // Log security information if available
-    if (res.data.securityInfo) {
-      if (res.data.securityInfo.securityRisksDetected) {
+    if (res.securityInfo) {
+      if (res.securityInfo.securityRisksDetected) {
         console.warn('⚠️ Security risks detected during file upload validation');
       }
     }
@@ -307,31 +270,10 @@ const [deleteLoading, setDeleteLoading] = useState<number | null>(null);
   }
 };
       
- const res = await api.post<{
-      result: {
-        pageNo: number;
-        pageSize: number;
-        totalPages: number;
-        totalCount: number;
-        documents: {
-          id: number;
-          displayName: string;
-          documentEncryptedId: string;
-          documentType: number;
-          thumbPath: string | null;
-          documentPath: string | null;
-        }[]
-      };
-    }>(
-      `/api/file/v1/fetchdocuments`,
-      {
-        pageNo: page.toString(),
-        docType: getFileTypeNumber(fileFilterType).toString(),
-      }
-    );
+    const res = await fetchDocuments(page, 15, getFileTypeNumber(fileFilterType).toString());
 
-       const { pageNo, pageSize, totalPages, totalCount, documents } = res.data?.result;
-        const mappedFiles: UploadedFile[] = documents.map((doc) => ({
+       const { pageNo, pageSize, totalPages, totalCount, documents } = res.result;
+        const mappedFiles: UploadedFile[] = documents.map((doc: any) => ({
       name: doc.displayName,
       link: doc.documentPath || "",   // fallback to empty string
       thumb: doc.thumbPath || undefined,
@@ -376,30 +318,10 @@ const [deleteLoading, setDeleteLoading] = useState<number | null>(null);
       }
     };
 
-    const res = await api.post<{
-      pageNo: number;
-      pageSize: number;
-      totalPages: number;
-      totalCount: number;
-      documents: {
-        id: number;
-        displayName: string;
-        documentEncryptedId: string;
-        documentType: number;
-        thumbPath: string | null;
-        documentPath: string | null;
-      }[];
-    }>(
-      `/api/file/v1/fetchdocumentsbyName`,
-      {
-        pageNo: page.toString(),
-        docType: getFileTypeNumber(fileFilterType).toString(),
-        search: query // Add search parameter
-      }
-    );
+    const res = await fetchDocumentsByName(page, 15, getFileTypeNumber(fileFilterType).toString(), query);
 
-    const { pageNo, pageSize, totalPages, totalCount, documents } = res.data;
-    const mappedFiles: UploadedFile[] = documents.map((doc) => ({
+    const { pageNo, pageSize, totalPages, totalCount, documents } = res;
+    const mappedFiles: UploadedFile[] = documents.map((doc: any) => ({
       name: doc.displayName,
       link: doc.documentPath || "",
       thumb: doc.thumbPath || undefined,
@@ -432,11 +354,7 @@ const deleteFile = async (fileId: number, documentEncryptedId: string) => {
   try {
     setDeleteLoading(fileId);
     
-    await api.delete(`/api/file/v1/delete`, {
-  data: {
-    id: documentEncryptedId
-  }
-});
+    await deleteDocument(documentEncryptedId);
 
 
     // Refresh the file list after successful deletion

@@ -5,7 +5,7 @@ const BASEURL = process.env.NEXT_PUBLIC_BASEURL;
 
 // Create Axios instance
 export const api = axios.create({
-  baseURL: BASEURL,
+  baseURL: `${BASEURL}/api`,
   headers: {
     "Content-Type": "application/json",
   },
@@ -19,7 +19,7 @@ export const api = axios.create({
     const originalRequest = error.config;
     console.log(error);
     // If the error is 401 and we haven't already tried to refresh the token
-    if (error.code === 401 && !originalRequest._retry) {
+    if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
       try {
