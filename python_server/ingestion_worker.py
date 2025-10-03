@@ -33,8 +33,7 @@ class IngestionProcessor:
             raise FileNotFoundError(f"File not found: {file_path}")
 
         file_metadata = {
-            "file_id": os.path.basename(file_path),
-            "original_filename": os.path.basename(file_path),
+            "file_id": os.path.basename(os.path.splitext(file_path)[0]), # save only doc_id
             "saved_path": file_path,
             "upload_timestamp": os.path.getmtime(file_path),
         }
@@ -56,7 +55,7 @@ class IngestionProcessor:
             try:
                 if os.path.exists(file_path):
                     os.remove(file_path)
-                    print(f"Removed: {file_path}")
+                    # print(f"Removed: {file_path}")
 
                 root, ext = os.path.splitext(file_path)
                 if ext == ".wav":
@@ -64,7 +63,7 @@ class IngestionProcessor:
 
                 if os.path.exists(denoised_file):
                     os.remove(denoised_file)
-                    print(f"Removed: {denoised_file}")
+                    # print(f"Removed: {denoised_file}")
 
                 logging.info("Successfully processed and removed file: %s", file_path)
 

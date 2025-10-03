@@ -14,10 +14,10 @@ if __name__ == '__main__':
     app = create_app()
     
     print("Starting RAG Pipeline Server...")
-    print("API Endpoints:")
-    print("  POST /api/chat - Chat with documents (with 'secure_mode' option)")
-    print("  POST /api/search - Search documents directly (with 'analyze' option)")
-    print("  GET  /api/health - Health check")
-    print("\nIngestion is handled by the ingestion_worker.py script.")
+    # print("API Endpoints:")
+    # print("  POST /api/chat - Chat with documents (with 'secure_mode' option)")
+    # print("  POST /api/search - Search documents directly (with 'analyze' option)")
+    # print("  GET  /api/health - Health check")
+    # print("\nIngestion is handled by the ingestion_worker.py script.")
     
     app.run(host='0.0.0.0', port=5000, debug=True)

@@ -207,10 +207,8 @@ class DocumentIngestor:
             "metadata": {
                 "chunk_id": str(uuid.uuid4()),
                 "file_id": file_metadata["file_id"],
-                "original_filename": file_metadata["original_filename"],
                 "chunk_type": "image_raw",
                 "upload_timestamp": file_metadata["upload_timestamp"],
-                "local_path": image_path,
                 "source_url": f"{API_BASE_URL}/api/file/v1/files/{file_metadata['file_id']}",
                 "tags": tags
             },
@@ -265,7 +263,7 @@ class DocumentIngestor:
     def _process_audio_file(self, file_path: str, file_metadata: Dict[str, Any]) -> List[Dict[str, Any]]:
         """Process audio file and extract transcript."""
         transcript = self._transcribe_audio_vosk(file_path)
-        print(f"Transcript extracted: {transcript[:100]}...")
+        # print(f"Transcript extracted: {transcript[:100]}...")
         if not transcript.strip():
             return []
         chunks = self.splitter.split_text(transcript)
@@ -320,7 +318,6 @@ class DocumentIngestor:
         for i, chunk_text in enumerate(split_docs):
             meta = {
                 "file_id": file_metadata["file_id"],
-                "original_filename": file_metadata["original_filename"],
                 "chunk_type": "text",
                 "chunk_id": str(uuid.uuid4()),
                 "upload_timestamp": file_metadata["upload_timestamp"],
@@ -343,9 +340,8 @@ class DocumentIngestor:
             "metadata": {
                 "chunk_id": str(uuid.uuid4()),
                 "file_id": file_metadata["file_id"],
-                "original_filename": file_metadata["original_filename"],
                 "upload_timestamp": file_metadata["upload_timestamp"],
-                "source_url": f"/documents/{file_metadata['file_id']}",
+                "source_url": f"{API_BASE_URL}/api/file/v1/files/{file_metadata['file_id']}",
                 **additional_metadata
             }
         }
@@ -579,7 +575,6 @@ if __name__ == "__main__":
     # Create minimal metadata
     meta_image = {
         "file_id": str(uuid.uuid4()),
-        "original_filename": os.path.basename(sample_image_path),
         "upload_timestamp": datetime.now().strftime(ingestor.ts_format),
         "file_extension": sample_image_path.split(".")[-1].lower()
     }

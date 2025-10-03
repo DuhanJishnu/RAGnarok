@@ -46,10 +46,75 @@ The project consists of two main components:
 
 ## API Reference
 
+### Health Check
+
+*   **Endpoint**: `GET /api/health`
+*   **Description**: Check the health of the API server.
+*   **Response**:
+    ```json
+    {
+        "status": "healthy",
+        "message": "RAG Pipeline Server is running"
+    }
+    ```
+
 ### Chat
 
+This endpoint allows you to ask questions and get answers from the RAG pipeline.
+
 *   **Endpoint**: `POST /api/chat`
-*   **Description**: Ask a question and get an answer from the RAG pipeline.
+*   **Description**: Ask a question and get an answer from the RAG pipeline. This endpoint supports both regular and streaming responses.
+
+**Request Body**:
+
+```json
+{
+    "question": "What is the main topic of the document?",
+    "secure_mode": false,
+    "stream": false
+}
+```
+
+*   `question` (string, required): The question you want to ask.
+*   `secure_mode` (boolean, optional, default: `false`): Set to `true` to use the secure pipeline with enhanced safety features.
+*   `stream` (boolean, optional, default: `false`): Set to `true` to receive a streaming response. When `true`, the response will be sent using Server-Sent Events (SSE).
+
+**Standard Response (`stream: false`)**:
+
+```json
+{
+    "success": true,
+    "question": "What is the main topic of the document?",
+    "answer": "The main topic of the document is...",
+    "citations": [...]
+}
+```
+
+**Streaming Response (`stream: true`)**:
+
+The response will be a stream of Server-Sent Events (SSE). Each event is a JSON object with a `type` and `data` field.
+
+*   `type: 'retrieval_metrics'`: Contains information about the retrieved documents.
+*   `type: 'answer_chunk'`: A chunk of the answer.
+*   `type: 'final'`: The final event, containing citations and retrieved documents.
+*   `type: 'error'`: If an error occurs.
+
+Example SSE stream:
+
+```
+data: {"type": "retrieval_metrics", "data": {"metrics": ..., "documents_retrieved": 5, "should_proceed": true}}
+
+data: {"type": "answer_chunk", "data": "The main topic"}
+
+data: {"type": "answer_chunk", "data": " of the document is..."}
+
+data: {"type": "final", "data": {"success": true, "question": "...", "citations": [...], "retrieved_documents": [...]}}
+```
+
+### Streaming Chat
+
+*   **Endpoint**: `POST /api/chat/stream`
+*   **Description**: A dedicated endpoint for streaming chat responses using Server-Sent Events (SSE).
 
 **Request Body**:
 
@@ -65,14 +130,7 @@ The project consists of two main components:
 
 **Response**:
 
-```json
-{
-    "success": true,
-    "question": "What is the main topic of the document?",
-    "answer": "The main topic of the document is...",
-    "citations": [...]
-}
-```
+The response is a stream of Server-Sent Events (SSE), same as the `/api/chat` endpoint with `stream: true`.
 
 ### Search
 
@@ -95,15 +153,26 @@ The project consists of two main components:
 
 **Response (when `analyze` is `false`)**:
 
+Returns a list of the most relevant document chunks.
+
 ```json
 {
     "success": true,
     "query": "machine learning",
-    "results": [...]
+    "results": [
+        {
+            "content": "...",
+            "metadata": {...},
+            "similarity_score": 0.85,
+            "relevance_score": 0.9
+        }
+    ]
 }
 ```
 
 **Response (when `analyze` is `true`)**:
+
+Returns a detailed analysis of the query, including confidence scores and whether the pipeline should proceed with generating an answer.
 
 ```json
 {
@@ -113,20 +182,6 @@ The project consists of two main components:
     "should_proceed": true,
     "message": "Proceeding with LLM generation.",
     "documents_retrieved": 5
-}
-```
-
-### Health Check
-
-*   **Endpoint**: `GET /api/health`
-*   **Description**: Check the health of the API server.
-
-**Response**:
-
-```json
-{
-    "status": "healthy",
-    "message": "RAG Pipeline Server is running"
 }
 ```
 
