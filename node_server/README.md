@@ -164,6 +164,62 @@ Retrieves the currently authenticated user's information.
   }
   ```
 
+#### `GET /getuser`
+
+Retrieves a user by their ID.
+
+**Authentication:** Requires a valid access token in the `access_token` cookie and admin privileges.
+
+**Request Params:**
+
+```json
+{
+  "email": test@example.com
+}
+```
+
+**Response:**
+
+- **200 OK:**
+  ```json
+  {
+    "id": 1,
+    "email": "test@example.com",
+    "username": "testuser",
+    "createdAt":"wefr4t4",
+    "role":"Eole"
+  }
+  ```
+- **404 Not Found:** If the user is not found.
+
+#### `GET /makeadmin`
+
+Makes a user an admin.
+
+**Authentication:** Requires a valid access token in the `access_token` cookie and admin privileges.
+
+**Request Body:**
+
+```json
+{
+  "userId": 1
+}
+```
+
+**Response:**
+
+- **200 OK:**
+  ```json
+  {
+      id: updatedUser.id,
+      email: updatedUser.email,
+      username: updatedUser.username,
+      role: updatedUser.role,
+      message: "USER has been promoted to ADMIN"
+  }
+  ```
+- **404 Not Found:** If the user is not found.
+
 ### Conversation Routes
 
 Base path: `/api/conv/v1`
@@ -251,7 +307,7 @@ Creates a new exchange within a conversation. If `convId` is not provided, a new
   }
   ```
 
-#### `GET /getexch`
+#### `POST /getexch`
 
 Retrieves a paginated list of exchanges for a given conversation.
 
@@ -364,3 +420,161 @@ Serves a thumbnail for a file by its encrypted ID.
 **Response:**
 
 - **200 OK:** The thumbnail image with the appropriate `Content-Type` header.
+
+#### `GET /unprocessed`
+
+Retrieves a list of unprocessed files.
+
+**Response:**
+
+- **200 OK:**
+  ```json
+  [
+    {
+      "id": 1,
+      "name": "my-document.pdf",
+      "encryptedId": "some-encrypted-id"
+    }
+  ]
+  ```
+
+#### `PATCH /update-status`
+
+Updates the status of a file.
+
+**Request Body:**
+
+```json
+{
+  "encryptedId": "some-encrypted-id",
+  "status": "processed"
+}
+```
+
+**Response:**
+
+- **200 OK:**
+  ```json
+  {
+    "message": "File status updated"
+  }
+  ```
+
+#### `POST /fetchdocuments`
+
+Retrieves a paginated list of documents.
+
+**Request Body:**
+
+```json
+{
+  "page": 1
+}
+```
+
+**Response:**
+
+- **200 OK:**
+  ```json
+  {
+    "documents": [
+      {
+        "id": 1,
+        "name": "my-document.pdf",
+        "encryptedId": "some-encrypted-id"
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "totalCount": 1,
+      "totalPages": 1
+    }
+  }
+  ```
+
+#### `POST /fetchdocumentsbyName`
+
+Retrieves a paginated list of documents by name.
+
+**Request Body:**
+
+```json
+{
+  "name": "my-document.pdf",
+  "page": 1
+}
+```
+
+**Response:**
+
+- **200 OK:**
+  ```json
+  {
+    "documents": [
+      {
+        "id": 1,
+        "name": "my-document.pdf",
+        "encryptedId": "some-encrypted-id"
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "totalCount": 1,
+      "totalPages": 1
+    }
+  }
+  ```
+
+#### `POST /fetchdocumentsbyID`
+
+Retrieves a paginated list of documents by encrypter ID.
+
+**Request Body:**
+
+```json
+{
+  "id": "some-encrypted-id",
+  "page": 1
+}
+```
+
+**Response:**
+
+- **200 OK:**
+  ```json
+  {
+    "documents": [
+      {
+        "id": 1,
+        "name": "my-document.pdf",
+        "encryptedId": "some-encrypted-id"
+      }
+    ],
+    "pagination": {
+      "page": 1,
+      "totalCount": 1,
+      "totalPages": 1
+    }
+  }
+  ```
+
+#### `DELETE /delete`
+
+Deletes a document by its encrypted ID.
+
+**Request Body:**
+
+```json
+{
+  "encryptedId": "some-encrypted-id"
+}
+```
+
+**Response:**
+
+- **200 OK:**
+  ```json
+  {
+    "message": "File deleted successfully"
+  }
+  ```

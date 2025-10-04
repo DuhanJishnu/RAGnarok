@@ -222,3 +222,43 @@ export const logout = async (req: Request, res: Response) =>{
   });
   res.json({ message: "Logged out successfully" });
 }
+
+
+export const getUser = async (req: Request, res: Response, next: NextFunction) => {
+  
+    const email = String(req.query.email);
+    let user = await prismaClient.user.findUnique({ where: { email } });
+
+    if (!user) {throw new NotFoundException("User not found",ErrorCode.USER_NOT_FOUND)}
+   
+    res.json({
+      id: user.id,
+      email: user.email,
+      username: user.username,
+      role: user.role,
+      createdAt: user.createdAt
+    });
+};
+export const makeAdmin = async (req: Request, res: Response, next: NextFunction) => {
+  
+    const userId = req.body.data;
+    const user = await prismaClient.user.findUnique({
+      where: { id: userId },
+    });
+    if (!user) {
+      throw new NotFoundException("User not found", ErrorCode.USER_NOT_FOUND);
+    }
+
+  
+    const updatedUser = await prismaClient.user.update({
+      where: { id: userId },
+      data: { role: "ADMIN" },
+    });
+    res.json({
+      id: updatedUser.id,
+      email: updatedUser.email,
+      username: updatedUser.username,
+      role: updatedUser.role,
+      message: "USER has been promoted to ADMIN"
+    });
+};
