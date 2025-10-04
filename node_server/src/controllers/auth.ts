@@ -83,16 +83,17 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
           "Incorrect Credentials",
           ErrorCode.INCORRECT_CREDENTIALS);
     }
-    console.log(3);
+    console.log(3, 'in login');
     const access_token = generateAccessToken(user.id);
     const refresh_token = await generateHashRefreshToken(user.id);
+    console.log(4);
+
     res.cookie("access_token", access_token, {
       httpOnly: true,       // not accessible via JS
          // only over HTTPS (set false in dev)
       sameSite: "strict",   // CSRF protection
       maxAge: 15 * 60 * 1000,
     });
-console.log(4);
     res.cookie("refresh_token", refresh_token, {
       httpOnly: true,
 
@@ -107,8 +108,12 @@ console.log(4);
     });
 };
 
-export const refresh = async (req: Request, res: Response, next: NextFunction) => {
-
+export const refresh = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  // Correctly read the token from the httpOnly cookie
 
   const refresh_token = req.cookies.refresh_token;
 
@@ -116,22 +121,26 @@ export const refresh = async (req: Request, res: Response, next: NextFunction) =
     return res.status(401).json({ message: "Missing token" });
 
   try {
-
-    const decoded = jwt.verify(refresh_token, JWT_REFRESH_SECRET) as { userId: string };
-    const storedTokenEntry = await prismaClient.refreshToken.findUnique({
-      where: { tokenHash:refresh_token },
+    const decoded = jwt.verify(refresh_token, JWT_REFRESH_SECRET) as {
+      userId: string;
+    };
+    const storedTokenEntry = await prisma.refreshToken.findUnique({
+      where: { tokenHash: refresh_token },
     });
 
     if (!storedTokenEntry) {
-      return res.status(403).json({ message: "Invalid refresh token" });
+      return next(
+        new BadRequestException("Invalid refresh token", ErrorCode.UNAUTHORIZED)
+      );
     }
 
     if (storedTokenEntry.expiresAt < new Date()) {
-      await prismaClient.refreshToken.delete({
-        where: { tokenHash:refresh_token },
+      await prisma.refreshToken.delete({
+        where: { tokenHash: refresh_token },
       });
-      
-      return res.status(403).json({ message: "Refresh token expired" });
+      return next(
+        new BadRequestException("Refresh token expired", ErrorCode.UNAUTHORIZED)
+      );
     }
 
     // Verify user still exists
@@ -148,29 +157,27 @@ export const refresh = async (req: Request, res: Response, next: NextFunction) =
     }
     
     const access_token = generateAccessToken(decoded.userId);
- 
     const new_refresh_token = await generateHashRefreshToken(decoded.userId);
- 
-    
-    await prismaClient.refreshToken.delete({
-      where: { tokenHash:refresh_token },
+
+    await prisma.refreshToken.delete({
+      where: { tokenHash: refresh_token },
     });
 
     res.cookie("access_token", access_token, {
-      httpOnly: true,    
-           
-      sameSite: "strict",   
-      maxAge: 15 * 60 * 1000,
+      httpOnly: true,
+      sameSite: "strict",
+      maxAge: 15 * 60 * 1000, // 15 minutes
     });
 
     res.cookie("refresh_token", new_refresh_token, {
       httpOnly: true,
       sameSite: "strict",
-      maxAge: 7 * 24 * 60 * 60 * 1000,
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
+
     res.json({
-      message:"Updated token"
-    })
+      message: "Token refreshed successfully",
+    });
   } catch (err: any) {
     console.error('Token refresh error:', err);
     if (err.name === 'JsonWebTokenError' || err.name === 'TokenExpiredError') {

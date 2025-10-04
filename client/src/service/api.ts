@@ -57,6 +57,7 @@ const processQueue = (error: any, token: string | null = null) => {
         }).catch(err => {
           return Promise.reject(err);
         });
+
       }
 
       originalRequest._retry = true;
@@ -93,3 +94,5 @@ const processQueue = (error: any, token: string | null = null) => {
     return Promise.reject(error);
   }
 );
+
+export default api;
