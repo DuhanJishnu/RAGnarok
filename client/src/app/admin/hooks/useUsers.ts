@@ -8,14 +8,8 @@ import api from '../services/api';
 
 
 export const useUsers = () => {
-  // const [user, setUser] = useState<User | null>(null);
-  const [user, setUser] = useState<User | null>({
-  id: 1,
-  name: "Demo User",
-  email: "demo@example.com",
-  role: "admin",
-  createdAt: new Date().toISOString()
-});
+  const [user, setUser] = useState<User | null>(null);
+  // const [user, setUser] = useState<User>(null);
   const [searchEmail,setSearchEmail]=useState<String>('');
     const [loading, setLoading] = useState(false);
 
@@ -34,18 +28,18 @@ const searchUserByEmail = async (email: string) => {
       
       
       
-//       const response = await api.get<User>(`/api/admin/users`, {
-//   params: {
-//     email: email
-//   }
-// });
-      // if (response.data) {
-      //   setUser(response.data); // Set as array with single user
-      //   toast.success('User found');
-      // } else {
-      //   setUser(null); // Clear results if no user found
-      //   toast.error('User not found');
-      // }
+      const response = await api.get<User>(`/api/admin/users`, {
+  params: {
+    email: email
+  }
+});
+      if (response.data) {
+        setUser(response.data); // Set as array with single user
+        toast.success('User found');
+      } else {
+        setUser(null); // Clear results if no user found
+        toast.error('User not found');
+      }
 
 
     } catch (err: any) {
@@ -93,9 +87,9 @@ const clearSearch = () => {
     setSearchEmail('');
   };
   
-//   useEffect(() => {
-//   setUser(user);
-// }, []);
+  useEffect(() => {
+  setUser(user);
+}, []);
 
   // useEffect(() => {
   //   fetchUsers();
