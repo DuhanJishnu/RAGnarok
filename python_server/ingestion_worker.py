@@ -1,6 +1,3 @@
-"""
-Ingestion Worker for Parallel Document Processing
-"""
 import logging
 import os
 import sys
@@ -8,6 +5,7 @@ import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import List, Dict
 from dotenv import load_dotenv
+from config import Config
 
 # Load environment variables from .env file
 load_dotenv()
@@ -109,15 +107,14 @@ def process_batch_parallel(
 
     return successful_files, failed_files
 
-def start_worker_service(batch_size: int = 4, poll_interval: int = 10, max_workers: int = 4):
+def start_worker_service(batch_size: int = Config.BATCH_SIZE, poll_interval: int = Config.POLL_INTERVAL, max_workers: int = Config.MAX_WORKERS):
 
     """Main continuous loop for the processing worker service."""
 
     logging.info("Ingestion worker service starting.")
 
-    ingestor = DocumentIngestor(upload_folder="./uploads") # taking files from 'uploads' folder
+    ingestor = DocumentIngestor(upload_folder=Config.UPLOAD_FOLDER) # taking files from 'uploads' folder
     vector_db = VectorDB()
-    vector_db.load()
 
     while True:
         try:
