@@ -4,7 +4,7 @@ import MessageBubble from "./MessageBubble";
 import ChatInput from "./ChatInput";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
-import { createExchange, getExchanges } from "@/service/exch";
+import { createExchange, getExchanges, streamResponse } from "@/service/exch";
 import { useChat } from "@/context/ChatContext";
 
 export default function ChatWindow() {
@@ -23,6 +23,7 @@ export default function ChatWindow() {
   const [exchangePage, setExchangePage] = useState(1);
   const [hasMoreExchanges, setHasMoreExchanges] = useState(true);
   const loader = useRef(null);
+  const activeStreams = useRef<Array<() => void>>([]);
 
   const scrollToBottom = () => {
     containerRef.current?.scrollTo({
@@ -66,7 +67,19 @@ export default function ChatWindow() {
   useEffect(() => {
     setExchangePage(1);
     setHasMoreExchanges(true);
+    
+    // Clean up any active streams when conversation changes
+    activeStreams.current.forEach(closeStream => closeStream());
+    activeStreams.current = [];
   }, [convId]);
+
+  // Cleanup streams on unmount
+  useEffect(() => {
+    return () => {
+      activeStreams.current.forEach(closeStream => closeStream());
+      activeStreams.current = [];
+    };
+  }, []);
 
   useEffect(() => {
     if (convId) {
@@ -99,22 +112,45 @@ export default function ChatWindow() {
     // immediately show user’s message
     setExchanges((prev) => [...prev, tempExchange]);
     try {
-      const reply = await createExchange(text, convId, convTitle, image);
+      const res = await createExchange(text, convId, convTitle, image);
 
-      if (!convId && reply.conversation) {
-        setConvId(reply.conversation.id);
-        setConvTitle(reply.conversation.title);
+      if (!convId && res.conversation) {
+        setConvId(res.conversation.id);
+        setConvTitle(res.conversation.title);
         // Add the new conversation to the sidebar list
         addNewConversation({
-          id: reply.conversation.id,
-          title: reply.conversation.title
+          id: res.conversation.id,
+          title: res.conversation.title
         });
       }
 
-      // replace temporary exchange with real one
-      setExchanges((prev) =>
-        prev.map((m) => (m.id === tempId ? reply.exchange : m))
+      // Start streaming the response
+      const closeStream = await streamResponse(
+        res.responseId,
+        (message: string) => {
+          // Update the temporary exchange with streamed content
+          console.log("Streaming message:", message);
+          setExchanges((prev) =>
+            prev.map((m) =>
+              m.id === tempId ? { ...m, systemResponse: m.systemResponse + message } : m
+            )
+          );
+        },
+        (error: any) => {
+          console.log("Error in stream response function");
+          console.error("Streaming error:", error);
+          setExchanges((prev) =>
+            prev.map((m) =>
+              m.id === tempId 
+                ? { ...m, systemResponse: m.systemResponse + "\n\nError: Failed to receive response" }
+                : m
+            )
+          );
+        }
       );
+
+      // Store the close function for cleanup
+      activeStreams.current.push(closeStream);
     } catch (err) {
       console.error("Send failed", err);
       // optionally mark failed state

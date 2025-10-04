@@ -12,3 +12,19 @@ export const PDF_MAX_SIZE :number = parseInt(process.env.PDF_MAX_SIZE || '50');
 export const DOCUMENT_MAX_SIZE :number = parseInt(process.env.DOCUMENT_MAX_SIZE || '25');
 export const MAX_ITEMS_PER_LAYER: number = parseInt(process.env.MAX_ITEMS_PER_LAYER || '100'); 
 export const TTL: number = parseInt(process.env.TTL || '3600'); 
+export const PYTHON_SERVER_URL = process.env.PYTHON_SERVER_URL
+
+
+if (
+    !PORT || 
+    !JWT_ACCESS_SECRET || 
+    !JWT_REFRESH_SECRET || 
+    !IMAGE_MAX_SIZE || 
+    !AUDIO_MAX_SIZE || 
+    !PDF_MAX_SIZE || 
+    !DOCUMENT_MAX_SIZE ||
+    !PYTHON_SERVER_URL
+  ) {
+  console.error("Missing required environment variables.");
+  process.exit(1);
+}
