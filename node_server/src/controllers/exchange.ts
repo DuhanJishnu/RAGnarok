@@ -7,13 +7,13 @@ const prismaClient = prisma;
 const pageSize: number = 15;
 
 export const createExchange = async (req: Request, res: Response) => {
-  const { user_query, convId } = req.body;
-  let { convTitle } = req.body;
+  const { user_query, convId } = req.body.data;
+  let { convTitle } = req.body.data;
   let newConversation: Conversation | null = null;
   let conversationId = convId;
 
   if(!convTitle){
-    convTitle = "A new Title";
+    convTitle = "A new static Title";
   }
   if (!conversationId) {
     newConversation = await prismaClient.conversation.create({

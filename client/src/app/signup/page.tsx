@@ -6,6 +6,7 @@ import { z } from "zod";
 import toast, { Toaster } from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import { signup } from "@/service/auth";
+import { useAuth } from "@/context/AuthContext";
 
 const signupSchema = z.object({
   username: z.string().min(3, { message: "Username must be at least 3 characters" }).max(20, { message: "Username must be at most 20 characters" }),
@@ -34,6 +35,7 @@ const predefinedParticles = [
 
 export default function SignupPage() {
   const router = useRouter();
+  const { user, loading } = useAuth();
   const [formData, setFormData] = React.useState({
     username: "",
     email: "",
@@ -43,6 +45,15 @@ export default function SignupPage() {
   const [mousePosition, setMousePosition] = React.useState({ x: 0, y: 0 });
   const [cursorVariant, setCursorVariant] = React.useState("default");
   const [isMounted, setIsMounted] = React.useState(false);
+  const [redirecting, setRedirecting] = React.useState(false);
+
+  // Check if user is already authenticated and redirect
+  React.useEffect(() => {
+    if (!loading && user) {
+      setRedirecting(true);
+      router.push('/');
+    }
+  }, [user, loading, router]);
 
   // Set mounted state to avoid hydration issues
   React.useEffect(() => {
@@ -111,6 +122,31 @@ export default function SignupPage() {
       setIsSubmitting(false);
     }
   };
+
+  // Show loading state while checking authentication or redirecting
+  if (loading || redirecting) {
+    return (
+      <div className="flex min-h-screen items-center justify-center p-4 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-black via-purple-900 to-black">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-600 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
+          <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-blue-600 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-bounce"></div>
+          <div className="absolute bottom-1/4 left-1/3 w-96 h-96 bg-cyan-600 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-ping"></div>
+        </div>
+        
+        <div className="relative z-10 flex flex-col items-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-400 mb-4"></div>
+          <p className="text-white text-sm opacity-70">
+            {redirecting ? "Redirecting..." : "Loading..."}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // Don't render signup form if user is authenticated
+  if (user) {
+    return null;
+  }
 
   return (
     <div className="flex min-h-screen items-center justify-center p-4 relative overflow-hidden">
