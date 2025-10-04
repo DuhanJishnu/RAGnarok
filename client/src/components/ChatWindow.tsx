@@ -84,7 +84,6 @@ export default function ChatWindow() {
 
   useEffect(() => {
     if (convId) {
-<<<<<<< HEAD
       getExchanges(convId, exchangePage).then((res) => {
         if (exchangePage === 1) {
           // First page: reverse to show oldest first, newest last
@@ -95,15 +94,6 @@ export default function ChatWindow() {
         }
         setHasMoreExchanges(res.exchanges.length > 0);
       });
-=======
-      setIsLoading(true);
-      getExchanges(convId, exchangePage)
-        .then((res) => {
-          setExchanges((prev) => [...res.exchanges, ...prev]);
-          setHasMoreExchanges(res.exchanges.length > 0);
-        })
-        .finally(() => setIsLoading(false));
->>>>>>> Frontend_changed
     }
   }, [convId, exchangePage, setExchanges]);
 

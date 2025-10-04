@@ -32,7 +32,7 @@ const Sidebar = ({ isOpen }: { isOpen: boolean }) => {
     setConvTitle,
     setRefreshConversations,
     setAddNewConversation,
-    setChatLoading,
+    setIsLoading: setChatLoading,
   } = useChat();
   const loader = useRef(null);
 

@@ -1,5 +1,4 @@
 "use client";
-"use client";
 
 import React, {
   createContext,
@@ -24,22 +23,48 @@ interface ChatContextType {
   setConvId: React.Dispatch<React.SetStateAction<string>>;
   convTitle: string;
   setConvTitle: React.Dispatch<React.SetStateAction<string>>;
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   isLoading: boolean;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   refreshConversations: () => void;
   setRefreshConversations: (fn: () => void) => void;
   addNewConversation: (conversation: { id: string; title: string }) => void;
   setAddNewConversation: (fn: (conversation: { id: string; title: string }) => void) => void;
 }
+
 const ChatContext = createContext<ChatContextType | undefined>(undefined);
 
 export const ChatProvider = ({ children }: { children: ReactNode }) => {
   const [exchanges, setExchanges] = useState<Exchange[]>([]);
   const [convId, setConvId] = useState("");
   const [convTitle, setConvTitle] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [refreshConversations, setRefreshConversations] = useState<() => void>(() => () => {});
+  const [addNewConversation, setAddNewConversation] = useState<(conversation: { id: string; title: string }) => void>(() => () => {});
+
+  const contextValue = useMemo(() => ({
+    exchanges,
+    setExchanges,
+    convId,
+    setConvId,
+    convTitle,
+    setConvTitle,
+    isLoading,
+    setIsLoading,
+    refreshConversations,
+    setRefreshConversations,
+    addNewConversation,
+    setAddNewConversation,
+  }), [
+    exchanges,
+    convId,
+    convTitle,
+    isLoading,
+    refreshConversations,
+    addNewConversation,
+  ]);
 
   return (
-    <ChatContext.Provider value={{ exchanges, setExchanges, convId, setConvId, convTitle, setConvTitle }}>
+    <ChatContext.Provider value={contextValue}>
       {children}
     </ChatContext.Provider>
   );

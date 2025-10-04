@@ -112,7 +112,7 @@ export default function SignupPage() {
     setIsSubmitting(true);
 
     try {
-      const res = await signup(formData.fullname, formData.email, formData.password);
+      const res = await signup(formData.username, formData.email, formData.password);
       console.log(res);
       toast.success("Account created successfully!");
       setTimeout(() => router.push("/login"), 1500);
