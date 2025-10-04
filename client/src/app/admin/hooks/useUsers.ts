@@ -33,8 +33,12 @@ const searchUserByEmail = async (email: string) => {
      
       
       
-      //  const response = await api.get<User>(`/api/admin/users?email=${encodeURIComponent(email)}`);
       
+//       const response = await api.get<User>(`/api/admin/users`, {
+//   params: {
+//     email: email
+//   }
+// });
       // if (response.data) {
       //   setUser(response.data); // Set as array with single user
       //   toast.success('User found');
