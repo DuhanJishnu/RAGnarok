@@ -8,47 +8,67 @@ import api from '../services/api';
 
 
 export const useUsers = () => {
-  const [users, setUsers] = useState<User[]>([]);
+  // const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>({
+  id: 1,
+  name: "Demo User",
+  email: "demo@example.com",
+  role: "admin",
+  createdAt: new Date().toISOString()
+});
+  const [searchEmail,setSearchEmail]=useState<String>('');
+    const [loading, setLoading] = useState(false);
 
-  
-const demoUsers: User[] = Array.from({ length: 200 }, (_, i) => ({
-  id: i + 1,
-  name: `User${i+1}`,
-  email: `user${i + 1}@example.com`,
-  role: i % 2 === 0 ? 'admin' : 'employee',
-  createdAt: new Date(2024, 0, 1 + i).toISOString()
-}));
 
+//search by email
+const searchUserByEmail = async (email: string) => {
+    if (!email.trim()) {
+      toast.error('Please enter an email address');
+      return;
+    }
 
-
-  // Fetch all users
-  const fetchUsers = async () => {
     try {
-      // const response = await api.get<User[]>(`/api/admin/users`);
-      // setUsers(response.data);
-      setUsers(demoUsers);
-    } catch (err: any) {
-      const errorMsg = err.response?.data?.message || 'Failed to fetch users';
-      toast.error(errorMsg);
-      console.error('Error fetching users:', err);
-    } 
-  };
+      setLoading(true);
+      setSearchEmail(email);
+     
+      
+      
+      //  const response = await api.get<User>(`/api/admin/users?email=${encodeURIComponent(email)}`);
+      
+      // if (response.data) {
+      //   setUser(response.data); // Set as array with single user
+      //   toast.success('User found');
+      // } else {
+      //   setUser(null); // Clear results if no user found
+      //   toast.error('User not found');
+      // }
 
-  // Add new admin user
-  const addUser = async (email: string) => {
+
+    } catch (err: any) {
+      const errorMsg = err.response?.data?.message || 'Failed to search user';
+      toast.error(errorMsg);
+    
+      setUser(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const toggleUserRole = async (id:number,currentRole: string) => {
     
     try {
-     
+     setLoading(true);
+     const newRole = currentRole === 'admin' ? 'employee' : 'admin';
+
       const response = await api.put<AddUserResponse>(`/api/admin/users`, {
-        email,
-        role: 'admin'
+        id,
+        role: newRole
       });
       
       if (response.data.success) {
         
         toast.success(response.data.message);
         // Refresh the user list
-        await fetchUsers();
+        await searchUserByEmail(searchEmail as string);
         return true;
       } else {
       
@@ -60,21 +80,28 @@ const demoUsers: User[] = Array.from({ length: 200 }, (_, i) => ({
     
       toast.error(errorMsg);
       return false;
+    } finally {
+      setLoading(false);
     }
   };
-
+const clearSearch = () => {
+    setUser(null);
+    setSearchEmail('');
+  };
   
-  useEffect(() => {
-  setUsers(demoUsers);
-}, []);
+//   useEffect(() => {
+//   setUser(user);
+// }, []);
 
   // useEffect(() => {
   //   fetchUsers();
   // }, []);
 
   return {
-    users,
-    addUser,
-    refetch: fetchUsers
+    user,
+    toggleUserRole,
+     searchUserByEmail,
+     loading,
+     clearSearch
   };
 };
