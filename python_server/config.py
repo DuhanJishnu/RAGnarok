@@ -12,6 +12,8 @@ class Config:
     CHUNK_SIZE = 1000
     CHUNK_OVERLAP = 200
     BATCH_SIZE = 32
+    POLL_INTERVAL = 10  # seconds
+    MAX_WORKERS = 4
     
     # Models
     EMBEDDING_MODEL = "nomic-embed-text:v1.5"
