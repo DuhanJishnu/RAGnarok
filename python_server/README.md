@@ -70,12 +70,14 @@ This endpoint allows you to ask questions and get answers from the RAG pipeline.
 ```json
 {
     "question": "What is the main topic of the document?",
+    "conv_id": "<conversation-id>",
     "secure_mode": false,
     "stream": false
 }
 ```
 
 *   `question` (string, required): The question you want to ask.
+*   `conv_id` (string, required): A unique identifier for the conversation.
 *   `secure_mode` (boolean, optional, default: `false`): Set to `true` to use the secure pipeline with enhanced safety features.
 *   `stream` (boolean, optional, default: `false`): Set to `true` to receive a streaming response. When `true`, the response will be sent using Server-Sent Events (SSE).
 
@@ -121,11 +123,13 @@ data: {"type": "final", "data": {"success": true, "question": "...", "citations"
 ```json
 {
     "question": "What is the main topic of the document?",
+    "conv_id": "<conversation-id>",
     "secure_mode": false
 }
 ```
 
 *   `question` (string, required): The question you want to ask.
+*   `conv_id` (string, required): A unique identifier for the conversation.
 *   `secure_mode` (boolean, optional, default: `false`): Set to `true` to use the secure pipeline with enhanced safety features.
 
 **Response**:
@@ -185,6 +189,59 @@ Returns a detailed analysis of the query, including confidence scores and whethe
 }
 ```
 
+## Conversation Management
+
+The application now supports conversation management, allowing you to maintain a history for each conversation and summarize it when it's over.
+
+### Summarize Conversation
+
+*   **Endpoint**: `POST /api/summarize`
+*   **Description**: Summarize a conversation.
+
+**Request Body**:
+
+```json
+{
+    "conv_id": "<conversation-id>"
+}
+```
+
+*   `conv_id` (string, required): The ID of the conversation to summarize.
+
+**Response**:
+
+```json
+{
+    "success": true,
+    "summary": "This is a summary of the conversation."
+}
+```
+
+### Load Conversation Summary
+
+*   **Endpoint**: `POST /api/load_summary`
+*   **Description**: Load a summary into a new conversation.
+
+**Request Body**:
+
+```json
+{
+    "conv_id": "<new-conversation-id>",
+    "summary": "This is a summary of a previous conversation."
+}
+```
+
+*   `conv_id` (string, required): The ID of the new conversation.
+*   `summary` (string, required): The summary to load.
+
+**Response**:
+
+```json
+{
+    "success": true
+}
+```
+
 ## Ingestion Pipeline
 
 The ingestion pipeline is handled by the `ingestion_worker.py` script. This script runs as a long-running process and does the following:
@@ -193,5 +250,9 @@ The ingestion pipeline is handled by the `ingestion_worker.py` script. This scri
 2.  **Processes files in parallel**: The worker uses a thread pool to process multiple files concurrently, which significantly speeds up the ingestion process.
 3.  **Extracts content**: It extracts text and images from various document formats.
 4.  **Generates embeddings**: It uses a sentence transformer model to generate vector embeddings for the document chunks.
-5.  **Stores in Vector DB**: The embeddings are stored in a FAISS-powered vector database.
+5.  **Stores in Vector DB**: The embeddings are stored in **Upstash Vector**, a serverless vector database.
 6.  **Reports status**: After processing each file, the worker reports the status (success or failure) back to the external API.
+
+## Language Model
+
+The conversational AI is powered by **Mistral** (`mistral:latest`), which is run locally using **Ollama**. You can change the model by modifying the `llm_model` parameter in the `ChatMemory` class in `models/chat_memory.py`.
