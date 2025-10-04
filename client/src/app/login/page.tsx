@@ -35,21 +35,26 @@ const predefinedParticles = [
 ];
 
 export default function LoginPage() {
-  
-  const { login: authLogin } = useAuth();
+  const router = useRouter();
+  const { login: authLogin, isAuthenticated, loading } = useAuth();
   const [formData, setFormData] = React.useState({ email: "", password: "" });
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [mousePosition, setMousePosition] = React.useState({ x: 0, y: 0 });
   const [cursorVariant, setCursorVariant] = React.useState("default");
   const [isMounted, setIsMounted] = React.useState(false);
 
+  // Redirect to home if already authenticated
+  React.useEffect(() => {
+    if (!loading && isAuthenticated) {
+      router.push('/');
+    }
+  }, [isAuthenticated, loading, router]);
 
   // Set mounted state to avoid hydration issues
   React.useEffect(() => {
     setIsMounted(true);
   }, []);
-
-  const router = useRouter();
+  
   // Mouse movement tracker - only run on client
   React.useEffect(() => {
     if (!isMounted) return;
@@ -110,6 +115,24 @@ export default function LoginPage() {
       setIsSubmitting(false);
     }
   };
+
+  // Show loading spinner while checking authentication status
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-black via-purple-900 to-black">
+        <div className="text-white text-lg">Loading...</div>
+      </div>
+    );
+  }
+
+  // If authenticated, don't show login form (redirect will happen)
+  if (isAuthenticated) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-black via-purple-900 to-black">
+        <div className="text-white text-lg">Redirecting...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex min-h-screen items-center justify-center p-4 relative overflow-hidden">

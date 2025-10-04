@@ -78,8 +78,12 @@ const processQueue = (error: any, token: string | null = null) => {
         // Process all queued requests with error
         processQueue(refreshError, null);
         
-        // If refresh fails, redirect to login
-        window.location.href = '/login';
+        // If refresh fails, redirect to login (but only if not already on the below pages)
+        if (typeof window !== 'undefined' && 
+            !window.location.pathname.includes('/login') && 
+            !window.location.pathname.includes('/signup')) {
+          window.location.href = '/login';
+        }
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;
