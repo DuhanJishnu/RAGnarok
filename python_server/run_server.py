@@ -20,4 +20,4 @@ if __name__ == '__main__':
     # print("  GET  /api/health - Health check")
     # print("\nIngestion is handled by the ingestion_worker.py script.")
     
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=False)

@@ -46,11 +46,3 @@ class VectorDB:
                 })
         
         return results
-
-    def save(self):
-        """This method is not needed for Upstash Vector DB."""
-        pass
-
-    def load(self):
-        """This method is not needed for Upstash Vector DB."""
-        pass
