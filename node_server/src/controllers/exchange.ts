@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { prisma } from "../config/prisma";
 import { Conversation } from "../types/conversation";
-import { PYTHON_SERVER_URL } from "../config/envExports";
+import { PYTHON_SERVER_URL, QUERY_REQUEST_TIMEOUT_MS } from "../config/envExports";
 import { redis } from "../config/redis";
 
 const prismaClient = prisma;
@@ -119,6 +119,7 @@ export const streamResponse = async (req: Request, res: Response) => {
   let lastId = "0"; // start from beginning
 
   (async function readLoop() {
+    let lastMessageTime = Date.now();
     try {
       while (true) {
         const messages = await redis.xread(
@@ -130,15 +131,23 @@ export const streamResponse = async (req: Request, res: Response) => {
         );
 
         if (!messages) {
-          // send heartbeat to keep connection alive
-          res.write(`event: heartbeat\n`);
-          res.write(`data: "ping"\n\n`);
+          res.write("event: heartbeat\n");
+          res.write("data: ping\n\n");
+          // check if it's been specified time in secs
+          if (Date.now() - lastMessageTime > QUERY_REQUEST_TIMEOUT_MS) {
+            console.log(`No data for ${QUERY_REQUEST_TIMEOUT_MS / 1000}s, closing SSE connection`);
+            res.write("event: close\n\n");
+            res.write("data: timeout\n\n");
+            res.end();
+            return;
+          }
           continue;
         }
 
         for (const [, entries] of messages) {
           for (const [id, fields] of entries) {
             lastId = id;
+            lastMessageTime = Date.now();
 
             const msg: Record<string, string> = {};
             for (let i = 0; i < fields.length; i += 2) {
