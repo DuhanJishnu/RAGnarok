@@ -17,6 +17,8 @@ export default function ChatWindow() {
     setConvTitle,
     refreshConversations,
     addNewConversation,
+    files, 
+    setFiles
   } = useChat();
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [atBottom, setAtBottom] = useState(true);
@@ -97,6 +99,12 @@ export default function ChatWindow() {
     }
   }, [convId, exchangePage, setExchanges]);
 
+  useEffect(()=>{
+    setExchanges((prev)=>{
+      return prev.map((m)=> ({...m, systemResponse: m.systemResponse}))  
+    })
+  },[])
+
   const onSend = async (text: string, image?: File) => {
     if (!text.trim() && !image) return;
     
@@ -134,6 +142,15 @@ export default function ChatWindow() {
               m.id === tempId ? { ...m, systemResponse: m.systemResponse + message } : m
             )
           );
+        },
+        (retrievals: JsonWebKey) => {
+          const files = []
+          console.log("Stream ended. Retrievals:", retrievals.retrieved_documents);
+          for (const document of retrievals.retrieved_documents) {
+            console.log(document.metadata.file_id.replace(".pdf", ""));
+            files.push(document.metadata.file_id.replace(".pdf", ""));
+          }
+          setFiles(files);
         },
         (error: any) => {
           console.log("Error in stream response function");
@@ -230,8 +247,10 @@ export default function ChatWindow() {
                   />
                   <MessageBubble
                     role="assistant"
+                    isStreaming={true}
                     text={m.systemResponse}
                     timestamp={m.createdAt}
+                    files={files}
                   />
                 </motion.div>
               ))

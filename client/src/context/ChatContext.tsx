@@ -40,6 +40,7 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [refreshConversations, setRefreshConversations] = useState<() => void>(() => () => {});
   const [addNewConversation, setAddNewConversation] = useState<(conversation: { id: string; title: string }) => void>(() => () => {});
+  const [files, setFiles] = useState<Array<string>>([]);
 
   const contextValue = useMemo(() => ({
     exchanges,
@@ -54,6 +55,8 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
     setRefreshConversations,
     addNewConversation,
     setAddNewConversation,
+    files, 
+    setFiles
   }), [
     exchanges,
     convId,
@@ -61,6 +64,8 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
     isLoading,
     refreshConversations,
     addNewConversation,
+    files, 
+    setFiles
   ]);
 
   return (

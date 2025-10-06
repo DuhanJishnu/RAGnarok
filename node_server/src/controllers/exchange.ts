@@ -131,8 +131,6 @@ export const streamResponse = async (req: Request, res: Response) => {
         );
 
         if (!messages) {
-          res.write("event: heartbeat\n");
-          res.write("data: ping\n\n");
           // check if it's been specified time in secs
           if (Date.now() - lastMessageTime > QUERY_REQUEST_TIMEOUT_MS) {
             console.log(`No data for ${QUERY_REQUEST_TIMEOUT_MS / 1000}s, closing SSE connection`);
@@ -159,9 +157,8 @@ export const streamResponse = async (req: Request, res: Response) => {
             res.write(`event: ${msg.type}\n`);
             res.write(`data: ${msg.data}\n\n`);
 
-            if (msg.type === "end") {
+            if (msg.type === "final") {
               res.write("event: close\n\n");
-              res.end();
               return;
             }
           }

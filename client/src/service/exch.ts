@@ -30,7 +30,7 @@ export const createExchange = async (
   return res.data;
 };
 
-export const streamResponse = async (responseId: string, onMessage: (message: string) => void, onError: (error: any) => void) => {
+export const streamResponse = async (responseId: string, onMessage: (message: string) => void, onEnd: (retrievals: JsonWebKey) => void, onError: (error: any) => void) => {
   const eventSource = new EventSource(`${process.env.NEXT_PUBLIC_BASEURL}/api/exch/v1/stream-response/${responseId}`, {
     withCredentials: true,
   });
@@ -42,8 +42,9 @@ export const streamResponse = async (responseId: string, onMessage: (message: st
   });
 
   eventSource.addEventListener("final", (event) => {
-    console.log("Final:", (event as MessageEvent).data);
-    onMessage((event as MessageEvent).data.answer);
+    console.log("Final:", JSON.parse((event as MessageEvent).data));
+    onEnd(JSON.parse((event as MessageEvent).data));
+    eventSource.close(); 
   });
 
   // heartbeat

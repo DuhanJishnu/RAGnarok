@@ -9,13 +9,15 @@ export default function MessageBubble({
   text,
   image,
   timestamp,
-  isStreaming  // NEW: whether this message is still streaming
+  isStreaming,
+  files
 }: Readonly<{
   role: "user" | "assistant";
   text: string;
   image?: File | string;
   timestamp: string | Date;
   isStreaming?: boolean;
+  files?: Array<string>;
 }>) {
   const isUser = role === "user";
   const time = typeof timestamp === "string" ? new Date(timestamp) : timestamp;
@@ -24,6 +26,11 @@ export default function MessageBubble({
     minute: "2-digit",
   });
 
+  // Convert literal \n to actual newlines for assistant messages
+  const processedText = role === "assistant" 
+    ? text.replace(/\\n/g, '\n')
+    : text;
+
   return (
     <div
       className={`w-fit max-w-[80%] ${
@@ -31,20 +38,20 @@ export default function MessageBubble({
       }`}
     >
       <div
-        className={`p-3 rounded-xl shadow-sm transition-all ${
+        className={`p-3 rounded-xl transition-all ${
           isUser
             ? "bg-white/10 text-white"
-            : "bg-gray-100 dark:bg-white/5 text-gray-900 dark:text-gray-100"
+            : "text-gray-900 dark:text-gray-100"
         }`}
       >
         {image && (
           <div className="relative w-full max-w-sm h-64">
             <Image
               src={
-                typeof image === "string" ? image : URL.createObjectURL(image) // blob URL for preview
+                typeof image === "string" ? image : URL.createObjectURL(image)
               }
               alt="message"
-              fill // makes it cover the parent container
+              fill
               className="object-cover rounded-md"
             />
           </div>
@@ -52,19 +59,37 @@ export default function MessageBubble({
 
         {text && (
           <div className="overflow-x-auto max-w-full">
-            
             {role === "assistant" ? (
-              // <Streamdown >{text}</Streamdown>
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: isStreaming ? 1 : 0.7 }}
               >
-                <Streamdown>{text}</Streamdown>
+                {/* Use processedText with actual newlines */}
+                <Streamdown>{processedText}</Streamdown>
               </motion.div>
             ) : (
               <p>{text}</p>
             )}
           </div>
+        )}
+      </div>
+
+      <div>
+        {files && files.length > 0 && (
+          <ul className="mt-2">
+            {files.map((file) => (
+              <li key={file} className="text-sm text-gray-500 dark:text-gray-400">
+                <Image
+                  src={`${process.env.NEXT_PUBLIC_FILE_BASE_URL}/api/file/v1/thumb/${file}`}
+                  alt={file}
+                  className="w-12 h-12 object-cover rounded-md"
+                  width={12}
+                  height={12}
+                />
+                <a href={`${process.env.FILE_BASE_URL}/api/file/v1/files/${file}`}>{file}</a>
+              </li>
+            ))}
+          </ul>
         )}
       </div>
 
