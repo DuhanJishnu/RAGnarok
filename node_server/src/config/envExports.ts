@@ -13,9 +13,11 @@ export const DOCUMENT_MAX_SIZE :number = parseInt(process.env.DOCUMENT_MAX_SIZE 
 export const MAX_ITEMS_PER_LAYER: number = parseInt(process.env.MAX_ITEMS_PER_LAYER || '100'); 
 export const TTL: number = parseInt(process.env.TTL || '3600'); 
 export const PYTHON_SERVER_URL = process.env.PYTHON_SERVER_URL
+export const QUERY_REQUEST_TIMEOUT_MS: number = parseInt(process.env.QUERY_REQUEST_TIMEOUT_MS as string);
 
 
-if (
+export const envVarsCheck = () => {
+  if (
     !PORT || 
     !JWT_ACCESS_SECRET || 
     !JWT_REFRESH_SECRET || 
@@ -23,8 +25,10 @@ if (
     !AUDIO_MAX_SIZE || 
     !PDF_MAX_SIZE || 
     !DOCUMENT_MAX_SIZE ||
-    !PYTHON_SERVER_URL
+    !PYTHON_SERVER_URL ||
+    !QUERY_REQUEST_TIMEOUT_MS
   ) {
-  console.error("Missing required environment variables.");
-  process.exit(1);
+    console.error("Missing required environment variables.");
+    process.exit(1);
+  }
 }

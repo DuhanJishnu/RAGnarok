@@ -3,7 +3,7 @@ import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import cors from "cors";
 import { rootRouter } from './routes';
-import { PORT } from './config/envExports';
+import { envVarsCheck, PORT } from './config/envExports';
 import { errorMiddleware } from './middlewares/errors';
 import { startWorkers } from './workers';
 
@@ -41,6 +41,8 @@ app.use(errorMiddleware);
 
 // Start workers for background processing
 startWorkers();
+
+envVarsCheck(); 
 
 app.listen(port, () => {
   console.log(`main server is running on port ${port}`);

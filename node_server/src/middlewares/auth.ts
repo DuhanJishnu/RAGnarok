@@ -2,8 +2,9 @@ import {Request, Response, NextFunction } from "express";
 import { UnauthorizedException } from "../exceptions/unauthorized";
 import { ErrorCode } from "../exceptions/root";
 import * as jwt from 'jsonwebtoken';
-import { JWT_ACCESS_SECRET } from "../config/envExports";
+import { JWT_ACCESS_SECRET, JWT_REFRESH_SECRET} from "../config/envExports";
 import {prisma} from "../config/prisma"
+import {refresh} from "../controllers/auth"
 
 const prismaClient = prisma; 
 
