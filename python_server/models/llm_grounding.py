@@ -8,23 +8,25 @@ class LLMGrounding:
         self.prompt_template = self._create_grounding_prompt()
     
     def _create_grounding_prompt(self) -> PromptTemplate:
-        """Create prompt template with citation support"""
-        template = """You are a helpful AI assistant. Use the provided context to answer the user's question. 
-        Always cite your sources using the provided citation format [source_number]. 
-        If the context doesn't contain the answer, say so instead of making up an answer.
+        """SSE-safe prompt that outputs proper Markdown for Streamdown."""
+        template = """You are a helpful, professional AI. Use ONLY the provided Context. 
+    Create a short title derived from the question — do NOT output the literal word "Title".
 
-Context Information:
-{context}
+    # Required Format:
+    - Start with a level 1 heading for the title
+    - Use bullet points with emojis for the answer
+    - Use real line breaks between sections
+    - Output proper Markdown that can be rendered by Streamdown
 
-User Question: {question}
+    Context:
+    {context}
 
-Please provide a comprehensive answer with citations for each fact you use from the context:"""
+    Question:
+    {question}
+    """
+        return PromptTemplate(template=template, input_variables=["context", "question"])
+        
 
-        return PromptTemplate(
-            template=template,
-            input_variables=["context", "question"]
-        )
-    
     def format_context_with_citations(self, retrieved_docs: List[Dict]) -> str:
         """Format retrieved documents with citation markers"""
         context_parts = []
@@ -50,8 +52,9 @@ Please provide a comprehensive answer with citations for each fact you use from 
         
         try:
             response = self.llm.invoke(prompt)
-            
+            # response = response.replace('\n', '\n\n')
             # Extract citations from response
+            print(response)
             citations = self._extract_citations(response, retrieved_docs)
             
             return {

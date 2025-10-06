@@ -1,4 +1,4 @@
-from typing import List, Dict, Any
+from typing import List, Dict
 from .embedding_service import EmbeddingService
 
 class Retriever:
@@ -16,7 +16,7 @@ class Retriever:
         
         # First-stage retrieval: kNN search
         initial_results = self.vector_db.similarity_search(
-            normalized_query_embedding, 
+            normalized_query_embedding,
             k=self.top_k * 2  # Get more for re-ranking
         )
         
