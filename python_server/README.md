@@ -252,7 +252,3 @@ The ingestion pipeline is handled by the `ingestion_worker.py` script. This scri
 4.  **Generates embeddings**: It uses a sentence transformer model to generate vector embeddings for the document chunks.
 5.  **Stores in Vector DB**: The embeddings are stored in **Upstash Vector**, a serverless vector database.
 6.  **Reports status**: After processing each file, the worker reports the status (success or failure) back to the external API.
-
-## Language Model
-
-The conversational AI is powered by **Mistral** (`mistral:latest`), which is run locally using **Ollama**. You can change the model by modifying the `llm_model` parameter in the `ChatMemory` class in `models/chat_memory.py`.
