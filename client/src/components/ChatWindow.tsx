@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { createExchange, getExchanges, streamResponse, updateExchange } from "@/service/exch";
 import { useChat } from "@/context/ChatContext";
+import { updateConvTitle } from "@/service/conv";
 
 export default function ChatWindow() {
   const {
@@ -178,12 +179,28 @@ export default function ChatWindow() {
           title: res.conversation.title
         });
       }
+
+      let title = "";
+      let gotTitle = false;
+      if (res.conversation && res.conversation.title) {
+        title = res.conversation.title;
+        gotTitle = true;
+      }
       // Start streaming the response
       const closeStream = await streamResponse(
         res.responseId,
-        (message: string) => {
-          // Update the temporary exchange with streamed content
-          console.log("Streaming message:", message);
+        async (message: string) => {
+
+          if (!message.includes("\n\n") && !gotTitle) {
+            title += message;
+          }
+          if (!gotTitle) {
+            setConvTitle(title);
+            await updateConvTitle(res.conversation.id, title);
+            gotTitle = true;
+          }
+
+          // Update the temporary exchange with streamed content 
           setExchanges((prev) =>
             prev.map((m) =>
               m.id === tempId ? { 

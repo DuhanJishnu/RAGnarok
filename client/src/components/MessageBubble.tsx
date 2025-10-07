@@ -30,7 +30,7 @@ export default function MessageBubble({
   });
 
   if (!text) {
-    text = "Error loading message.";
+    text = "";
   }
   // Convert literal \n to actual newlines for assistant messages
   const processedText = role === "assistant" 
