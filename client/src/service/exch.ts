@@ -42,8 +42,12 @@ export const streamResponse = async (responseId: string, onMessage: (message: st
   });
 
   eventSource.addEventListener("final", (event) => {
-    console.log("Final:", JSON.parse((event as MessageEvent).data));
-    onEnd(JSON.parse((event as MessageEvent).data));
+    if (JSON.parse((event as MessageEvent).data).retrieved_documents.length > 0) {
+      onEnd(JSON.parse((event as MessageEvent).data));
+    } else {
+      console.log(JSON.parse((event as MessageEvent).data).answer);
+      onMessage(JSON.parse((event as MessageEvent).data).answer);
+    }
     eventSource.close(); 
   });
 

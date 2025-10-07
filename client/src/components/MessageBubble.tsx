@@ -41,8 +41,6 @@ export default function MessageBubble({
     setFailedThumbs(prev => new Set(prev).add(fileId));
   }, []);
 
-  console.log("FileNames in MessageBubble: ", Array.isArray(fileNames), fileNames, fileNames? fileNames.length : 0, fileNames ? fileNames[0] : "No file names");
-
   return (
     <div
       className={`w-fit max-w-[80%] ${
