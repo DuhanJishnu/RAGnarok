@@ -29,6 +29,9 @@ export default function MessageBubble({
     minute: "2-digit",
   });
 
+  if (!text) {
+    text = "Error loading message.";
+  }
   // Convert literal \n to actual newlines for assistant messages
   const processedText = role === "assistant" 
     ? text.replace(/\\n/g, '\n')

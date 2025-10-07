@@ -3,6 +3,7 @@ import { prisma } from "../config/prisma";
 import { Conversation } from "../types/conversation";
 import { PYTHON_SERVER_URL, QUERY_REQUEST_TIMEOUT_MS } from "../config/envExports";
 import { redis } from "../config/redis";
+import { SystemResponseSchema } from "../schemas/exchange";
 
 const prismaClient = prisma;
 
@@ -102,6 +103,31 @@ export const createExchange = async (req: Request, res: Response) => {
     exchange,
     conversation: newConversation,
     responseId,
+  });
+};
+
+export const updateExchange = async (req: Request, res: Response) => {  
+  const { exchangeId, systemResponse } = req.body;
+
+  const parsedSystemResponse = SystemResponseSchema.safeParse(systemResponse);
+  if (!parsedSystemResponse.success) {
+    return res.status(400).json({ error: "Invalid systemResponse format." });
+  }
+
+  console.log("updateExchange ", req.body);
+  if (!exchangeId || exchangeId.trim() === "") {
+    return res
+      .status(400)
+      .json({ error: "exchangeId is required and cannot be empty." });
+  }
+
+  const updatedExchange = await prismaClient.exchange.update({
+    where: { id: exchangeId },
+    data: { systemResponse: parsedSystemResponse.data },
+  });
+
+  return res.status(200).json({
+    exchange: updatedExchange,
   });
 };
 

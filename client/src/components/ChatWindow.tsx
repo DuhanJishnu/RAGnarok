@@ -4,7 +4,7 @@ import MessageBubble from "./MessageBubble";
 import ChatInput from "./ChatInput";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
-import { createExchange, getExchanges, streamResponse } from "@/service/exch";
+import { createExchange, getExchanges, streamResponse, updateExchange } from "@/service/exch";
 import { useChat } from "@/context/ChatContext";
 
 export default function ChatWindow() {
@@ -87,8 +87,10 @@ export default function ChatWindow() {
       getExchanges(convId, exchangePage).then((res) => {
         const processedExchanges = res.exchanges.map((exchange: any) => ({
           ...exchange,
-          files: exchange.files || [],
-          fileNames: exchange.fileNames || []
+          systemResponse: {
+            answer: exchange.systemResponse.answer || "",
+            citation: exchange.systemResponse.citation 
+          },
         }));
         
         if (exchangePage === 1) {
@@ -101,6 +103,8 @@ export default function ChatWindow() {
         setHasMoreExchanges(res.exchanges.length > 0);
       });
     }
+
+    console.log("Exchanges", exchanges);
   }, [convId, exchangePage, setExchanges]);
 
   useEffect(()=>{
@@ -120,7 +124,6 @@ export default function ChatWindow() {
         body: JSON.stringify({ encryptedIds: fileIds }),
       });
       const data = await response.json();
-      console.log('File names:', data);
       
       // Update the specific exchange with file names
       setExchanges((prev) =>
@@ -150,7 +153,13 @@ export default function ChatWindow() {
     const tempExchange = {
       id: tempId,
       userQuery: text,
-      systemResponse: "",
+      systemResponse: { 
+        answer: "", 
+        citation: { 
+          files: [], 
+          fileNames: [] 
+        } 
+      },
       createdAt: new Date().toISOString(),
       image: image ? URL.createObjectURL(image) : undefined,
     };
@@ -177,19 +186,38 @@ export default function ChatWindow() {
           console.log("Streaming message:", message);
           setExchanges((prev) =>
             prev.map((m) =>
-              m.id === tempId ? { ...m, systemResponse: m.systemResponse + message } : m
+              m.id === tempId ? { 
+                ...m, 
+                systemResponse: { 
+                  ...m.systemResponse, 
+                  answer: m.systemResponse.answer + message }
+                 } : m
             )
           );
         },
-        (retrievals: any) => {
+        async (retrievals: any) => {
           const retrievedFiles: Array<string> = []
           console.log("Stream ended. Retrievals:", retrievals.retrieved_documents);
           for (const document of retrievals.retrieved_documents) {
             console.log(document.metadata.file_id.replace(".pdf", ""));
             retrievedFiles.push(document.metadata.file_id.replace(".pdf", ""));
           }
-          
-          // Update this specific exchange with its files
+
+          if (retrievedFiles.length > 0) {
+            fetchFileNamesForExchange(tempId, retrievedFiles);
+          }
+
+          await updateExchange(
+            res.exchange.id,
+            {
+              answer: exchanges.find(m => m.id === tempId)?.systemResponse.answer?? "",
+              citation: {
+                files: retrievedFiles,
+                fileNames: exchanges.find(m => m.id === tempId)?.fileNames?? []
+              }
+            }
+          );
+          console.log("Update exchange response:", res.data);
           setExchanges((prev) =>
             prev.map((exchange) =>
               exchange.id === tempId 
@@ -197,11 +225,6 @@ export default function ChatWindow() {
                 : exchange
             )
           );
-          
-          // Fetch file names for this exchange
-          if (retrievedFiles.length > 0) {
-            fetchFileNamesForExchange(tempId, retrievedFiles);
-          }
         },
         (error: any) => {
           console.log("Error in stream response function");
@@ -209,8 +232,11 @@ export default function ChatWindow() {
           setExchanges((prev) =>
             prev.map((m) =>
               m.id === tempId 
-                ? { ...m, systemResponse: m.systemResponse + "\n\nError: Failed to receive response" }
-                : m
+                ? { ...m, systemResponse: {
+                   ...m.systemResponse, 
+                   answer: m.systemResponse.answer + "\n\nError: Failed to receive response"
+                  }
+                } : m
             )
           );
         }
@@ -222,7 +248,12 @@ export default function ChatWindow() {
       console.error("Send failed", err);
       setExchanges((prev) =>
         prev.map((m) =>
-          m.id === tempId ? { ...m, systemResponse: "Failed to get response" } : m
+          m.id === tempId ? { 
+            ...m, systemResponse: {
+              ...m.systemResponse,
+              answer: m.systemResponse.answer + "\n\nError: Failed to receive response"
+            } 
+          } : m
         )
       );
     }
@@ -299,10 +330,10 @@ export default function ChatWindow() {
                   <MessageBubble
                     role="assistant"
                     isStreaming={true}
-                    text={m.systemResponse}
+                    text={m.systemResponse.answer}
                     timestamp={m.createdAt}
-                    files={m.files}
-                    fileNames={m.fileNames}
+                    files={m.systemResponse.citation?.files ?? []}
+                    fileNames={m.systemResponse.citation?.fileNames ?? []}
                   />
                 </motion.div>
               ))

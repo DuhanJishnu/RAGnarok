@@ -1,3 +1,4 @@
+import { Response } from "@/types/exchange";
 import api  from "./api";
 
 // Get Exchanges
@@ -26,6 +27,19 @@ export const createExchange = async (
     user_query,
     convId,
     convTitle,
+  });
+  return res.data;
+};
+
+export const updateExchange = async (
+  exchangeId: string,
+  systemResponse: Response,
+  files?: Array<string>
+) => {
+  const res = await api.put("/exch/v1/updateexch", {
+    exchangeId,
+    systemResponse,
+    files,
   });
   return res.data;
 };
