@@ -220,3 +220,17 @@ export const updateFileStatusInDB = async (documentId: string, status: 'PENDING'
     throw error;
   }
 };
+
+export const getFileNamesByIdsFromDB = async (encryptedIds: string[]) => {
+  try {
+    const documents = await prisma.document.findMany({
+      where: { documentEncryptedId: { in: encryptedIds } },
+      select: { displayName: true },
+    });
+    console.log('Documents fetched:', documents);
+    return documents.map(doc => doc.displayName);
+  } catch (error) {
+    console.error('Error fetching file names by IDs:', (error as Error).message);
+    throw error;
+  }
+};

@@ -209,3 +209,17 @@ export const deleteDocumentByEncryptedId = async (req: Request, res: Response) =
 
   }
 };
+
+export const getFileNamesById = async (req: Request, res: Response) => {
+  try {
+    const encryptedIds: string[] = req.body.encryptedIds;
+    if (!encryptedIds) {
+      return res.status(400).json({ error: 'Missing encryptedIds in request body' });
+    }
+
+    const fileNames = await FileService.getFileNamesByIds(encryptedIds);
+    res.json({ fileNames });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to retrieve file names', message: error instanceof Error ? error.message : 'Unknown error' });
+  }
+};

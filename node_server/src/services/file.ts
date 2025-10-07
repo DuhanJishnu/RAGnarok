@@ -4,7 +4,7 @@ import fs from 'fs/promises';
 import mime from 'mime-types';
 import { redisConnection } from '../config/redis';
 import { generateHash } from '../lib/crypto';
-import { insertInitialDocumentData, getFilePath, getThumbFilePath, getUnprocessedFilesFromDB, updateFileStatusInDB } from '../lib/dbOperations';
+import { insertInitialDocumentData, getFilePath, getThumbFilePath, getUnprocessedFilesFromDB, updateFileStatusInDB, getFileNamesByIdsFromDB } from '../lib/dbOperations';
 import { IMAGE_MAX_SIZE } from '../config/envExports';
 import { getFolderHashAndFileCount } from '../lib/fileStructure';
 import { CATEGORY_IDS, FileTypeDetectionResult } from '../lib/magicNumberDetection';
@@ -678,7 +678,6 @@ export class FileService {
 
     if (typeof filePath === 'number') {
       const errorMessages: Record<string, string> = {
-        '-1': 'Thumbnail not found',
         '-2': 'Thumbnail not processed',
         '-3': 'Server error while locating thumbnail'
       };
@@ -712,6 +711,15 @@ export class FileService {
       return result;
     } catch (error) {
       throw new Error('Failed to update file status');
+    }
+  }
+
+  static async getFileNamesByIds(encryptedIds: string[]): Promise<any[]> {
+    try {
+      const result = await getFileNamesByIdsFromDB(encryptedIds);
+      return result;
+    } catch (error) {
+      throw new Error('Failed to retrieve file names');
     }
   }
 

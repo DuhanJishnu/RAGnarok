@@ -14,6 +14,8 @@ interface Exchange {
   userQuery: string;
   systemResponse: string;
   createdAt: string;
+  files?: Array<string>;
+  fileNames?: Array<string>;
 }
 
 interface ChatContextType {
@@ -40,7 +42,6 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [refreshConversations, setRefreshConversations] = useState<() => void>(() => () => {});
   const [addNewConversation, setAddNewConversation] = useState<(conversation: { id: string; title: string }) => void>(() => () => {});
-  const [files, setFiles] = useState<Array<string>>([]);
 
   const contextValue = useMemo(() => ({
     exchanges,
@@ -54,18 +55,14 @@ export const ChatProvider = ({ children }: { children: ReactNode }) => {
     refreshConversations,
     setRefreshConversations,
     addNewConversation,
-    setAddNewConversation,
-    files, 
-    setFiles
+    setAddNewConversation
   }), [
     exchanges,
     convId,
     convTitle,
     isLoading,
     refreshConversations,
-    addNewConversation,
-    files, 
-    setFiles
+    addNewConversation
   ]);
 
   return (

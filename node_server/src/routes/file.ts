@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import multer from 'multer';
 import { errorHandler } from '../error-handler';
-import { upload, getJobStatus, serveFile, serveThumbnail, getUnprocessedFiles, updateFileStatus,getDocumentsByPage,getDocumentsByName,getDocumentsByEncrypterID, deleteDocumentByEncryptedId } from '../controllers/file';
-import { uploadFileValidation, demonstrateScenario } from '../middlewares/secureFileValidation';
+import { upload, getJobStatus, serveFile, serveThumbnail, getUnprocessedFiles, updateFileStatus,getDocumentsByPage,getDocumentsByName,getDocumentsByEncrypterID, deleteDocumentByEncryptedId, getFileNamesById } from '../controllers/file';
+import { uploadFileValidation } from '../middlewares/secureFileValidation';
 
   const fileRoutes: Router = Router();
 
@@ -27,5 +27,6 @@ fileRoutes.post('/fetchdocuments', errorHandler(getDocumentsByPage));
 fileRoutes.post('/fetchdocumentsbyName', errorHandler(getDocumentsByName )); 
 fileRoutes.post('/fetchdocumentsbyID', errorHandler(getDocumentsByEncrypterID));
 fileRoutes.delete('/delete', errorHandler(deleteDocumentByEncryptedId));
+fileRoutes.post('/getFileNamesbyId', errorHandler(getFileNamesById));
 
   export default fileRoutes;

@@ -16,9 +16,7 @@ export default function ChatWindow() {
     convTitle,
     setConvTitle,
     refreshConversations,
-    addNewConversation,
-    files, 
-    setFiles
+    addNewConversation
   } = useChat();
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [atBottom, setAtBottom] = useState(true);
@@ -87,12 +85,18 @@ export default function ChatWindow() {
   useEffect(() => {
     if (convId) {
       getExchanges(convId, exchangePage).then((res) => {
+        const processedExchanges = res.exchanges.map((exchange: any) => ({
+          ...exchange,
+          files: exchange.files || [],
+          fileNames: exchange.fileNames || []
+        }));
+        
         if (exchangePage === 1) {
           // First page: reverse to show oldest first, newest last
-          setExchanges([...res.exchanges].reverse());
+          setExchanges([...processedExchanges].reverse());
         } else {
           // Additional pages: prepend older messages (already in desc order from backend)
-          setExchanges((prev) => [[...res.exchanges].reverse(), ...prev].flat());
+          setExchanges((prev) => [[...processedExchanges].reverse(), ...prev].flat());
         }
         setHasMoreExchanges(res.exchanges.length > 0);
       });
@@ -104,6 +108,40 @@ export default function ChatWindow() {
       return prev.map((m)=> ({...m, systemResponse: m.systemResponse}))  
     })
   },[])
+
+  // Helper function to fetch file names for a specific exchange
+  const fetchFileNamesForExchange = async (exchangeId: string, fileIds: Array<string>) => {
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_FILE_BASE_URL}/api/file/v1/getFileNamesbyId`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ encryptedIds: fileIds }),
+      });
+      const data = await response.json();
+      console.log('File names:', data);
+      
+      // Update the specific exchange with file names
+      setExchanges((prev) =>
+        prev.map((exchange) =>
+          exchange.id === exchangeId 
+            ? { ...exchange, fileNames: data.fileNames }
+            : exchange
+        )
+      );
+    } catch (error) {
+      console.error('Error fetching file names:', error);
+      // Set empty file names for this exchange on error
+      setExchanges((prev) =>
+        prev.map((exchange) =>
+          exchange.id === exchangeId 
+            ? { ...exchange, fileNames: [] }
+            : exchange
+        )
+      );
+    }
+  };
 
   const onSend = async (text: string, image?: File) => {
     if (!text.trim() && !image) return;
@@ -143,14 +181,27 @@ export default function ChatWindow() {
             )
           );
         },
-        (retrievals: JsonWebKey) => {
-          const files = []
+        (retrievals: any) => {
+          const retrievedFiles: Array<string> = []
           console.log("Stream ended. Retrievals:", retrievals.retrieved_documents);
           for (const document of retrievals.retrieved_documents) {
             console.log(document.metadata.file_id.replace(".pdf", ""));
-            files.push(document.metadata.file_id.replace(".pdf", ""));
+            retrievedFiles.push(document.metadata.file_id.replace(".pdf", ""));
           }
-          setFiles(files);
+          
+          // Update this specific exchange with its files
+          setExchanges((prev) =>
+            prev.map((exchange) =>
+              exchange.id === tempId 
+                ? { ...exchange, files: retrievedFiles }
+                : exchange
+            )
+          );
+          
+          // Fetch file names for this exchange
+          if (retrievedFiles.length > 0) {
+            fetchFileNamesForExchange(tempId, retrievedFiles);
+          }
         },
         (error: any) => {
           console.log("Error in stream response function");
@@ -250,7 +301,8 @@ export default function ChatWindow() {
                     isStreaming={true}
                     text={m.systemResponse}
                     timestamp={m.createdAt}
-                    files={files}
+                    files={m.files}
+                    fileNames={m.fileNames}
                   />
                 </motion.div>
               ))
