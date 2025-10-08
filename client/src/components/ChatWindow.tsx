@@ -40,10 +40,11 @@ export default function ChatWindow() {
   }, [exchanges, atBottom, scrollToBottom]);
 
   useEffect(() => {
+    console.log("Title: ", convTitle);
     if (!convTitle || convTitle === "" || convTitle === "A new Title") {
       setTitleIsSet(false);
     }
-  }, [convTitle]);
+  }, [convTitle, convId]);
 
   const handleScroll = useCallback(() => {
     if (!containerRef.current) return;
@@ -182,10 +183,32 @@ export default function ChatWindow() {
             retrievedFiles.push(document.metadata.file_id.replace(".pdf", ""));
           }
 
-          if (!titleIsSet) {
-            const title = answer.split('\n')[0]
-            console.log("Setting title:", title);
-            setTitleIsSet(true);
+          if (!titleIsSet && convId) {
+            
+            let newTitle = answer
+              .split(/\\n|\n/)[0]
+              .trim();
+            
+            // Clean up markdown formatting and limit length
+            newTitle = newTitle
+              .replace(/^#+\s*/, '') // Remove markdown headers (# ## ###)
+              .replace(/\*\*(.+?)\*\*/g, '$1') // Remove bold formatting
+              .replace(/\*(.+?)\*/g, '$1') // Remove italic formatting
+              .trim();
+            
+            if (newTitle && newTitle.length > 0) {
+              setTitleIsSet(true);
+              setConvTitle(newTitle);
+              
+              // Update the conversation title in the database
+              updateConvTitle(convId, newTitle).then(() => {
+                console.log("Title updated successfully");
+                // Refresh conversations to update the sidebar
+                refreshConversations();
+              }).catch((error) => {
+                console.error("Failed to update title:", error);
+              });
+            }
           }
 
           let fileNames: string[] = [];
