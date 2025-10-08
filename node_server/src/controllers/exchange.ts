@@ -185,6 +185,7 @@ export const streamResponse = async (req: Request, res: Response) => {
 
             if (msg.type === "final") {
               res.write("event: close\n\n");
+              res.end(); 
               return;
             }
           }
