@@ -6,7 +6,7 @@ const exchRoutes:Router = Router();
 
 exchRoutes.post('/getexch',[authMiddleware],errorHandler(getExchanges));
 exchRoutes.post('/createexch', authMiddleware, errorHandler(createExchange));
-exchRoutes.post('/updateexch', authMiddleware, errorHandler(updateExchange));
+exchRoutes.put('/updateexch', authMiddleware, errorHandler(updateExchange));
 exchRoutes.get('/stream-response/:responseId', authMiddleware, errorHandler(streamResponse));
 
 

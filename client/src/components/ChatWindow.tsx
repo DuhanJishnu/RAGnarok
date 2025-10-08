@@ -26,6 +26,7 @@ export default function ChatWindow() {
   const [isLoading, setIsLoading] = useState(false);
   const loader = useRef(null);
   const activeStreams = useRef<Array<() => void>>([]);
+  const [titleIsSet, setTitleIsSet] = useState(false);
 
   const scrollToBottom = useCallback(() => {
     containerRef.current?.scrollTo({
@@ -37,6 +38,12 @@ export default function ChatWindow() {
   useEffect(() => {
     if (atBottom) scrollToBottom();
   }, [exchanges, atBottom, scrollToBottom]);
+
+  useEffect(() => {
+    if (!convTitle || convTitle === "" || convTitle === "A new Title") {
+      setTitleIsSet(false);
+    }
+  }, [convTitle]);
 
   const handleScroll = useCallback(() => {
     if (!containerRef.current) return;
@@ -114,39 +121,6 @@ export default function ChatWindow() {
     })
   },[])
 
-  // Helper function to fetch file names for a specific exchange
-  const fetchFileNamesForExchange = async (exchangeId: string, fileIds: Array<string>) => {
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_FILE_BASE_URL}/api/file/v1/getFileNamesbyId`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ encryptedIds: fileIds }),
-      });
-      const data = await response.json();
-      
-      // Update the specific exchange with file names
-      setExchanges((prev) =>
-        prev.map((exchange) =>
-          exchange.id === exchangeId 
-            ? { ...exchange, fileNames: data.fileNames }
-            : exchange
-        )
-      );
-    } catch (error) {
-      console.error('Error fetching file names:', error);
-      // Set empty file names for this exchange on error
-      setExchanges((prev) =>
-        prev.map((exchange) =>
-          exchange.id === exchangeId 
-            ? { ...exchange, fileNames: [] }
-            : exchange
-        )
-      );
-    }
-  };
-
   const onSend = async (text: string, image?: File) => {
     if (!text.trim() && !image) return;
     
@@ -180,25 +154,13 @@ export default function ChatWindow() {
         });
       }
 
-      let title = "";
-      let gotTitle = false;
-      if (res.conversation && res.conversation.title) {
-        title = res.conversation.title;
-        gotTitle = true;
-      }
+      let answer = ""; 
       // Start streaming the response
       const closeStream = await streamResponse(
         res.responseId,
         async (message: string) => {
 
-          if (!message.includes("\n\n") && !gotTitle) {
-            title += message;
-          }
-          if (!gotTitle) {
-            setConvTitle(title);
-            await updateConvTitle(res.conversation.id, title);
-            gotTitle = true;
-          }
+          answer += message;
 
           // Update the temporary exchange with streamed content 
           setExchanges((prev) =>
@@ -220,28 +182,62 @@ export default function ChatWindow() {
             retrievedFiles.push(document.metadata.file_id.replace(".pdf", ""));
           }
 
-          if (retrievedFiles.length > 0) {
-            fetchFileNamesForExchange(tempId, retrievedFiles);
+          if (!titleIsSet) {
+            const title = answer.split('\n')[0]
+            console.log("Setting title:", title);
+            setTitleIsSet(true);
           }
 
+          let fileNames: string[] = [];
+          
+          // Fetch file names synchronously if we have retrieved files
+          if (retrievedFiles.length > 0) {
+            try {
+              const response = await fetch(`${process.env.NEXT_PUBLIC_FILE_BASE_URL}/api/file/v1/getFileNamesbyId`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ encryptedIds: retrievedFiles }),
+              });
+              const data = await response.json();
+              fileNames = data.fileNames || [];
+            } catch (error) {
+              console.error('Error fetching file names:', error);
+              fileNames = [];
+            }
+          }
+
+          // Update the exchange in the UI with files and file names
+          setExchanges((prev) =>
+            prev.map((exchange) =>
+              exchange.id === tempId 
+                ? { 
+                    ...exchange, 
+                    systemResponse: {
+                      ...exchange.systemResponse,
+                      citation: {
+                        files: retrievedFiles,
+                        fileNames: fileNames
+                      }
+                    }
+                  }
+                : exchange
+            )
+          );
+
+          // Update the exchange in the database using the locally tracked answer
           await updateExchange(
             res.exchange.id,
             {
-              answer: exchanges.find(m => m.id === tempId)?.systemResponse.answer?? "",
+              answer: answer,
               citation: {
                 files: retrievedFiles,
-                fileNames: exchanges.find(m => m.id === tempId)?.fileNames?? []
+                fileNames: fileNames
               }
             }
           );
           console.log("Update exchange response:", res.data);
-          setExchanges((prev) =>
-            prev.map((exchange) =>
-              exchange.id === tempId 
-                ? { ...exchange, files: retrievedFiles }
-                : exchange
-            )
-          );
         },
         (error: any) => {
           console.log("Error in stream response function");
