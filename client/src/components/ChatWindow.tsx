@@ -4,8 +4,9 @@ import MessageBubble from "./MessageBubble";
 import ChatInput from "./ChatInput";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
-import { createExchange, getExchanges, streamResponse } from "@/service/exch";
+import { createExchange, getExchanges, streamResponse, updateExchange } from "@/service/exch";
 import { useChat } from "@/context/ChatContext";
+import { updateConvTitle } from "@/service/conv";
 
 export default function ChatWindow() {
   const {
@@ -16,9 +17,7 @@ export default function ChatWindow() {
     convTitle,
     setConvTitle,
     refreshConversations,
-    addNewConversation,
-    files, 
-    setFiles
+    addNewConversation
   } = useChat();
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [atBottom, setAtBottom] = useState(true);
@@ -27,6 +26,7 @@ export default function ChatWindow() {
   const [isLoading, setIsLoading] = useState(false);
   const loader = useRef(null);
   const activeStreams = useRef<Array<() => void>>([]);
+  const [titleIsSet, setTitleIsSet] = useState(false);
 
   const scrollToBottom = useCallback(() => {
     containerRef.current?.scrollTo({
@@ -38,6 +38,13 @@ export default function ChatWindow() {
   useEffect(() => {
     if (atBottom) scrollToBottom();
   }, [exchanges, atBottom, scrollToBottom]);
+
+  useEffect(() => {
+    console.log("Title: ", convTitle);
+    if (!convTitle || convTitle === "" || convTitle === "A new Title") {
+      setTitleIsSet(false);
+    }
+  }, [convTitle, convId]);
 
   const handleScroll = useCallback(() => {
     if (!containerRef.current) return;
@@ -87,16 +94,26 @@ export default function ChatWindow() {
   useEffect(() => {
     if (convId) {
       getExchanges(convId, exchangePage).then((res) => {
+        const processedExchanges = res.exchanges.map((exchange: any) => ({
+          ...exchange,
+          systemResponse: {
+            answer: exchange.systemResponse.answer || "",
+            citation: exchange.systemResponse.citation 
+          },
+        }));
+        
         if (exchangePage === 1) {
           // First page: reverse to show oldest first, newest last
-          setExchanges([...res.exchanges].reverse());
+          setExchanges([...processedExchanges].reverse());
         } else {
           // Additional pages: prepend older messages (already in desc order from backend)
-          setExchanges((prev) => [[...res.exchanges].reverse(), ...prev].flat());
+          setExchanges((prev) => [[...processedExchanges].reverse(), ...prev].flat());
         }
         setHasMoreExchanges(res.exchanges.length > 0);
       });
     }
+
+    console.log("Exchanges", exchanges);
   }, [convId, exchangePage, setExchanges]);
 
   useEffect(()=>{
@@ -112,7 +129,13 @@ export default function ChatWindow() {
     const tempExchange = {
       id: tempId,
       userQuery: text,
-      systemResponse: "",
+      systemResponse: { 
+        answer: "", 
+        citation: { 
+          files: [], 
+          fileNames: [] 
+        } 
+      },
       createdAt: new Date().toISOString(),
       image: image ? URL.createObjectURL(image) : undefined,
     };
@@ -131,26 +154,113 @@ export default function ChatWindow() {
           title: res.conversation.title
         });
       }
+
+      let answer = ""; 
       // Start streaming the response
       const closeStream = await streamResponse(
         res.responseId,
-        (message: string) => {
-          // Update the temporary exchange with streamed content
-          console.log("Streaming message:", message);
+        async (message: string) => {
+
+          answer += message;
+
+          // Update the temporary exchange with streamed content 
           setExchanges((prev) =>
             prev.map((m) =>
-              m.id === tempId ? { ...m, systemResponse: m.systemResponse + message } : m
+              m.id === tempId ? { 
+                ...m, 
+                systemResponse: { 
+                  ...m.systemResponse, 
+                  answer: m.systemResponse.answer + message }
+                 } : m
             )
           );
         },
-        (retrievals: JsonWebKey) => {
-          const files = []
+        async (retrievals: any) => {
+          const retrievedFiles: Array<string> = []
           console.log("Stream ended. Retrievals:", retrievals.retrieved_documents);
           for (const document of retrievals.retrieved_documents) {
             console.log(document.metadata.file_id.replace(".pdf", ""));
-            files.push(document.metadata.file_id.replace(".pdf", ""));
+            retrievedFiles.push(document.metadata.file_id.replace(".pdf", ""));
           }
-          setFiles(files);
+
+          if (!titleIsSet && convId) {
+            
+            let newTitle = answer
+              .split(/\\n|\n/)[0]
+              .trim();
+            
+            // Clean up markdown formatting and limit length
+            newTitle = newTitle
+              .replace(/^#+\s*/, '') // Remove markdown headers (# ## ###)
+              .replace(/\*\*(.+?)\*\*/g, '$1') // Remove bold formatting
+              .replace(/\*(.+?)\*/g, '$1') // Remove italic formatting
+              .trim();
+            
+            if (newTitle && newTitle.length > 0) {
+              setTitleIsSet(true);
+              setConvTitle(newTitle);
+              
+              // Update the conversation title in the database
+              updateConvTitle(convId, newTitle).then(() => {
+                console.log("Title updated successfully");
+                // Refresh conversations to update the sidebar
+                refreshConversations();
+              }).catch((error) => {
+                console.error("Failed to update title:", error);
+              });
+            }
+          }
+
+          let fileNames: string[] = [];
+          
+          // Fetch file names synchronously if we have retrieved files
+          if (retrievedFiles.length > 0) {
+            try {
+              const response = await fetch(`${process.env.NEXT_PUBLIC_FILE_BASE_URL}/api/file/v1/getFileNamesbyId`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ encryptedIds: retrievedFiles }),
+              });
+              const data = await response.json();
+              fileNames = data.fileNames || [];
+            } catch (error) {
+              console.error('Error fetching file names:', error);
+              fileNames = [];
+            }
+          }
+
+          // Update the exchange in the UI with files and file names
+          setExchanges((prev) =>
+            prev.map((exchange) =>
+              exchange.id === tempId 
+                ? { 
+                    ...exchange, 
+                    systemResponse: {
+                      ...exchange.systemResponse,
+                      citation: {
+                        files: retrievedFiles,
+                        fileNames: fileNames
+                      }
+                    }
+                  }
+                : exchange
+            )
+          );
+
+          // Update the exchange in the database using the locally tracked answer
+          await updateExchange(
+            res.exchange.id,
+            {
+              answer: answer,
+              citation: {
+                files: retrievedFiles,
+                fileNames: fileNames
+              }
+            }
+          );
+          console.log("Update exchange response:", res.data);
         },
         (error: any) => {
           console.log("Error in stream response function");
@@ -158,8 +268,11 @@ export default function ChatWindow() {
           setExchanges((prev) =>
             prev.map((m) =>
               m.id === tempId 
-                ? { ...m, systemResponse: m.systemResponse + "\n\nError: Failed to receive response" }
-                : m
+                ? { ...m, systemResponse: {
+                   ...m.systemResponse, 
+                   answer: m.systemResponse.answer + "\n\nError: Failed to receive response"
+                  }
+                } : m
             )
           );
         }
@@ -171,7 +284,12 @@ export default function ChatWindow() {
       console.error("Send failed", err);
       setExchanges((prev) =>
         prev.map((m) =>
-          m.id === tempId ? { ...m, systemResponse: "Failed to get response" } : m
+          m.id === tempId ? { 
+            ...m, systemResponse: {
+              ...m.systemResponse,
+              answer: m.systemResponse.answer + "\n\nError: Failed to receive response"
+            } 
+          } : m
         )
       );
     }
@@ -248,9 +366,10 @@ export default function ChatWindow() {
                   <MessageBubble
                     role="assistant"
                     isStreaming={true}
-                    text={m.systemResponse}
+                    text={m.systemResponse.answer}
                     timestamp={m.createdAt}
-                    files={files}
+                    files={m.systemResponse.citation?.files ?? []}
+                    fileNames={m.systemResponse.citation?.fileNames ?? []}
                   />
                 </motion.div>
               ))

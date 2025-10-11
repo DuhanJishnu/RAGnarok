@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Streamdown } from "streamdown";
+import { useState, useCallback } from "react";
 
 export default function MessageBubble({
   role,
@@ -10,7 +11,8 @@ export default function MessageBubble({
   image,
   timestamp,
   isStreaming,
-  files
+  files,
+  fileNames
 }: Readonly<{
   role: "user" | "assistant";
   text: string;
@@ -18,6 +20,7 @@ export default function MessageBubble({
   timestamp: string | Date;
   isStreaming?: boolean;
   files?: Array<string>;
+  fileNames?: Array<string>;
 }>) {
   const isUser = role === "user";
   const time = typeof timestamp === "string" ? new Date(timestamp) : timestamp;
@@ -26,10 +29,20 @@ export default function MessageBubble({
     minute: "2-digit",
   });
 
+  if (!text) {
+    text = "";
+  }
   // Convert literal \n to actual newlines for assistant messages
   const processedText = role === "assistant" 
     ? text.replace(/\\n/g, '\n')
     : text;
+
+  // Track failed thumbnail loads to prevent infinite requests
+  const [failedThumbs, setFailedThumbs] = useState<Set<string>>(new Set());
+
+  const handleThumbnailError = useCallback((fileId: string) => {
+    setFailedThumbs(prev => new Set(prev).add(fileId));
+  }, []);
 
   return (
     <div
@@ -75,21 +88,48 @@ export default function MessageBubble({
       </div>
 
       <div>
-        {files && files.length > 0 && (
-          <ul className="mt-2">
-            {files.map((file) => (
-              <li key={file} className="text-sm text-gray-500 dark:text-gray-400">
-                <Image
-                  src={`${process.env.NEXT_PUBLIC_FILE_BASE_URL}/api/file/v1/thumb/${file}`}
-                  alt={file}
-                  className="w-12 h-12 object-cover rounded-md"
-                  width={12}
-                  height={12}
-                />
-                <a href={`${process.env.FILE_BASE_URL}/api/file/v1/files/${file}`}>{file}</a>
-              </li>
-            ))}
-          </ul>
+        {fileNames && files && files.length > 0 && (
+          <>
+            <h1 className="text-2xl font-bold text-white mb-3">Citations 👇</h1>
+
+            <ul className="space-y-3">
+              {files.map((file, index) => (
+                <li
+                  key={file || index}
+                  className="flex items-center gap-4 p-1 rounded-lg hover:bg-blue-800/50 transition-colors duration-200"
+                >
+                  {failedThumbs.has(file) ? (
+                    <Image
+                      src="/thumb_file.svg"
+                      alt="document thumbnail"
+                      height={40}
+                      width={40}
+                      className="rounded-md shadow-sm opacity-70"
+                    />
+                  ) : (
+                    <Image
+                      src={`${process.env.NEXT_PUBLIC_FILE_BASE_URL}/api/file/v1/thumb/${file}`}
+                      alt="document thumbnail"
+                      height={40}
+                      width={40}
+                      className="rounded-md shadow-sm"
+                      onError={() => handleThumbnailError(file)}
+                    />
+                  )}
+
+                  <a
+                    href={`${process.env.NEXT_PUBLIC_FILE_BASE_URL}/api/file/v1/files/${file}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-200 hover:text-white font-medium transition-colors duration-150"
+                  >
+                    {fileNames ? fileNames[index] : file}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </>
+
         )}
       </div>
 
